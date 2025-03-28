@@ -1,0 +1,10 @@
+import {
+  IconDualScreen
+} from "./chunk-KLUSXQET.js";
+import "./chunk-GKM2DQ2N.js";
+import "./chunk-W4EHDCLL.js";
+import "./chunk-EWTE5DHJ.js";
+export {
+  IconDualScreen as default
+};
+//# sourceMappingURL=IconDualScreen-HQKFNHJK.js.map

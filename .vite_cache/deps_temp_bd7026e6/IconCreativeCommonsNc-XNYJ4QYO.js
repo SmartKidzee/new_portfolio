@@ -1,0 +1,10 @@
+import {
+  IconCreativeCommonsNc
+} from "./chunk-BTQQOIBC.js";
+import "./chunk-GKM2DQ2N.js";
+import "./chunk-W4EHDCLL.js";
+import "./chunk-EWTE5DHJ.js";
+export {
+  IconCreativeCommonsNc as default
+};
+//# sourceMappingURL=IconCreativeCommonsNc-XNYJ4QYO.js.map

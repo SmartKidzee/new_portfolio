@@ -1,10 +1,112 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="https://i.ibb.co/BVpMrZKn/favicon-32x32.png" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="theme-color" content="#000000" />
+    <meta name="description" content="Shreyas - Software Engineer, Content Creator and Student" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    
+    <!-- Performance optimizations -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta http-equiv="Cache-Control" content="max-age=3600, must-revalidate" />
+    <meta name="renderer" content="webkit"/>
+    
+    <!-- Core Web Vitals optimization -->
+    <meta name="viewport-fit" content="cover" />
+    <meta name="color-scheme" content="dark" />
+    <meta http-equiv="content-security-policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' data: https: blob:; font-src 'self' data: https://fonts.gstatic.com; connect-src 'self' https://www.google-analytics.com https://*.doubleclick.net; frame-src 'self' https://www.youtube.com; object-src 'none'" />
+    
+    <!-- Resource hints for improved loading -->
+    <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
+    <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
+    <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin />
+    <link rel="preconnect" href="https://i.ibb.co" crossorigin />
+    <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preload" href="/src/index.css" as="style" />
+    <link rel="preload" href="/src/main.tsx" as="script" />
+    
+    <!-- Prevent Flash of Unstyled Content -->
+    <script>
+      // Add a class to prevent animations during page load
+      document.documentElement.classList.add('loading');
+      
+      // Remove class once page is loaded
+      window.addEventListener('load', function() {
+        // Add small delay to ensure CSS transitions don't trigger on load
+        setTimeout(function() {
+          document.documentElement.classList.remove('loading');
+        }, 50);
+      });
+      
+      // Detect connection speed for adaptive loading
+      const connection = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
+      if (connection) {
+        if (connection.saveData || connection.effectiveType === 'slow-2g' || connection.effectiveType === '2g') {
+          document.documentElement.classList.add('slow-connection');
+        }
+      }
+    </script>
+    
+    <!-- Critical CSS to prevent layout shift during load -->
+    <style type="text/css">
+      body, html { margin: 0; padding: 0; background-color: #000; }
+      #root { min-height: 100vh; }
+      body.content-loading * { transition: none !important; }
+      .shadcn-navbar { position: fixed; top: 0; left: 0; right: 0; z-index: 40; }
+      @media (max-width: 768px) {
+        body { overscroll-behavior-y: none; }
+      }
+      /* Prevent Flash of Unstyled Content */
+      .loading * { animation-duration: 0.001s !important; transition-duration: 0.001s !important; }
+      /* For slow connections */
+      .slow-connection [data-low-priority] { display: none !important; }
+      .slow-connection video, .slow-connection iframe { display: none !important; }
+    </style>
+    
     <title>Shreyas | Tech Enthusiast</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="https://i.ibb.co/TxdPrHSL/android-chrome-512x512-removebg-preview.png" />
+    <link rel="apple-touch-icon" href="/logo192.png" />
+    <link rel="manifest" href="/manifest.json" />
+
+    <!-- Google Analytics (gtag.js) - Modified to load asynchronously and conditionally -->
+    <script>
+      // Delay loading analytics on slow connections
+      function loadAnalytics() {
+        const connection = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
+        const shouldDelay = connection && (connection.saveData || connection.effectiveType === 'slow-2g' || connection.effectiveType === '2g');
+        
+        function createAnalyticsScript() {
+          window.dataLayer = window.dataLayer || [];
+          function gtag() { dataLayer.push(arguments); }
+          gtag('js', new Date());
+          gtag('config', 'G-8PYK56M09F');
+          
+          const script = document.createElement('script');
+          script.async = true;
+          script.src = 'https://www.googletagmanager.com/gtag/js?id=G-8PYK56M09F';
+          document.head.appendChild(script);
+        }
+        
+        if (shouldDelay) {
+          // For slow connections, load analytics after page load
+          window.addEventListener('load', function() {
+            setTimeout(createAnalyticsScript, 3000);
+          });
+        } else {
+          // For fast connections, load normally but still async
+          createAnalyticsScript();
+        }
+      }
+      
+      // Execute immediately but async
+      setTimeout(loadAnalytics, 0);
+    </script>
   </head>
   <body>
     <div id="root"></div>
