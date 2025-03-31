@@ -6,10 +6,19 @@ import { GoogleGeminiEffect } from "./ui/google-gemini-effect";
 export default function GoogleGeminiEffectDemo() {
   const containerRef = useRef<HTMLDivElement>(null);
   const [inView, setInView] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
   const ref = React.useRef(null);
   
-  // Use a custom scroll container
-  const scrollContainerRef = useRef<HTMLDivElement>(null);
+  // Check if mobile
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+    
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
   
   // Create scroll progress tracker
   const { scrollYProgress } = useScroll({
@@ -23,11 +32,12 @@ export default function GoogleGeminiEffectDemo() {
   });
 
   // Create smooth path animations with slight staggering
-  const pathLengthFirst = useTransform(scrollYProgress, [0, 0.8], [0.2, 1.2]);
-  const pathLengthSecond = useTransform(scrollYProgress, [0, 0.8], [0.15, 1.2]);
-  const pathLengthThird = useTransform(scrollYProgress, [0, 0.8], [0.1, 1.2]);
-  const pathLengthFourth = useTransform(scrollYProgress, [0, 0.8], [0.05, 1.2]);
-  const pathLengthFifth = useTransform(scrollYProgress, [0, 0.8], [0, 1.2]);
+  // Add these conditional transforms based on mobile state
+  const pathLengthFirst = useTransform(scrollYProgress, [0, isMobile ? 0.5 : 0.8], [0.2, 1.2]);
+  const pathLengthSecond = useTransform(scrollYProgress, [0, isMobile ? 0.5 : 0.8], [0.15, 1.2]);
+  const pathLengthThird = useTransform(scrollYProgress, [0, isMobile ? 0.5 : 0.8], [0.1, 1.2]);
+  const pathLengthFourth = useTransform(scrollYProgress, [0, isMobile ? 0.5 : 0.8], [0.05, 1.2]);
+  const pathLengthFifth = useTransform(scrollYProgress, [0, isMobile ? 0.5 : 0.8], [0, 1.2]);
 
   // Use IntersectionObserver to detect when component is in view
   useEffect(() => {
@@ -47,7 +57,7 @@ export default function GoogleGeminiEffectDemo() {
 
   return (
     <div
-      className="h-[400vh] bg-black w-full dark:border dark:border-white/[0.1] rounded-md relative pt-10 overflow-clip"
+      className={`${isMobile ? 'h-[300vh]' : 'h-[400vh]'} bg-black w-full dark:border dark:border-white/[0.1] rounded-md relative pt-10 overflow-clip`}
       ref={ref}
     >
       <GoogleGeminiEffect
@@ -60,6 +70,7 @@ export default function GoogleGeminiEffectDemo() {
         ]}
         title="Building My Own Programming Language"
         description="I'm currently working on an ambitious project that combines the elegance of modern languages with intuitive syntax. Follow along as I bring this vision to life!"
+        className={isMobile ? "top-20" : ""}
       />
     </div>
   );

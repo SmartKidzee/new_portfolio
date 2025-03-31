@@ -7,7 +7,12 @@ import './app-preload';
 import React, { Suspense, useState, useEffect } from 'react'
 import ReactDOM from 'react-dom/client'
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom'
+import { HelmetProvider } from 'react-helmet-async';
 import './index.css'
+// Blog animations removed
+
+// Import blog image grid styles
+import './styles/blogImages.css'
 
 // Import Next.js polyfill
 import './lib/next-image-polyfill'
@@ -19,6 +24,8 @@ import performanceFlags from './lib/injectPerformanceOptimizations'
 // Import our new intelligent preloading system
 import { lazyWithPreload, PreloadSuspense } from './lib/lazyWithPreload'
 import advancedPreloader from './lib/advancedPreloader'
+
+// Blog-related imports removed
 
 // Initialize performance optimizer and inject resource hints
 performanceOptimizer.injectResourceHints();
@@ -42,25 +49,46 @@ const NotFound = lazyWithPreload('NotFound', () => import('./NotFound.tsx'), {
   preloadImmediately: false
 });
 
+// Blog-related lazy loads
+const BlogListPage = lazyWithPreload('BlogListPage', () => import('./pages/blogs/BlogListPage.tsx'), {
+  priority: 'medium',
+  preloadImmediately: false
+});
+
+const BlogPage = lazyWithPreload('BlogPage', () => import('./pages/blogs/BlogPage.tsx'), {
+  priority: 'medium',
+  preloadImmediately: false
+});
+
+// Blog-related lazy loads removed
+
 // Route-based app with loading screen
 const RouteBasedApp = () => {
   const location = useLocation();
-  const is404Page = location.pathname !== '/';
+  const isHomePage = location.pathname === '/';
+  const isBlogPage = location.pathname.startsWith('/blogs');
+  const is404Page = !isHomePage && !isBlogPage;
   
   // On mobile, skip loading screen if it's a refresh (non-first visit)
   const hasVisitedBefore = localStorage.getItem('hasVisitedBefore') === 'true';
   const shouldSkipLoading = isMobile && hasVisitedBefore;
   
-  const [isLoading, setIsLoading] = useState(!is404Page && !shouldSkipLoading);
+  const [isLoading, setIsLoading] = useState(!is404Page && !shouldSkipLoading && isHomePage);
   const [contentVisible, setContentVisible] = useState(is404Page || shouldSkipLoading);
   const [isLowEndDevice, setIsLowEndDevice] = useState(false);
   
-  // Preload NotFound component if we're on a 404 page
+  // Preload components based on route
   useEffect(() => {
     if (is404Page) {
       NotFound.preload();
+    } else if (isBlogPage) {
+      if (location.pathname === '/blogs') {
+        BlogListPage.preload();
+      } else {
+        BlogPage.preload();
+      }
     }
-  }, [is404Page]);
+  }, [is404Page, isBlogPage, location.pathname]);
   
   // Mark that the user has visited before
   useEffect(() => {
@@ -137,6 +165,8 @@ const RouteBasedApp = () => {
         <PreloadSuspense fallback={<LoadingFallback />}>
           <Routes>
             <Route path="/" element={<App />} />
+            <Route path="/blogs" element={<BlogListPage />} />
+            <Route path="/blogs/:blogId" element={<BlogPage />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </PreloadSuspense>
@@ -148,9 +178,11 @@ const RouteBasedApp = () => {
 // Main App that provides router context
 const MainApp = () => {
   return (
-    <BrowserRouter>
-      <RouteBasedApp />
-    </BrowserRouter>
+    <HelmetProvider>
+      <BrowserRouter>
+        <RouteBasedApp />
+      </BrowserRouter>
+    </HelmetProvider>
   );
 };
 

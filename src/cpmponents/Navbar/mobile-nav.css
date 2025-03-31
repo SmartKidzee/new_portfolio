@@ -1,0 +1,76 @@
+/* Mobile nav links styling */
+.shadcn-navbar-mobile-menu .mobile-nav-link {
+  display: block;
+  padding: 0.75rem 1rem;
+  margin: 0.5rem 0;
+  border-radius: 0.5rem;
+  transition: all 0.3s ease;
+  color: rgba(255, 255, 255, 0.8);
+  font-weight: 500;
+  width: 100%;
+  text-align: left;
+  background-color: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.shadcn-navbar-mobile-menu .mobile-nav-link:active,
+.shadcn-navbar-mobile-menu .mobile-nav-link:hover {
+  background-color: rgba(124, 58, 237, 0.2);
+  color: white;
+  transform: translateX(5px);
+  border-color: rgba(124, 58, 237, 0.4);
+  box-shadow: 0 0 15px rgba(124, 58, 237, 0.3);
+}
+
+.shadcn-navbar-mobile-menu .mobile-nav-link.active {
+  background-color: rgba(124, 58, 237, 0.3);
+  color: white;
+  border-color: rgba(124, 58, 237, 0.6);
+  box-shadow: 0 0 20px rgba(124, 58, 237, 0.3);
+}
+
+.mobile-nav-link {
+  position: relative;
+  overflow: hidden;
+}
+
+.mobile-nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: linear-gradient(to right, #38BDF8, #A855F7);
+  transition: width 0.3s ease;
+}
+
+.mobile-nav-link:hover::after,
+.mobile-nav-link.active::after {
+  width: 100%;
+}
+
+/* Mobile menu animation */
+.shadcn-navbar-mobile-menu .mobile-nav-link {
+  animation: slideIn 0.3s ease-out forwards;
+  opacity: 0;
+  transform: translateX(-10px);
+}
+
+@keyframes slideIn {
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Apply staggered animation to menu items */
+.shadcn-navbar-mobile-menu a:nth-child(1) { animation-delay: 0.05s; }
+.shadcn-navbar-mobile-menu a:nth-child(2) { animation-delay: 0.1s; }
+.shadcn-navbar-mobile-menu a:nth-child(3) { animation-delay: 0.15s; }
+.shadcn-navbar-mobile-menu a:nth-child(4) { animation-delay: 0.2s; }
+.shadcn-navbar-mobile-menu a:nth-child(5) { animation-delay: 0.25s; }
+.shadcn-navbar-mobile-menu a:nth-child(6) { animation-delay: 0.3s; }
+.shadcn-navbar-mobile-menu a:nth-child(7) { animation-delay: 0.35s; }
+.shadcn-navbar-mobile-menu a:nth-child(8) { animation-delay: 0.4s; }
+.shadcn-navbar-mobile-menu a:nth-child(9) { animation-delay: 0.45s; } 

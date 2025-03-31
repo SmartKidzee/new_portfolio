@@ -4,7 +4,10 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <meta name="theme-color" content="#000000" />
-    <meta name="description" content="Shreyas - Software Engineer, Content Creator and Student" />
+    <meta name="description" content="Shreyas - Full Stack Software Engineer, Content Creator and Tech Enthusiast. Explore my portfolio featuring React, TypeScript, and modern web development projects." />
+    <meta name="keywords" content="Shreyas, software engineer, React, TypeScript, web development, portfolio, front-end developer, full-stack developer, content creator" />
+    <meta name="author" content="Shreyas" />
+    <meta name="robots" content="index, follow" />
     <meta name="mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     
@@ -16,7 +19,26 @@
     <!-- Core Web Vitals optimization -->
     <meta name="viewport-fit" content="cover" />
     <meta name="color-scheme" content="dark" />
-    <meta http-equiv="content-security-policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' data: https: blob:; font-src 'self' data: https://fonts.gstatic.com; connect-src 'self' https://www.google-analytics.com https://*.doubleclick.net; frame-src 'self' https://www.youtube.com; object-src 'none'" />
+    <meta http-equiv="content-security-policy" content="default-src 'self'; connect-src 'self' localhost:* ws://localhost:* http://localhost:* https://www.google-analytics.com https://analytics.google.com https://www.googletagmanager.com https://*.formspree.io https://formspree.io https://api.formspree.io https://emailvalidation.abstractapi.com https://generativelanguage.googleapis.com https://firestore.googleapis.com https://*.firebaseio.com https://identitytoolkit.googleapis.com https://securetoken.googleapis.com https://api.emailjs.com; img-src 'self' data: blob: https://i.ibb.co https://images.unsplash.com https://assets.aceternity.com https://www.google-analytics.com; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://www.google-analytics.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; frame-src 'self' https://www.youtube.com; form-action 'self' https://formspree.io;" />
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://iamshreyas.live" />
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://iamshreyas.live" />
+    <meta property="og:title" content="Shreyas J | Tech Enthusiast" />
+    <meta property="og:description" content="Full Stack Software Engineer specializing in React, TypeScript and modern web technologies. View my portfolio, blog, and projects." />
+    <meta property="og:image" content="https://i.ibb.co/0R4T8BNg/finalfavicon2.png" />
+    <meta property="og:site_name" content="Shreyas J Portfolio" />
+    
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content="https://iamshreyas.live" />
+    <meta name="twitter:title" content="Shreyas J | Tech Enthusiast" />
+    <meta name="twitter:description" content="Full Stack Software Engineer specializing in React, TypeScript and modern web technologies. View my portfolio, blog, and projects." />
+    <meta name="twitter:image" content="https://i.ibb.co/0R4T8BNg/finalfavicon2.png" />
+    <meta name="twitter:creator" content="@KidzeeSmart" />
     
     <!-- Resource hints for improved loading -->
     <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
@@ -56,9 +78,18 @@
       body, html { margin: 0; padding: 0; background-color: #000; }
       #root { min-height: 100vh; }
       body.content-loading * { transition: none !important; }
-      .shadcn-navbar { position: fixed; top: 0; left: 0; right: 0; z-index: 40; }
+      /* Enhanced navbar visibility */
+      .shadcn-navbar { position: fixed !important; top: 0 !important; left: 0 !important; right: 0 !important; width: 100% !important; z-index: 99999 !important; transform: translateZ(0) !important; will-change: transform !important; background-color: rgba(15, 23, 42, 0.95) !important; backdrop-filter: blur(10px) !important; -webkit-backdrop-filter: blur(10px) !important; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3) !important; display: block !important; visibility: visible !important; opacity: 1 !important; }
       @media (max-width: 768px) {
         body { overscroll-behavior-y: none; }
+        /* Force mobile navbar visibility */
+        .shadcn-navbar { position: fixed !important; top: 0 !important; left: 0 !important; right: 0 !important; z-index: 99999 !important; transform: translateZ(0) !important; will-change: transform !important; background-color: rgba(15, 23, 42, 0.95) !important; backdrop-filter: blur(10px) !important; -webkit-backdrop-filter: blur(10px) !important; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3) !important; display: block !important; visibility: visible !important; opacity: 1 !important; }
+        /* Force mobile menu button visibility */
+        .shadcn-navbar-mobile-trigger { display: flex !important; align-items: center !important; justify-content: center !important; visibility: visible !important; opacity: 1 !important; z-index: 999999 !important; background: transparent !important; border: none !important; cursor: pointer !important; position: relative !important; }
+        /* Force container visibility */
+        .shadcn-navbar-container { display: flex !important; align-items: center !important; justify-content: space-between !important; visibility: visible !important; opacity: 1 !important; padding: 0.75rem 1rem !important; }
+        /* Force mobile menu visibility when open */
+        .shadcn-navbar-mobile-menu { position: fixed !important; top: 4rem !important; left: 0 !important; right: 0 !important; z-index: 99998 !important; background-color: rgba(15, 23, 42, 0.98) !important; display: flex !important; flex-direction: column !important; visibility: visible !important; opacity: 1 !important; }
       }
       /* Prevent Flash of Unstyled Content */
       .loading * { animation-duration: 0.001s !important; transition-duration: 0.001s !important; }
@@ -70,9 +101,9 @@
     <title>Shreyas | Tech Enthusiast</title>
     
     <!-- Favicon -->
-    <link rel="icon" type="image/svg+xml" href="https://i.ibb.co/TxdPrHSL/android-chrome-512x512-removebg-preview.png" />
+    <link rel="icon" type="image/svg+xml" href="https://i.ibb.co/0R4T8BNg/finalfavicon2.png" />
     <link rel="apple-touch-icon" href="/logo192.png" />
-    <link rel="manifest" href="/manifest.json" />
+    <link rel="manifest" href="/manifest.json" crossorigin="anonymous" />
 
     <!-- Google Analytics (gtag.js) - Modified to load asynchronously and conditionally -->
     <script>
@@ -106,6 +137,44 @@
       
       // Execute immediately but async
       setTimeout(loadAnalytics, 0);
+    </script>
+    
+    <!-- Structured Data (JSON-LD) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Shreyas J",
+      "url": "https://iamshreyas.live",
+      "image": "https://i.ibb.co/0R4T8BNg/finalfavicon2.png",
+      "sameAs": [
+        "https://github.com/SmartKidzee",
+        "https://www.linkedin.com/in/smartshreyas/",
+        "https://youtube.com/SmartKidzee",
+        "https://x.com/KidzeeSmart"
+      ],
+      "jobTitle": "Software Engineer",
+      "worksFor": {
+        "@type": "Organization",
+        "name": "Freelance"
+      },
+      "description": "Full Stack Software Engineer specializing in React, TypeScript and modern web technologies."
+    }
+    </script>
+    
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "url": "https://iamshreyas.live",
+      "name": "Shreyas J | Tech Enthusiast",
+      "description": "Full Stack Software Engineer specializing in React, TypeScript and modern web technologies. View my portfolio, blog, and projects.",
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://iamshreyas.live/blogs?q={search_term_string}",
+        "query-input": "required name=search_term_string"
+      }
+    }
     </script>
   </head>
   <body>

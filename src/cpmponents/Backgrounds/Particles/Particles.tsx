@@ -214,6 +214,29 @@ const Particles: React.FC<ParticlesProps> = ({
       return;
     }
     
+    // Perform safety checks before initializing WebGL
+    if (!window.WebGLRenderingContext) {
+      console.error("WebGL not supported by this browser");
+      container.innerHTML = '<div class="w-full h-full bg-opacity-20 bg-black"></div>';
+      return;
+    }
+
+    // Prevent WebGL initialization until the container has valid dimensions
+    if (container.clientWidth <= 0 || container.clientHeight <= 0) {
+      console.warn("Container has zero dimensions, delaying WebGL initialization");
+      
+      // Retry after a short delay to allow the DOM to update
+      const dimensionCheckTimer = setTimeout(() => {
+        if (container.clientWidth > 0 && container.clientHeight > 0) {
+          // Now the container has valid dimensions, initialize WebGL
+          const event = new Event('resize');
+          window.dispatchEvent(event);
+        }
+      }, 500);
+      
+      return () => clearTimeout(dimensionCheckTimer);
+    }
+    
     // Adjusted values for mobile
     const actualParticleCount = isMobile ? Math.min(50, particleCount) : particleCount;
     const actualSpeed = isMobile ? speed * 0.5 : speed;
@@ -227,6 +250,12 @@ const Particles: React.FC<ParticlesProps> = ({
         antialias: false, // Disable antialiasing on mobile for better performance
         powerPreference: 'low-power' // Request low power mode on mobile
       });
+      
+      // Apply error handling for WebGL context creation failure
+      if (!renderer || !renderer.gl) {
+        throw new Error("Failed to create WebGL context");
+      }
+      
       rendererRef.current = renderer;
       
       const gl = renderer.gl;
@@ -244,6 +273,13 @@ const Particles: React.FC<ParticlesProps> = ({
           if (container && renderer) {
             const width = container.clientWidth;
             const height = container.clientHeight;
+            
+            // Check for valid dimensions before resizing
+            if (width <= 0 || height <= 0) {
+              console.warn("Invalid dimensions during resize", width, height);
+              return;
+            }
+            
             renderer.setSize(width, height);
             camera.perspective({ aspect: width / height });
           }
@@ -323,46 +359,52 @@ const Particles: React.FC<ParticlesProps> = ({
       const frameInterval = isMobile ? 1000/30 : 0; // Limit to 30fps on mobile
 
       const update = (t: number) => {
-        // If enough time has elapsed since the last frame or not mobile
-        if (t - lastFrameTime >= frameInterval || !isMobile) {
-          lastFrameTime = t;
-          
-          const delta = Math.min(32, t - lastTime); // Cap delta time
-          lastTime = t;
-          elapsed += delta * actualSpeed;
-
-          if (!isMobile) {
-            program.uniforms.uTime.value = elapsed * 0.001;
-          }
-
-          if (moveParticlesOnHover && !isMobile) {
-            particles.position.x = -mouseRef.current.x * particleHoverFactor;
-            particles.position.y = -mouseRef.current.y * particleHoverFactor;
-          } else {
-            particles.position.x = 0;
-            particles.position.y = 0;
-          }
-
-          if (!disableRotation && !isMobile) {
-            particles.rotation.x = Math.sin(elapsed * 0.0001) * 0.1;
-            particles.rotation.y = Math.cos(elapsed * 0.0002) * 0.15;
-            particles.rotation.z += 0.005 * actualSpeed;
-          }
-
-          // Only render if container is visible
-          const rect = container.getBoundingClientRect();
-          if (
-            rect.bottom >= 0 &&
-            rect.top <= window.innerHeight &&
-            rect.right >= 0 &&
-            rect.left <= window.innerWidth
-          ) {
-            renderer.render({ scene: particles, camera });
-          }
+        // Safety check to prevent render loops after cleanup
+        if (!containerRef.current || !rendererRef.current) {
+          return;
         }
         
-        // Store animation frame ID for cleanup
-        animationRef.current = requestAnimationFrame(update);
+        try {
+          // Check if canvas is still valid
+          if (!gl.canvas || gl.canvas.width <= 0 || gl.canvas.height <= 0) {
+            console.warn("Invalid canvas dimensions, skipping render");
+            if (animationRef.current) {
+              animationRef.current = requestAnimationFrame(update);
+            }
+            return;
+          }
+          
+          // Update time
+          program.uniforms.uTime.value = t * 0.001 * actualSpeed;
+          
+          // Update mouse interaction if enabled
+          if (moveParticlesOnHover) {
+            program.uniforms.uMouse.value = [
+              mouseRef.current.x * particleHoverFactor,
+              mouseRef.current.y * particleHoverFactor
+            ];
+          }
+          
+          if (!disableRotation) {
+            particles.rotation.y = t * 0.0001 * actualSpeed;
+            particles.rotation.z = t * 0.00005 * actualSpeed;
+          }
+          
+          // Draw
+          renderer.render({ scene: particles, camera });
+          
+          // Continue animation loop
+          if (animationRef.current) {
+            animationRef.current = requestAnimationFrame(update);
+          }
+        } catch (error) {
+          console.error("WebGL render error:", error);
+          // Stop animation on error
+          if (animationRef.current) {
+            cancelAnimationFrame(animationRef.current);
+            animationRef.current = null;
+          }
+        }
       };
 
       animationRef.current = requestAnimationFrame(update);

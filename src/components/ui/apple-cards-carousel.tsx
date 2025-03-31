@@ -5,6 +5,7 @@ import React, {
   useState,
   createContext,
   useContext,
+  MouseEvent as ReactMouseEvent
 } from "react";
 import {
   IconArrowNarrowLeft,
@@ -26,7 +27,8 @@ type Card = {
   src: string;
   title: string;
   category: string;
-  content: React.ReactNode;
+  content: React.ReactNode | null;
+  isAchievement?: boolean;
 };
 
 export const CarouselContext = createContext<{
@@ -205,6 +207,21 @@ export const Card = ({
   const { onCardClose, currentIndex, isScrolling } = useContext(CarouselContext);
   const cardRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
+  
+  // Check if this card is being rendered inside a Link component
+  const isLinkWrapped = () => {
+    if (cardRef.current) {
+      // Check if any parent is an anchor element
+      let parent = cardRef.current.parentElement;
+      while (parent) {
+        if (parent.tagName === 'A' || parent.getAttribute('role') === 'link') {
+          return true;
+        }
+        parent = parent.parentElement;
+      }
+    }
+    return false;
+  };
 
   useEffect(() => {
     function onKeyDown(event: KeyboardEvent) {
@@ -231,6 +248,9 @@ export const Card = ({
   useOutsideClick(containerRef, () => handleClose());
 
   const handleOpen = () => {
+    // If card content is null or the card is inside a Link, don't open popup
+    if (card.content === null || isLinkWrapped()) return;
+    
     setOpen(true);
     
     // Ensure content is fully visible after modal animation completes
@@ -248,67 +268,50 @@ export const Card = ({
       contentRef.current.style.transform = "translateY(20px)";
     }
     
-    // Add a small delay to let the fade out animation complete
     setTimeout(() => {
       setOpen(false);
       onCardClose(index);
-    }, 200);
+    }, 300);
   };
 
-  // Mobile-specific handlers with better touch handling
   useEffect(() => {
-    const card = cardRef.current;
-    if (!card) return;
-    
-    let touchStartTime = 0;
-    let touchStartPos = { x: 0, y: 0 };
-    
     const handleTouchStart = (e: TouchEvent) => {
-      touchStartTime = Date.now();
-      if (e.touches[0]) {
-        touchStartPos = { 
-          x: e.touches[0].clientX, 
-          y: e.touches[0].clientY 
-        };
+      if (isScrolling) {
+        // If carousel is scrolling, prevent opening card
+        e.stopPropagation();
       }
     };
-    
+
     const handleTouchEnd = (e: TouchEvent) => {
-      // Prevent if scrolling
-      if (isScrolling) return;
-      
-      // Get touch duration
-      const touchDuration = Date.now() - touchStartTime;
-      
-      // Check if it's a short tap (< 300ms for better detection)
-      if (touchDuration < 300) {
-        // Check if user didn't move their finger much
-        if (e.changedTouches[0]) {
-          const touchEndPos = { 
-            x: e.changedTouches[0].clientX, 
-            y: e.changedTouches[0].clientY 
-          };
-          
-          const deltaX = Math.abs(touchEndPos.x - touchStartPos.x);
-          const deltaY = Math.abs(touchEndPos.y - touchStartPos.y);
-          
-          // If movement is less than 20px in any direction, it's a tap (more generous for mobile)
-          if (deltaX < 20 && deltaY < 20) {
-            e.preventDefault();
-            handleOpen();
-          }
-        }
+      if (isScrolling) {
+        // If carousel is scrolling, prevent opening card
+        e.stopPropagation();
       }
     };
-    
-    card.addEventListener('touchstart', handleTouchStart, { passive: true });
-    card.addEventListener('touchend', handleTouchEnd);
-    
+
+    const cardElement = cardRef.current;
+    if (cardElement) {
+      cardElement.addEventListener('touchstart', handleTouchStart, { passive: true });
+      cardElement.addEventListener('touchend', handleTouchEnd, { passive: true });
+    }
+
     return () => {
-      card.removeEventListener('touchstart', handleTouchStart);
-      card.removeEventListener('touchend', handleTouchEnd);
+      if (cardElement) {
+        cardElement.removeEventListener('touchstart', handleTouchStart);
+        cardElement.removeEventListener('touchend', handleTouchEnd);
+      }
     };
   }, [isScrolling]);
+
+  const handleClick = (e: ReactMouseEvent<HTMLDivElement>) => {
+    // If this card is wrapped in a Link or has no content, don't open the popup
+    if (card.content === null || isLinkWrapped()) return;
+    
+    // Only open if we're not scrolling (prevents accidental opens during scroll)
+    if (!isScrolling) {
+      handleOpen();
+    }
+  };
 
   return (
     <>
@@ -364,7 +367,17 @@ export const Card = ({
               <p className="text-2xl md:text-5xl font-semibold text-neutral-700 mt-4 dark:text-white">
                 {card.title}
               </p>
-              <div className="py-10 text-black dark:text-neutral-200">
+              
+              {/* Featured image at the top of the blog post */}
+              <div className="my-6">
+                <img 
+                  src={card.src} 
+                  alt={card.title}
+                  className="w-full h-auto max-h-[300px] object-cover rounded-xl shadow-md featured-image"
+                />
+              </div>
+              
+              <div className="py-4 text-black dark:text-neutral-200">
                 {card.content}
               </div>
             </div>
@@ -373,13 +386,14 @@ export const Card = ({
       )}
       <div
         ref={cardRef}
-        onClick={handleOpen}
-        className="rounded-3xl bg-gray-100 dark:bg-neutral-900 h-80 w-56 md:h-[40rem] md:w-96 overflow-hidden flex flex-col items-start justify-start relative z-10 cursor-pointer active:scale-[0.98]"
+        className="rounded-3xl bg-gray-100 dark:bg-neutral-900 h-80 w-56 md:h-[40rem] md:w-96 overflow-hidden flex flex-col items-start justify-start relative z-10 cursor-pointer active:scale-[0.98] blog-card"
         data-tappable="true"
         role="button"
         aria-label={`Open ${card.title} card`}
         tabIndex={0}
         style={{ touchAction: "manipulation" }} // Helps with iOS Safari touch events
+        onClick={handleClick}
+        data-achievement={card.isAchievement ? "true" : "false"}
       >
         <div className="absolute h-full top-0 inset-x-0 bg-gradient-to-b from-black/50 via-transparent to-transparent z-30 pointer-events-none" />
         <div className="relative z-40 p-8">
@@ -393,7 +407,7 @@ export const Card = ({
         <BlurImage
           src={card.src}
           alt={card.title}
-          fill
+          fill={true}
           className="object-cover absolute z-10 inset-0"
         />
       </div>

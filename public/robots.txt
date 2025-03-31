@@ -1,0 +1,12 @@
+# Allow all web crawlers access to all content
+User-agent: *
+Allow: /
+
+# Important pages for crawling priority
+Allow: /projects
+Allow: /blogs
+Allow: /about
+Allow: /contact
+
+# Sitemap location
+Sitemap: https://iamshreyas.live/sitemap.xml 

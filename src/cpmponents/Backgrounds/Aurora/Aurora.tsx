@@ -224,8 +224,35 @@ export default function Aurora(props: AuroraProps) {
       data-component-id="Aurora"
     >
       <svg
-        // ... existing code ...
-      ></svg>
+        width="100%"
+        height="100%"
+        viewBox="0 0 100 100"
+        xmlns="http://www.w3.org/2000/svg"
+        style={{ position: "absolute", width: "100%", height: "100%", visibility: "hidden" }}
+        aria-hidden="true"
+      >
+        <defs>
+          <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+            {colorStops.map((color, i) => (
+              <stop
+                key={i}
+                offset={`${(i / (colorStops.length - 1)) * 100}%`}
+                stopColor={color}
+              />
+            ))}
+          </linearGradient>
+        </defs>
+        <rect x="0" y="0" width="100" height="100" fill="url(#gradient)" />
+      </svg>
+      <div
+        ref={ctnDom}
+        style={{
+          position: "absolute",
+          inset: 0,
+          width: "100%",
+          height: "100%",
+        }}
+      />
     </div>
   );
 }

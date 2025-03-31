@@ -1,6 +1,6 @@
-{
-  "short_name": "Shreyas",
-  "name": "Shreyas Portfolio",
+﻿{
+  "short_name": "Shreyas J",
+  "name": "Shreyas J | Tech Enthusiast",
   "icons": [
     {
       "src": "/favicon.ico",
@@ -23,6 +23,6 @@
   "display": "standalone",
   "scope": "/",
   "theme_color": "#000000",
-  "description": "Shreyas - Software Engineer, Content Creator and Student",
+  "description": "Shreyas J - Tech Enthusiast and Content Creator",
   "background_color": "#030014"
-} 
+}

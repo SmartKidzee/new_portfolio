@@ -37,7 +37,8 @@ const InfiniteMovingCardsDemo = memo(() => {
       <InfiniteMovingCards
         items={items}
         direction="left"
-        speed={isMobile ? "normal" : "slow"} // Faster on mobile for smoother appearance
+        speed={isMobile ? "slow" : "slow"} // Make it slow on both mobile and desktop
+        pauseOnHover={false} // Prevent pausing to ensure continuous scrolling
       />
     </div>
   );

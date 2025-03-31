@@ -12,12 +12,22 @@ export type TimelineEntry = {
   content: React.ReactNode;
 };
 
+// Add new TimelineCustomStyles type
+export type TimelineCustomStyles = {
+  item?: string;
+  connector?: string;
+  timelineTitle?: string;
+  timelinePoint?: string;
+};
+
 export const Timeline = ({
   data,
   className,
+  customStyles,
 }: {
   data: TimelineEntry[];
   className?: string;
+  customStyles?: TimelineCustomStyles;
 }) => {
   const ref = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
@@ -95,12 +105,25 @@ export const Timeline = ({
         aria-hidden="true"
         style={{ zIndex: 1 }}
       >
+        {/* Static background line for better visibility */}
+        <div className={cn(
+          "absolute h-full w-0.5 bg-[#38BDF8]/10 left-4 md:left-auto",
+          customStyles?.connector
+        )}
+        style={{ zIndex: 1, opacity: 0.5 }}
+        />
+        
+        {/* Animated line that grows as you scroll */}
         <motion.div 
-          className="absolute h-full w-0.5 bg-gradient-to-b from-[#38BDF8] via-[#A855F7] to-[#38BDF8]"
+          className={cn(
+            "absolute h-full w-0.5 bg-gradient-to-b from-[#38BDF8] via-[#A855F7] to-[#38BDF8] left-4 md:left-auto",
+            customStyles?.connector
+          )}
           style={{
             scaleY: scrollYProgress,
             transformOrigin: "top",
-            opacity: 1
+            opacity: 1,
+            zIndex: 2
           }}
         />
       </div>
@@ -114,6 +137,7 @@ export const Timeline = ({
           progress={scrollYProgress}
           isMounted={isMounted}
           isScrolling={isScrolling}
+          customStyles={customStyles}
         />
       ))}
     </div>
@@ -127,7 +151,8 @@ const TimelineItem = ({
   total, 
   progress,
   isMounted,
-  isScrolling
+  isScrolling,
+  customStyles
 }: { 
   entry: TimelineEntry; 
   index: number; 
@@ -135,6 +160,7 @@ const TimelineItem = ({
   progress: any;
   isMounted: boolean;
   isScrolling: boolean;
+  customStyles?: TimelineCustomStyles;
 }) => {
   const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once: false, margin: "-20% 0px -20% 0px" });
@@ -187,24 +213,26 @@ const TimelineItem = ({
     <motion.div 
       ref={ref}
       className={cn(
-        "relative z-10 flex items-start my-16 md:my-24",
+        "relative z-10 flex items-start my-12 md:my-20 px-3 md:px-0", // Add horizontal padding on mobile
         isScrolling ? "is-scrolling" : ""
       )}
       initial={{ opacity: 0, y: 20 }}
       animate={shouldAnimate ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-      transition={{ duration: 0.5, delay: index * 0.1 }}
+      transition={{ duration: 0.4, delay: index * 0.05 }} // Faster transitions
     >
       <TimePoint 
         progress={progress} 
         index={index} 
         total={total} 
-        isMounted={isMounted} 
+        isMounted={isMounted}
+        customStyles={customStyles}
       />
       <TimeContent 
         title={entry.title} 
         content={entry.content} 
         lineProgress={itemProgress} 
         isInView={shouldAnimate}
+        customStyles={customStyles}
       />
     </motion.div>
   );
@@ -214,12 +242,14 @@ export const TimePoint = ({
   progress,
   index,
   total,
-  isMounted
+  isMounted,
+  customStyles
 }: {
   progress: any;
   index: number;
   total: number;
   isMounted: boolean;
+  customStyles?: TimelineCustomStyles;
 }) => {
   const imageScale = useTransform(
     progress,
@@ -245,9 +275,16 @@ export const TimePoint = ({
         opacity: isMounted ? imageOpacity : 1,
         scale: isMounted ? imageScale : 1,
       }}
-      className="timeline-point relative z-30 h-12 w-12 flex items-center justify-center min-w-[48px]"
+      className={cn(
+        "timeline-point relative z-30 h-8 w-8 md:h-12 md:w-12 flex items-center justify-center min-w-[32px] md:min-w-[48px]", // Smaller on mobile
+        customStyles?.timelinePoint
+      )}
     >
-      <div className="h-3 w-3 rounded-full bg-white" />
+      {/* Inner circle with glow */}
+      <div className="h-2 w-2 md:h-3 md:w-3 rounded-full bg-white shadow-[0_0_8px_rgba(56,189,248,0.8)]" />
+      
+      {/* Outer ring */}
+      <div className="absolute inset-0 rounded-full border-2 border-[#38BDF8]/30" />
     </motion.div>
   );
 };
@@ -256,26 +293,47 @@ export const TimeContent = ({
   title, 
   content,
   lineProgress,
-  isInView
-}: TimelineEntry & { lineProgress: any, isInView: boolean }) => {
+  isInView,
+  customStyles
+}: TimelineEntry & { lineProgress: any, isInView: boolean, customStyles?: TimelineCustomStyles }) => {
   return (
-    <div className="timeline-content ml-4 pb-8 pt-2 w-full z-20 relative">
+    <div className="timeline-content ml-2 md:ml-4 pb-6 md:pb-8 pt-1 md:pt-2 w-full z-20 relative">
       {/* Line animation based on scroll position */}
       <motion.div 
-        className="absolute left-0 top-0 w-[2px] h-full bg-gradient-to-b from-[#38BDF8] to-[#A855F7] z-25"
+        className={cn(
+          "absolute left-0 top-0 bottom-0 w-[1px] md:w-[2px] h-full bg-gradient-to-b from-[#38BDF8] to-[#A855F7] z-25",
+          customStyles?.connector
+        )}
         style={{
           scaleY: lineProgress,
           opacity: 0.9,
-          transformOrigin: "top"
+          transformOrigin: "top",
+          zIndex: 2
         }}
       />
       
+      {/* Ghost line to ensure visibility */}
+      <div className="absolute left-0 top-0 bottom-0 w-[1px] md:w-[2px] h-full bg-[#38BDF8]/20" style={{ zIndex: 1 }} />
+      
       {/* Increased z-index and added backdrop for better text visibility */}
       <div className="relative z-30">
-        <h3 className="text-md md:text-xl font-semibold text-white bg-gradient-to-r from-[#38BDF8] to-[#A855F7] bg-clip-text text-transparent mb-4 relative">
+        <h3 className={cn(
+          "text-sm md:text-xl font-semibold text-white bg-gradient-to-r from-[#38BDF8] to-[#A855F7] bg-clip-text text-transparent mb-2 md:mb-4 relative",
+          customStyles?.timelineTitle
+        )}>
           {title}
         </h3>
-        <div className="mt-3 relative">{content}</div>
+        <motion.div
+          className={cn(
+            "mt-2 md:mt-3 relative",
+            customStyles?.item
+          )}
+          initial={{ opacity: 0, y: 10 }}
+          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
+          transition={{ duration: 0.4, delay: 0.1 }}
+        >
+          {content}
+        </motion.div>
       </div>
     </div>
   );

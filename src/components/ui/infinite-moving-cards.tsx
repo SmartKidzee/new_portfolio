@@ -45,8 +45,8 @@ export const InfiniteMovingCards = ({
 
   // Create a duplicate set of items for smoother infinite scrolling
   const duplicatedItems = useMemo(() => {
-    // Triple the items for truly seamless infinite scroll
-    return [...items, ...items, ...items];
+    // Quintuple the items for truly seamless infinite scroll
+    return [...items, ...items, ...items, ...items, ...items, ...items, ...items, ...items, ...items];
   }, [items]);
 
   useEffect(() => {
@@ -96,15 +96,15 @@ export const InfiniteMovingCards = ({
   
   const getSpeed = () => {
     if (containerRef.current) {
-      // Use slower animations on mobile for better performance
-      const mobileMultiplier = isMobile ? 1.5 : 1;
+      // Mobile needs a different timing scale for smoother continuous scrolling
+      const mobileMultiplier = isMobile ? 1.3 : 1;
       
       if (speed === "fast") {
-        containerRef.current.style.setProperty("--animation-duration", `${30 * mobileMultiplier}s`);
+        containerRef.current.style.setProperty("--animation-duration", `${40 * mobileMultiplier}s`);
       } else if (speed === "normal") {
-        containerRef.current.style.setProperty("--animation-duration", `${60 * mobileMultiplier}s`);
+        containerRef.current.style.setProperty("--animation-duration", `${80 * mobileMultiplier}s`);
       } else {
-        containerRef.current.style.setProperty("--animation-duration", `${120 * mobileMultiplier}s`);
+        containerRef.current.style.setProperty("--animation-duration", `${140 * mobileMultiplier}s`);
       }
     }
   };
@@ -127,7 +127,14 @@ export const InfiniteMovingCards = ({
         style={{ 
           willChange: 'transform',
           animationIterationCount: 'infinite',
-          animationTimingFunction: 'linear'
+          animationTimingFunction: 'linear',
+          transformStyle: 'preserve-3d',
+          backfaceVisibility: 'hidden',
+          ...(isMobile ? {
+            transform: 'translate3d(0,0,0)',
+            WebkitTransform: 'translate3d(0,0,0)',
+            perspective: '1000px',
+          } : {})
         }}
       >
         {duplicatedItems.map((stat, idx) => (

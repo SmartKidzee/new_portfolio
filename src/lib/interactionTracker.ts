@@ -247,11 +247,22 @@ class InteractionTracker {
     
     // Look for common component patterns
     if (element.className) {
-      // Check for component class naming patterns
-      const classNames = element.className.split(' ');
-      for (const className of classNames) {
-        if (className.endsWith('Component') || className.endsWith('-component')) {
-          return className;
+      // Check if className is a string before splitting
+      if (typeof element.className === 'string') {
+        // Check for component class naming patterns
+        const classNames = element.className.split(' ');
+        for (const className of classNames) {
+          if (className.endsWith('Component') || className.endsWith('-component')) {
+            return className;
+          }
+        }
+      } else if (element.classList && element.classList.length > 0) {
+        // Fallback to classList if className is not a string (SVGAnimatedString for example)
+        for (let i = 0; i < element.classList.length; i++) {
+          const className = element.classList[i];
+          if (className.endsWith('Component') || className.endsWith('-component')) {
+            return className;
+          }
         }
       }
     }
