@@ -1,4 +1,4 @@
-# Shreyas Garg - Personal Portfolio
+# Shreyas J - Personal Portfolio
 
 <div align="center">
   <img src="public/logo.png" alt="Shreyas J Portfolio Logo" width="150" height="150" style="border-radius: 50%;" />
@@ -128,7 +128,7 @@ This portfolio includes comprehensive SEO optimizations:
 <details>
   <summary>View Screenshots</summary>
   <div align="center">
-    <p><i>Add screenshots of your portfolio here</i></p>
+    <p><i>Screenshots</i></p>
     <img src="public/screenshots/home.png" alt="Home Page" width="80%" />
     <img src="public/screenshots/projects.png" alt="Projects Page" width="80%" />
     <img src="public/screenshots/blog.png" alt="Blog Page" width="80%" />
