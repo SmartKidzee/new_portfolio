@@ -70,7 +70,7 @@ const ContactForm: React.FC<ContactFormProps> = ({ formId }) => {
       setState(prev => ({ ...prev, validating: false, submitting: true }));
       
       // 1. Submit form to Formspree
-      const formspreeResponse = await fetch('/api/formspree', {
+      const formspreeResponse = await fetch('https://formspree.io/f/xkndlgya', {
         method: 'POST',
         body: formData,
         headers: {
