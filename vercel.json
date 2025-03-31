@@ -3,6 +3,7 @@
   "buildCommand": "npm run build",
   "outputDirectory": "dist",
   "rewrites": [
+    { "source": "/api/formspree", "destination": "https://formspree.io/f/xkndlgya" },
     { "source": "/blogs/:id", "destination": "/index.html" },
     { "source": "/blogs", "destination": "/index.html" },
     { "source": "/(.*)", "destination": "/index.html" }
