@@ -86,9 +86,9 @@ import { WebsiteStructuredData, PersonStructuredData } from "./components/Struct
 const SEOHelmet = () => {
   return (
     <Helmet>
-      <title>Shreyas J | Tech Enthusiast</title>
-      <meta name="description" content="Shreyas J - Full Stack Software Engineer, Content Creator and Tech Enthusiast. Explore my portfolio featuring React, TypeScript, and modern web development projects." />
-      <meta name="keywords" content="Shreyas J, tech enthusiast, React, TypeScript, web development, portfolio, front-end developer, full-stack developer, content creator" />
+      <title>Shreyas | Tech Enthusiast</title>
+      <meta name="description" content="Shreyas J is a Computer Science & Engineering student with a focus on Artificial Intelligence and Machine Learning. Follow his journey, projects, and tech insights through his portfolio website." />
+      <meta name="keywords" content="Shreyas, tech enthusiast, React, TypeScript, web development, portfolio, front-end developer, full-stack developer, content creator" />
       <link rel="canonical" href="https://iamshreyas.live" />
       
       {/* Structured data for Person */}
@@ -802,15 +802,15 @@ function App() {
       
       <WebsiteStructuredData
         url="https://iamshreyas.live"
-        name="Shreyas J | Tech Enthusiast"
-        description="Shreyas J's personal portfolio showcasing projects, skills, blog posts, and more."
+        name="Shreyas | Tech Enthusiast"
+        description="Shreyas J is a Computer Science & Engineering student with a focus on Artificial Intelligence and Machine Learning. Follow his journey, projects, and tech insights through his portfolio website."
         searchUrl="https://iamshreyas.live/search"
       />
       
       <PersonStructuredData
         name="Shreyas J"
         jobTitle="Tech Enthusiast"
-        description="Shreyas J is a passionate tech enthusiast specializing in web development, AI, and mobile applications."
+        description="Shreyas J is a Computer Science & Engineering student with a focus on Artificial Intelligence and Machine Learning. Follow his journey, projects, and tech insights through his portfolio website."
         imageUrl="https://iamshreyas.live/profile.jpg"
         url="https://iamshreyas.live"
         sameAsLinks={[
@@ -939,7 +939,7 @@ function App() {
                     <div className="corner corner-bottom-right"></div>
                     
                     <TiltedCard 
-                      imageSrc="https://i.ibb.co/B55KFGh2/IMG-1106.jpg?auto=format&fit=crop&q=80&w=400&h=400"
+                      imageSrc="/hero.png"
                       altText="Shreyas Profile"
                       captionText="Shreyas"
                       containerHeight="100%"

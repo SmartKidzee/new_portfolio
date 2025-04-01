@@ -96,7 +96,7 @@ export const Timeline = ({
 
   return (
     <div 
-      className={cn("relative max-w-screen-lg", className, isScrolling ? "is-scrolling" : "")} 
+      className={cn("relative max-w-screen-lg mx-auto", className, isScrolling ? "is-scrolling" : "")} 
       ref={ref}
     >
       {/* Central timeline line with reduced opacity and behind content */}
@@ -107,7 +107,7 @@ export const Timeline = ({
       >
         {/* Static background line for better visibility */}
         <div className={cn(
-          "absolute h-full w-0.5 bg-[#38BDF8]/10 left-4 md:left-auto",
+          "absolute h-full w-0.5 bg-[#38BDF8]/10 left-4",
           customStyles?.connector
         )}
         style={{ zIndex: 1, opacity: 0.5 }}
@@ -116,7 +116,7 @@ export const Timeline = ({
         {/* Animated line that grows as you scroll */}
         <motion.div 
           className={cn(
-            "absolute h-full w-0.5 bg-gradient-to-b from-[#38BDF8] via-[#A855F7] to-[#38BDF8] left-4 md:left-auto",
+            "absolute h-full w-0.5 bg-gradient-to-b from-[#38BDF8] via-[#A855F7] to-[#38BDF8] left-4",
             customStyles?.connector
           )}
           style={{
@@ -213,7 +213,7 @@ const TimelineItem = ({
     <motion.div 
       ref={ref}
       className={cn(
-        "relative z-10 flex items-start my-12 md:my-20 px-3 md:px-0", // Add horizontal padding on mobile
+        "relative z-10 flex items-start my-12 px-3", // Consistent spacing
         isScrolling ? "is-scrolling" : ""
       )}
       initial={{ opacity: 0, y: 20 }}
@@ -276,12 +276,12 @@ export const TimePoint = ({
         scale: isMounted ? imageScale : 1,
       }}
       className={cn(
-        "timeline-point relative z-30 h-8 w-8 md:h-12 md:w-12 flex items-center justify-center min-w-[32px] md:min-w-[48px]", // Smaller on mobile
+        "timeline-point relative z-30 h-8 w-8 flex items-center justify-center min-w-[32px]", // Consistent size
         customStyles?.timelinePoint
       )}
     >
       {/* Inner circle with glow */}
-      <div className="h-2 w-2 md:h-3 md:w-3 rounded-full bg-white shadow-[0_0_8px_rgba(56,189,248,0.8)]" />
+      <div className="h-2 w-2 rounded-full bg-white shadow-[0_0_8px_rgba(56,189,248,0.8)]" />
       
       {/* Outer ring */}
       <div className="absolute inset-0 rounded-full border-2 border-[#38BDF8]/30" />
@@ -297,11 +297,11 @@ export const TimeContent = ({
   customStyles
 }: TimelineEntry & { lineProgress: any, isInView: boolean, customStyles?: TimelineCustomStyles }) => {
   return (
-    <div className="timeline-content ml-2 md:ml-4 pb-6 md:pb-8 pt-1 md:pt-2 w-full z-20 relative">
+    <div className="timeline-content ml-2 pb-6 pt-1 w-full z-20 relative">
       {/* Line animation based on scroll position */}
       <motion.div 
         className={cn(
-          "absolute left-0 top-0 bottom-0 w-[1px] md:w-[2px] h-full bg-gradient-to-b from-[#38BDF8] to-[#A855F7] z-25",
+          "absolute left-0 top-0 bottom-0 w-[1px] h-full bg-gradient-to-b from-[#38BDF8] to-[#A855F7] z-25",
           customStyles?.connector
         )}
         style={{
@@ -313,19 +313,19 @@ export const TimeContent = ({
       />
       
       {/* Ghost line to ensure visibility */}
-      <div className="absolute left-0 top-0 bottom-0 w-[1px] md:w-[2px] h-full bg-[#38BDF8]/20" style={{ zIndex: 1 }} />
+      <div className="absolute left-0 top-0 bottom-0 w-[1px] h-full bg-[#38BDF8]/20" style={{ zIndex: 1 }} />
       
       {/* Increased z-index and added backdrop for better text visibility */}
       <div className="relative z-30">
         <h3 className={cn(
-          "text-sm md:text-xl font-semibold text-white bg-gradient-to-r from-[#38BDF8] to-[#A855F7] bg-clip-text text-transparent mb-2 md:mb-4 relative",
+          "text-sm font-semibold text-white bg-gradient-to-r from-[#38BDF8] to-[#A855F7] bg-clip-text text-transparent mb-2 relative",
           customStyles?.timelineTitle
         )}>
           {title}
         </h3>
         <motion.div
           className={cn(
-            "mt-2 md:mt-3 relative",
+            "mt-2 relative",
             customStyles?.item
           )}
           initial={{ opacity: 0, y: 10 }}

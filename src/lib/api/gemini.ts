@@ -1,7 +1,21 @@
 import axios from "axios";
 
-// Get API key from environment variables or use the provided key
-const API_KEY = import.meta.env.VITE_GEMINI_API_KEY || "AIzaSyANozo6PWtEhasYJ51kJ8574wFj0qAhqDw";
+// Debug information to see if environment variables are loaded
+console.log('Environment variables loaded:', {
+  VITE_GEMINI_API_KEY_EXISTS: !!import.meta.env.VITE_GEMINI_API_KEY,
+  VITE_GEMINI_API_KEY_LENGTH: import.meta.env.VITE_GEMINI_API_KEY?.length,
+  ENV_KEYS: Object.keys(import.meta.env).filter(key => key.startsWith('VITE_'))
+});
+
+// Get API key from environment variables
+const GEMINI_API_KEY = import.meta.env.VITE_GEMINI_API_KEY || "";
+
+// Log API key information (without revealing the full key)
+console.log('Gemini API Key:', {
+  exists: !!GEMINI_API_KEY,
+  length: GEMINI_API_KEY?.length,
+  firstChars: GEMINI_API_KEY ? `${GEMINI_API_KEY.substring(0, 4)}...` : null
+});
 
 /**
  * Fetches an AI-generated summary of the given text using Google's Gemini API
@@ -10,6 +24,11 @@ const API_KEY = import.meta.env.VITE_GEMINI_API_KEY || "AIzaSyANozo6PWtEhasYJ51k
  * @returns The API response data, or null if an error occurred
  */
 export const fetchGeminiSummary = async (text: string, title?: string) => {
+  if (!GEMINI_API_KEY) {
+    console.error("Gemini API key is not configured");
+    return null;
+  }
+  
   try {
     // Create a prompt with instructions for better summaries
     const promptText = `
@@ -23,7 +42,7 @@ export const fetchGeminiSummary = async (text: string, title?: string) => {
 
     // Make the API request
     const response = await axios.post(
-      `https://generativelanguage.googleapis.com/v1/models/gemini-1.5-pro:generateContent?key=${API_KEY}`,
+      `https://generativelanguage.googleapis.com/v1/models/gemini-2.0-flash:generateContent?key=${GEMINI_API_KEY}`,
       {
         contents: [{ parts: [{ text: promptText }] }],
         generationConfig: {

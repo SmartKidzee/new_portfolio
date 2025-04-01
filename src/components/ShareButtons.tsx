@@ -15,31 +15,50 @@ interface TooltipProps {
   children: React.ReactNode;
 }
 
+// Completely rewritten tooltip component with direct positioning
 const Tooltip: React.FC<TooltipProps> = ({ text, children }) => {
   const [isVisible, setIsVisible] = useState(false);
   
   return (
-    <div className="relative" 
+    <div 
+      style={{ position: 'relative', display: 'inline-block' }}
       onMouseEnter={() => setIsVisible(true)}
       onMouseLeave={() => setIsVisible(false)}
-      onFocus={() => setIsVisible(true)}
-      onBlur={() => setIsVisible(false)}
     >
       {children}
-      <AnimatePresence>
-        {isVisible && (
-          <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: 10 }}
-            transition={{ duration: 0.2 }}
-            className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-1.5 bg-black/80 backdrop-blur-sm text-white text-xs font-medium rounded-md whitespace-nowrap z-50"
-          >
-            {text}
-            <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-2 h-2 rotate-45 bg-black/80"></div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+      
+      {isVisible && (
+        <div 
+          style={{
+            position: 'absolute',
+            bottom: '100%',
+            left: '50%',
+            transform: 'translateX(-50%)',
+            marginBottom: '8px',
+            padding: '4px 8px',
+            backgroundColor: 'rgba(0, 0, 0, 0.85)',
+            color: 'white',
+            fontSize: '12px',
+            fontWeight: '500',
+            borderRadius: '4px',
+            whiteSpace: 'nowrap',
+            zIndex: 1000,
+          }}
+        >
+          {text}
+          <div 
+            style={{
+              position: 'absolute',
+              top: '100%',
+              left: '50%',
+              transform: 'translateX(-50%) rotate(45deg)',
+              width: '8px',
+              height: '8px',
+              backgroundColor: 'rgba(0, 0, 0, 0.85)',
+            }}
+          />
+        </div>
+      )}
     </div>
   );
 };
@@ -224,7 +243,7 @@ const ShareButtons: React.FC<ShareButtonsProps> = ({
   };
 
   return (
-    <div className="flex items-center gap-2">
+    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end', gap: '12px' }}>
       <Tooltip text="Share on X (Twitter)">
         <motion.button
           whileHover={{ scale: 1.05 }}
@@ -268,14 +287,16 @@ const ShareButtons: React.FC<ShareButtonsProps> = ({
       </Tooltip>
 
       {copied && (
-        <motion.div 
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: 10 }}
-          className="text-xs text-green-500 ml-2"
+        <div 
+          style={{
+            fontSize: '12px',
+            color: '#10b981',
+            marginLeft: '8px',
+            animation: 'fadeIn 0.3s'
+          }}
         >
           Copied!
-        </motion.div>
+        </div>
       )}
     </div>
   );

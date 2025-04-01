@@ -18,10 +18,14 @@ export default function TimelineDemo() {
 
   // Simple Apple-inspired styling with clean, minimal design
   const timelineStyle = {
-    item: "bg-white/5 backdrop-blur-md border border-white/10 rounded-lg p-3 md:p-5",
-    connector: "border-l-2 border-[#38BDF8]/30 ml-4 md:ml-6 z-10",
-    timelineTitle: "text-lg font-medium text-white"
+    item: "bg-white/5 backdrop-blur-md border border-white/10 rounded-lg p-4 sm:p-5",
+    connector: "border-l-2 border-[#38BDF8]/30 ml-4 z-10",
+    timelineTitle: "text-xl sm:text-2xl font-medium text-white"
   };
+
+  // Common box styling
+  const boxStyle = "rounded-3xl h-20 w-full shadow-md bg-[#2a3d5a]/40 backdrop-blur-md flex items-center justify-center border border-white/10";
+  const iconStyle = "text-4xl";
 
   const data = [
     {
@@ -31,16 +35,16 @@ export default function TimelineDemo() {
           className="text-neutral-200"
           variants={itemVariants}
         >
-          <p className="text-[#38BDF8] font-medium mb-2 text-xs md:text-base">Institution: The National Institute Of Engineering, Mysore</p>
-          <p className="mb-2 text-xs md:text-base"><span className="font-medium">Degree:</span> BE, Computer Science - AI & ML</p>
-          <p className="mb-2 text-xs md:text-base"><span className="font-medium">CGPA:</span> <span className="text-[#FACC15]">9.00</span> (Semester 1)</p>
-          <p className="mb-3 md:mb-4 text-xs md:text-base">Currently pursuing my engineering degree with a specialization in AI & ML.</p>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-2 md:gap-4 mt-2 md:mt-4">
-            <div className="rounded-lg h-12 md:h-32 w-full shadow-md bg-[#2a3d5a]/30 backdrop-blur-md flex items-center justify-center">
-              <FaGraduationCap className="text-[#38BDF8] text-2xl md:text-4xl" />
+          <p className="text-[#38BDF8] font-medium mb-2 text-sm sm:text-base">Institution: The National Institute Of Engineering, Mysore</p>
+          <p className="mb-2 text-sm sm:text-base"><span className="font-medium">Degree:</span> BE, Computer Science - AI & ML</p>
+          <p className="mb-2 text-sm sm:text-base"><span className="font-medium">CGPA:</span> <span className="text-[#FACC15]">9.00</span> (Semester 1)</p>
+          <p className="mb-3 text-sm sm:text-base">Currently pursuing my engineering degree with a specialization in AI & ML.</p>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 mt-2">
+            <div className={boxStyle}>
+              <FaGraduationCap className={`text-[#38BDF8] ${iconStyle}`} />
             </div>
-            <div className="rounded-lg h-12 md:h-32 w-full shadow-md bg-[#2a3d5a]/30 backdrop-blur-md flex items-center justify-center">
-              <PiStudentBold className="text-[#A855F7] text-2xl md:text-4xl" />
+            <div className={boxStyle}>
+              <PiStudentBold className={`text-[#A855F7] ${iconStyle}`} />
             </div>
           </div>
         </motion.div>
@@ -53,25 +57,25 @@ export default function TimelineDemo() {
           className="text-neutral-200"
           variants={itemVariants}
         >
-          <p className="mb-3 md:mb-4 text-xs md:text-base">Started college at NIE Mysore and developed my first website using HTML & CSS. Later upgraded with Three.js and Framer Motion.</p>
-          <p className="mb-2 flex items-center gap-1 md:gap-2 text-xs md:text-base">
-            <FaGithub className="text-white" />
+          <p className="mb-3 text-sm sm:text-base">Started college at NIE Mysore and developed my first website using HTML & CSS. Later upgraded with Three.js and Framer Motion.</p>
+          <p className="mb-2 flex items-center gap-2 text-sm sm:text-base">
+            <FaGithub className="text-white text-lg" />
             <span className="font-medium">GitHub:</span> 
             <a 
               href="https://github.com/SmartKidzee" 
               target="_blank"
               rel="noopener noreferrer"
-              className="text-[#38BDF8] hover:text-[#A855F7] transition-colors duration-300 flex items-center gap-1"
+              className="text-[#38BDF8] hover:text-[#A855F7] transition-colors duration-300 flex items-center gap-1 font-medium"
             >
               SmartKidzee <LuExternalLink />
             </a>
           </p>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-2 md:gap-4 mt-2 md:mt-4">
-            <div className="rounded-lg h-12 md:h-32 w-full shadow-md bg-[#2a3d5a]/30 backdrop-blur-md flex items-center justify-center">
-              <FaCode className="text-[#38BDF8] text-2xl md:text-4xl" />
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 mt-2">
+            <div className={boxStyle}>
+              <FaCode className={`text-[#38BDF8] ${iconStyle}`} />
             </div>
-            <div className="rounded-lg h-12 md:h-32 w-full shadow-md bg-[#2a3d5a]/30 backdrop-blur-md flex items-center justify-center">
-              <FaLaptopCode className="text-[#A855F7] text-2xl md:text-4xl" />
+            <div className={boxStyle}>
+              <FaLaptopCode className={`text-[#A855F7] ${iconStyle}`} />
             </div>
           </div>
         </motion.div>
@@ -84,12 +88,12 @@ export default function TimelineDemo() {
           className="text-neutral-200"
           variants={itemVariants}
         >
-          <p className="text-[#38BDF8] font-medium mb-2 text-xs md:text-base">Institution: Pramati Hillview Academy</p>
-          <p className="mb-2 text-xs md:text-base"><span className="font-medium">Board:</span> Senior Secondary Certificate - 12th</p>
-          <p className="mb-2 text-xs md:text-base"><span className="font-medium">CGPA:</span> <span className="text-[#FACC15]">8.0</span></p>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-2 md:gap-4 mt-2 md:mt-4">
-            <div className="rounded-lg h-12 md:h-32 w-full shadow-md bg-[#2a3d5a]/30 backdrop-blur-md flex items-center justify-center">
-              <FaSchool className="text-[#38BDF8] text-2xl md:text-4xl" />
+          <p className="text-[#38BDF8] font-medium mb-2 text-sm sm:text-base">Institution: Pramati Hillview Academy</p>
+          <p className="mb-2 text-sm sm:text-base"><span className="font-medium">Board:</span> Senior Secondary Certificate - 12th</p>
+          <p className="mb-2 text-sm sm:text-base"><span className="font-medium">CGPA:</span> <span className="text-[#FACC15]">8.0</span></p>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 mt-2">
+            <div className={boxStyle}>
+              <FaSchool className={`text-[#38BDF8] ${iconStyle}`} />
             </div>
           </div>
         </motion.div>
@@ -102,22 +106,22 @@ export default function TimelineDemo() {
           className="text-neutral-200"
           variants={itemVariants}
         >
-          <p className="mb-2 md:mb-4 text-xs md:text-base">Launched my YouTube channel dedicated to tech reviews, tutorials, and coding.</p>
-          <p className="mb-2 flex items-center gap-1 md:gap-2 text-xs md:text-base">
-            <FaYoutube className="text-red-500" /> 
+          <p className="mb-2 text-sm sm:text-base">Launched my YouTube channel dedicated to tech reviews, tutorials, and coding.</p>
+          <p className="mb-2 flex items-center gap-2 text-sm sm:text-base">
+            <FaYoutube className="text-red-500 text-lg" /> 
             <span className="font-medium">YouTube:</span> 
             <a 
               href="https://youtube.com/SmartKidzee" 
               target="_blank"
               rel="noopener noreferrer"
-              className="text-[#38BDF8] hover:text-[#A855F7] transition-colors duration-300 flex items-center gap-1"
+              className="text-[#38BDF8] hover:text-[#A855F7] transition-colors duration-300 flex items-center gap-1 font-medium"
             >
               SmartKidzee <LuExternalLink />
             </a>
           </p>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-2 md:gap-4 mt-2 md:mt-4">
-            <div className="rounded-lg h-12 md:h-32 w-full shadow-md bg-[#2a3d5a]/30 backdrop-blur-md flex items-center justify-center">
-              <FaYoutube className="text-red-500 text-2xl md:text-4xl" />
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 mt-2">
+            <div className={boxStyle}>
+              <FaYoutube className={`text-red-500 ${iconStyle}`} />
             </div>
           </div>
         </motion.div>
@@ -130,9 +134,9 @@ export default function TimelineDemo() {
           className="text-neutral-200"
           variants={itemVariants}
         >
-          <p className="text-[#38BDF8] font-medium mb-2 text-xs md:text-base">Institution: The Acme School</p>
-          <p className="mb-2 text-xs md:text-base"><span className="font-medium">Board:</span> Secondary School Certificate</p>
-          <p className="mb-2 text-xs md:text-base"><span className="font-medium">Percentage:</span> <span className="text-[#FACC15]">95.2%</span></p>
+          <p className="text-[#38BDF8] font-medium mb-2 text-sm sm:text-base">Institution: The Acme School</p>
+          <p className="mb-2 text-sm sm:text-base"><span className="font-medium">Board:</span> Secondary School Certificate</p>
+          <p className="mb-2 text-sm sm:text-base"><span className="font-medium">Percentage:</span> <span className="text-[#FACC15]">95.2%</span></p>
         </motion.div>
       ),
     },
@@ -143,10 +147,10 @@ export default function TimelineDemo() {
           className="text-neutral-200"
           variants={itemVariants}
         >
-          <p className="mb-2 md:mb-4 text-xs md:text-base">Got interested in computers and programming. Began learning basic coding.</p>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-2 md:gap-4 mt-2 md:mt-4">
-            <div className="rounded-lg h-12 md:h-32 w-full shadow-md bg-[#2a3d5a]/30 backdrop-blur-md flex items-center justify-center">
-              <FaLaptopCode className="text-[#38BDF8] text-2xl md:text-4xl" />
+          <p className="mb-2 text-sm sm:text-base">Got interested in computers and programming. Began learning basic coding.</p>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 mt-2">
+            <div className={boxStyle}>
+              <FaLaptopCode className={`text-[#38BDF8] ${iconStyle}`} />
             </div>
           </div>
         </motion.div>

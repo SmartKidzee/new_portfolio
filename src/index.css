@@ -2394,6 +2394,14 @@ html {
   }
 }
 
+/* Fix for desktop blog cards in Home page carousel to prevent cutoff */
+@media (min-width: 1024px) {
+  .blog-card {
+    margin-top: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+}
+
 /* Fix font sizing issues on mobile - enforce consistent sizing */
 html {
   -webkit-text-size-adjust: 100% !important;
@@ -6373,15 +6381,6 @@ html {
   display: block !important;
   opacity: 1 !important;
   visibility: visible !important;
-}
-
-@media screen and (max-width: 768px) {
-  #home .aurora-container {
-    opacity: 1 !important;
-    display: block !important;
-    visibility: visible !important;
-    z-index: 1 !important;
-  }
 }
 
 

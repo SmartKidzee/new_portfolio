@@ -152,7 +152,7 @@ export default function HomeBlogSection() {
         
         {/* Carousel */}
         <div 
-          className="relative overflow-hidden" 
+          className="relative overflow-hidden mb-8 md:mb-12" 
           ref={carouselRef}
           onTouchStart={handleTouchStart}
           onTouchMove={handleTouchMove}
@@ -180,7 +180,7 @@ export default function HomeBlogSection() {
           </div>
           
           {/* Carousel content */}
-          <div className="relative h-[400px] sm:h-[450px] md:h-[520px] px-12 sm:px-16 md:px-20">
+          <div className="relative h-[400px] sm:h-[500px] md:h-[480px] lg:h-auto lg:min-h-[600px] px-12 sm:px-16 md:px-20">
             <AnimatePresence initial={false} custom={direction}>
               {blogs.length > 0 && (
                 <motion.div
@@ -190,18 +190,18 @@ export default function HomeBlogSection() {
                   initial="enter"
                   animate="center"
                   exit="exit"
-                  className="absolute inset-0 flex items-center justify-center"
+                  className="absolute inset-0 flex items-start sm:items-start md:items-start lg:items-center justify-center pb-12 sm:pb-24 md:pb-16"
                 >
-                  <div className="w-full max-w-4xl mx-auto px-1 sm:px-2">
-                    <div className="bg-black/10 backdrop-blur-xl rounded-3xl border border-white/10 overflow-hidden shadow-2xl transform hover:scale-[1.01] transition-transform duration-300">
+                  <div className="w-full max-w-4xl mx-auto px-1 sm:px-2 md:py-2 lg:py-6 sm:pt-4">
+                    <div className="bg-black/10 backdrop-blur-xl rounded-3xl border border-white/10 overflow-hidden shadow-2xl transform hover:scale-[1.01] transition-transform duration-300 md:max-h-[430px] lg:max-h-none">
                       {/* Image */}
                       {(blogs[currentIndex]._thumbnailOverride || blogs[currentIndex].src) && (
                         <Link to={`/blogs/${blogs[currentIndex].id}`}>
-                          <div className="relative w-full aspect-[16/9] overflow-hidden">
+                          <div className="relative w-full aspect-[16/9] sm:aspect-auto sm:h-[200px] md:h-[180px] lg:aspect-[16/9] lg:h-auto overflow-hidden">
                             <img 
                               src={blogs[currentIndex]._thumbnailOverride || blogs[currentIndex].src} 
                               alt={blogs[currentIndex].title}
-                              className="w-full h-full object-cover transition-transform duration-700 hover:scale-105"
+                              className="w-full h-full object-cover object-center sm:w-full sm:h-full sm:max-h-[200px] sm:object-scale-down md:object-contain md:max-h-[180px] lg:object-cover lg:max-h-none transition-transform duration-700 hover:scale-105"
                             />
                             
                             {/* Video indicator */}
@@ -215,42 +215,42 @@ export default function HomeBlogSection() {
                       )}
                       
                       {/* Content */}
-                      <div className="p-4 sm:p-6 md:p-8">
-                        <div className="flex flex-wrap gap-1 sm:gap-2 md:gap-3 mb-3 sm:mb-4">
-                          <span className="inline-flex items-center px-2 sm:px-3 py-1 rounded-full text-xs font-medium bg-indigo-500/10 text-indigo-300 truncate max-w-[120px] sm:max-w-full">
+                      <div className="p-4 sm:p-4 md:p-3 lg:p-8">
+                        <div className="flex flex-wrap gap-1 sm:gap-1 md:gap-1 lg:gap-3 mb-2 sm:mb-2 md:mb-1 lg:mb-4">
+                          <span className="inline-flex items-center px-2 sm:px-2 py-1 rounded-full text-xs font-medium bg-indigo-500/10 text-indigo-300 truncate max-w-[120px] sm:max-w-full">
                             {blogs[currentIndex].category}
                           </span>
                           
-                          <span className="inline-flex items-center px-2 sm:px-3 py-1 rounded-full text-xs font-medium bg-gray-700/50 text-gray-300">
+                          <span className="inline-flex items-center px-2 sm:px-2 py-1 rounded-full text-xs font-medium bg-gray-700/50 text-gray-300">
                             {formatDate(blogs[currentIndex].created_at)}
                           </span>
                           
                           {blogs[currentIndex].isAchievement && (
-                            <span className="inline-flex items-center px-2 sm:px-3 py-1 rounded-full text-xs font-medium bg-amber-500/10 text-amber-300">
+                            <span className="inline-flex items-center px-2 sm:px-2 py-1 rounded-full text-xs font-medium bg-amber-500/10 text-amber-300">
                               Achievement
                             </span>
                           )}
                         </div>
                         
                         <Link to={`/blogs/${blogs[currentIndex].id}`}>
-                          <h3 className="text-lg sm:text-2xl md:text-3xl font-bold mb-2 sm:mb-3 md:mb-4 text-white hover:text-indigo-300 transition-colors line-clamp-2">
+                          <h3 className="text-lg sm:text-base md:text-sm lg:text-3xl font-bold mb-2 sm:mb-2 md:mb-1 lg:mb-4 text-white hover:text-indigo-300 transition-colors line-clamp-2">
                             {blogs[currentIndex].title}
                           </h3>
                         </Link>
                         
-                        <p className="text-gray-300 text-xs sm:text-sm md:text-base line-clamp-2 sm:line-clamp-3 mb-3 sm:mb-4 md:mb-6">
+                        <p className="text-gray-300 text-xs sm:text-xs md:hidden lg:block lg:text-base mb-3 sm:mb-2 md:mb-1 lg:mb-6">
                           {blogs[currentIndex].content.substring(0, 120)}...
                         </p>
                         
                         <div className="flex flex-wrap items-center justify-between">
                           <Link 
                             to={`/blogs/${blogs[currentIndex].id}`}
-                            className="text-indigo-400 text-sm sm:text-base font-medium hover:translate-x-1 transition-transform duration-300 inline-flex items-center"
+                            className="text-indigo-400 text-sm sm:text-base md:text-xs lg:text-base font-medium hover:translate-x-1 transition-transform duration-300 inline-flex items-center"
                           >
-                            Read more <ArrowRight className="w-3 h-3 sm:w-4 sm:h-4 ml-1" />
+                            Read more <ArrowRight className="w-3 h-3 sm:w-4 sm:h-4 md:w-3 md:h-3 lg:w-4 lg:h-4 ml-1" />
                           </Link>
                           
-                          <div className="mt-3 sm:mt-0">
+                          <div className="mt-3 sm:mt-0 md:scale-75 lg:scale-100 md:transform-gpu md:-mr-2 lg:mr-0">
                             <ShareButtons 
                               title={blogs[currentIndex].title}
                               url={`${window.location.origin}/blogs/${blogs[currentIndex].id}`}
@@ -269,7 +269,7 @@ export default function HomeBlogSection() {
           </div>
           
           {/* Indicators */}
-          <div className="flex justify-center gap-2 mt-6 sm:mt-8 md:mt-10 pt-2">
+          <div className="flex justify-center gap-2 mt-6 sm:mt-8 md:mt-10 pt-6 md:pt-8 z-30 relative bg-black/30 backdrop-blur-sm py-3 rounded-full max-w-max mx-auto px-4">
             {blogs.map((_, index) => (
               <button
                 key={index}

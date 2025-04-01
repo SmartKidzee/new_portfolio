@@ -8,6 +8,8 @@ import React, { Suspense, useState, useEffect } from 'react'
 import ReactDOM from 'react-dom/client'
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom'
 import { HelmetProvider } from 'react-helmet-async';
+import { SpeedInsights } from "@vercel/speed-insights/react"
+import { Analytics } from "@vercel/analytics/react"
 import './index.css'
 // Blog animations removed
 
@@ -181,6 +183,8 @@ const MainApp = () => {
     <HelmetProvider>
       <BrowserRouter>
         <RouteBasedApp />
+        <SpeedInsights />
+        <Analytics />
       </BrowserRouter>
     </HelmetProvider>
   );
