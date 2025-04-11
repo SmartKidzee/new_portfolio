@@ -117,7 +117,7 @@ export default defineConfig(({ mode }) => {
         filename: 'stats.html',
       }),
     ],
-    base: '/',
+    base: './',
     resolve: {
       alias: {
         '@': path.resolve(__dirname, './'),
