@@ -16,6 +16,9 @@
 - 🌙 **Animations & Effects** - Custom cursor trails, scroll animations, and interactive elements
 - 📊 **Project Showcase** - Highlight your best work with detailed project pages
 - 📬 **Contact Form** - Easy to use contact system for networking
+- 🔮 **Glassmorphism Elements** - Apple-inspired glassmorphism UI components for modern aesthetic
+- 📊 **Interactive Blog Tables** - Beautifully styled tables with rounded corners and glassmorphism effects
+- 🧹 **Optimized Codebase** - Clean, well-organized code structure with unnecessary files removed
 
 ## 🛠️ Built With
 
@@ -102,6 +105,34 @@ Add new blog posts in `src/data/blogs.ts`:
 }
 ```
 
+### Adding Blog Tables
+
+You can add beautiful tables to your blog posts using the `<BlogTable>` component:
+
+```typescript
+<BlogTable
+  headers={["Header1", "Header2", "Header3"]}
+  rows={[
+    {
+      "Header1": "Row 1, Cell 1",
+      "Header2": "Row 1, Cell 2",
+      "Header3": "Row 1, Cell 3"
+    },
+    {
+      "Header1": "Row 2, Cell 1",
+      "Header2": "Row 2, Cell 2",
+      "Header3": "Row 2, Cell 3"
+    }
+  ]}
+/>
+```
+
+These tables automatically include:
+- Rounded corners for a modern look
+- Apple-style glassmorphism effect
+- Responsive design for all screen sizes
+- Alternating row colors for better readability
+
 ### Projects
 
 Add new projects in the projects data file.
@@ -142,6 +173,15 @@ This portfolio includes comprehensive SEO optimizations:
 - [ ] Implement dark/light theme toggle
 - [ ] Add more interactive project showcases
 - [ ] Integrate a headless CMS for content management
+- [ ] Expand glassmorphism UI elements across more components
+
+## 🧹 Recent Updates
+
+- Added Apple-style glassmorphism effect to blog tables
+- Fixed blog parsing to properly render complex components
+- Improved rendering of markdown elements in blog posts
+- Removed unnecessary files for a cleaner codebase
+- Enhanced table styling with subtle rounded corners and improved spacing
 
 ## 📄 License
 
@@ -152,6 +192,7 @@ Distributed under the MIT License. See `LICENSE` for more information.
 - Design inspiration from various modern portfolio websites
 - Icons from [Lucide Icons](https://lucide.dev/)
 - 3D effects inspired by [Awwwards](https://www.awwwards.com/) winning sites
+- Glassmorphism design inspired by Apple's UI aesthetics
 
 ---
 

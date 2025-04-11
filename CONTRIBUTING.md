@@ -1,4 +1,4 @@
-# Contributing to Shreyas Garg's Portfolio
+# Contributing to Shreyas J's Portfolio
 
 Thank you for considering contributing to my portfolio project! This document provides guidelines and instructions for contributing.
 

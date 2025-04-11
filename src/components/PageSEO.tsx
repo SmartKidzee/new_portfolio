@@ -14,7 +14,7 @@ const PageSEO: React.FC<PageSEOProps> = ({
   description,
   canonical,
   keywords = '',
-  image = 'https://iamshreyas.live/og-image.jpg',
+  image = 'https://iamshreyas.live/og-image.png',
 }) => {
   // Ensure title is not too long
   const formattedTitle = title.length > 60 

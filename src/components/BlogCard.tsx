@@ -9,10 +9,14 @@ interface BlogCardProps {
 }
 
 const BlogCard: React.FC<BlogCardProps> = ({ blog, priority = false }) => {
-  // Create a truncated version of the blog content
-  const truncatedContent = blog.content.length > 150 
-    ? blog.content.substring(0, 150) + '...' 
-    : blog.content;
+  // Strip markdown formatting and create a truncated version of the blog content
+  const cleanContent = blog.content
+    .replace(/\*\*(.*?)\*\*/g, '$1')  // Remove bold markdown
+    .replace(/\*(.*?)\*/g, '$1');     // Remove italic markdown
+  
+  const truncatedContent = cleanContent.length > 150 
+    ? cleanContent.substring(0, 150) + '...' 
+    : cleanContent;
     
   // Use thumbnail override if available, otherwise use the special thumbnail for blog #5 or default src
   const thumbnailSrc = blog._thumbnailOverride || 

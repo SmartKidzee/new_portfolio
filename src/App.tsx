@@ -81,6 +81,7 @@ import { Carousel, Card } from "./components/ui/apple-cards-carousel";
 import ContactForm from './cpmponents/ContactForm/ContactForm';
 import HomeBlogSection from './components/HomeBlogSection';
 import { WebsiteStructuredData, PersonStructuredData } from "./components/StructuredData";
+import GeoGreetingPopup from './components/GeoGreetingPopup';
 
 // SEO component with Helmet
 const SEOHelmet = () => {
@@ -886,6 +887,8 @@ function App() {
             
             <div className="absolute inset-0 z-5 bg-gradient-to-br from-[#3A29FF]/20 to-[#FF3232]/20" />
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+              {/* Conditional GeoGreeting popup for home page */}
+              {activeSection === 'home' && <GeoGreetingPopup section="home" />}
               <div className="text-center">
                 <motion.div
                   initial={{ scale: 0 }}
@@ -1655,11 +1658,13 @@ function App() {
 
           {/* Contact Section */}
           <section id="contact" className="py-24 md:py-32 relative overflow-hidden">
-            {/* Gradient background with soft blur */}
-            <div className="absolute inset-0 bg-gradient-to-br from-[#0F172A] via-[#1A202C] to-[#2D3748] opacity-80 z-0"></div>
+            {/* Conditional GeoGreeting popup for contact page */}
+            {activeSection === 'contact' && <GeoGreetingPopup section="contact" />}
+            {/* Bold solid background that matches site theme better */}
+            <div className="absolute inset-0 bg-[#1E293B] z-0"></div>
             
-            {/* Subtle background pattern */}
-            <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-[0.03] z-[1]"></div>
+            {/* Patterned background with higher opacity for neobrutalism */}
+            <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-[0.2] z-[1]"></div>
             
             <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-10 relative z-10">
               <motion.div
@@ -1668,44 +1673,48 @@ function App() {
                 viewport={{ once: true }}
                 className="text-center mb-16"
               >
-                <h2 className="text-4xl md:text-6xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-[#38BDF8] via-[#818CF8] to-[#A855F7] mb-4">
-                  Get in Touch
-                </h2>
-                <p className="text-white/70 text-lg md:text-xl max-w-2xl mx-auto">
+                <div className="inline-block bg-[#38BDF8] px-8 py-6 rounded-md border-4 border-black shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] mb-6 transform -rotate-1">
+                  <h2 className="text-4xl md:text-6xl font-extrabold text-black uppercase" style={{ textShadow: '3px 3px 0px rgba(0,0,0,0.3)' }}>
+                    Get in Touch
+                  </h2>
+                </div>
+                <p className="text-white text-lg md:text-xl max-w-2xl mx-auto font-bold">
                   Have a question or want to work together? Send me a message.
                 </p>
               </motion.div>
               
               <div className="max-w-4xl mx-auto">
-                {/* Use the new ContactForm component */}
-                <ContactForm formId="xkndlgya" />
+                {/* Contact form with neobrutalism wrapper */}
+                <div className="transform rotate-1 hover:rotate-0 transition-transform duration-300">
+                  <ContactForm formId="xkndlgya" />
+                </div>
                 
-                {/* Social media links with improved styling */}
-                <div className="flex justify-center gap-5 mt-12">
+                {/* Social media links with neobrutalism styling */}
+                <div className="flex justify-center gap-5 mt-16">
                   <a 
                     href="https://github.com/SmartKidzee" 
-                    className="p-4 bg-white/5 backdrop-blur-md rounded-full border border-white/10 hover:bg-white/10 hover:scale-110 transition-all duration-300"
+                    className="p-4 bg-[#0F172A] rounded-md border-4 border-black shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] hover:translate-y-1 hover:translate-x-1 hover:shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] transition-all duration-200"
                     aria-label="GitHub"
                   >
                     <Github className="w-6 h-6 text-white" />
                   </a>
                   <a 
                     href="https://youtube.com/SmartKidzee" 
-                    className="p-4 bg-white/5 backdrop-blur-md rounded-full border border-white/10 hover:bg-white/10 hover:scale-110 transition-all duration-300"
+                    className="p-4 bg-[#FF0000] rounded-md border-4 border-black shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] hover:translate-y-1 hover:translate-x-1 hover:shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] transition-all duration-200"
                     aria-label="YouTube"
                   >
                     <Youtube className="w-6 h-6 text-white" />
                   </a>
                   <a 
                     href="https://www.linkedin.com/in/smartshreyas/" 
-                    className="p-4 bg-white/5 backdrop-blur-md rounded-full border border-white/10 hover:bg-white/10 hover:scale-110 transition-all duration-300"
+                    className="p-4 bg-[#0077B5] rounded-md border-4 border-black shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] hover:translate-y-1 hover:translate-x-1 hover:shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] transition-all duration-200"
                     aria-label="LinkedIn"
                   >
                     <Linkedin className="w-6 h-6 text-white" />
                   </a>
                   <a 
                     href="https://x.com/KidzeeSmart" 
-                    className="p-4 bg-white/5 backdrop-blur-md rounded-full border border-white/10 hover:bg-white/10 hover:scale-110 transition-all duration-300"
+                    className="p-4 bg-black rounded-md border-4 border-[#333] shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] hover:translate-y-1 hover:translate-x-1 hover:shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] transition-all duration-200"
                     aria-label="X (Twitter)"
                   >
                     <img src="https://i.ibb.co/5hYX5GVr/logo-white.png" alt="X" className="w-6 h-6" />

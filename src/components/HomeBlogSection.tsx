@@ -239,7 +239,10 @@ export default function HomeBlogSection() {
                         </Link>
                         
                         <p className="text-gray-300 text-xs sm:text-xs md:hidden lg:block lg:text-base mb-3 sm:mb-2 md:mb-1 lg:mb-6">
-                          {blogs[currentIndex].content.substring(0, 120)}...
+                          {blogs[currentIndex].content
+                            .replace(/\*\*(.*?)\*\*/g, '$1')  // Remove bold markdown
+                            .replace(/\*(.*?)\*/g, '$1')      // Remove italic markdown
+                            .substring(0, 120)}...
                         </p>
                         
                         <div className="flex flex-wrap items-center justify-between">

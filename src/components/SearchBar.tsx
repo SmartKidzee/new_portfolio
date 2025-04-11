@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Search } from 'lucide-react';
 
 interface SearchBarProps {
@@ -11,25 +11,13 @@ const SearchBar: React.FC<SearchBarProps> = ({
   placeholder = 'Search blogs...'
 }) => {
   const [searchQuery, setSearchQuery] = useState('');
-  const debounceTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
-    // Clear any existing timeout
-    if (debounceTimeoutRef.current) {
-      clearTimeout(debounceTimeoutRef.current);
-    }
-
-    // Set new timeout for debounce (300ms)
-    debounceTimeoutRef.current = setTimeout(() => {
+    const delay = setTimeout(() => {
       onSearch(searchQuery);
-    }, 300);
+    }, 300); // 300ms debounce
 
-    // Cleanup on unmount or before next effect
-    return () => {
-      if (debounceTimeoutRef.current) {
-        clearTimeout(debounceTimeoutRef.current);
-      }
-    };
+    return () => clearTimeout(delay); // clear previous timer
   }, [searchQuery, onSearch]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {

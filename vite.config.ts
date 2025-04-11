@@ -12,7 +12,7 @@ export default defineConfig(({ mode }) => {
   return {
     server: {
       headers: {
-        "Content-Security-Policy": "default-src 'self'; connect-src 'self' localhost:* ws://localhost:* http://localhost:* https://www.google-analytics.com https://analytics.google.com https://www.googletagmanager.com https://*.formspree.io https://formspree.io https://api.formspree.io https://api.hunter.io https://generativelanguage.googleapis.com https://firestore.googleapis.com https://*.firebaseio.com https://identitytoolkit.googleapis.com https://securetoken.googleapis.com https://api.emailjs.com https://vitals.vercel-insights.com https://*.vercel-insights.com https://*.vercel-analytics.com https://vercel.com https://*.vercel.app; img-src 'self' data: blob: https://i.ibb.co https://images.unsplash.com https://assets.aceternity.com https://www.google-analytics.com https://grainy-gradients.vercel.app; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://www.google-analytics.com https://*.vercel-scripts.com https://*.vercel-insights.com https://*.vercel-analytics.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://*.googleapis.com; font-src 'self' data: https://fonts.gstatic.com https://*.gstatic.com https://fonts.googleapis.com; frame-src 'self' https://www.youtube.com; form-action 'self' https://formspree.io api.formspree.io; worker-src 'self' blob:;",
+        "Content-Security-Policy": "default-src 'self'; connect-src 'self' localhost:* ws://localhost:* http://localhost:* https://www.google-analytics.com https://analytics.google.com https://www.googletagmanager.com https://*.formspree.io https://formspree.io https://api.formspree.io https://api.hunter.io https://generativelanguage.googleapis.com https://firestore.googleapis.com https://*.firebaseio.com https://identitytoolkit.googleapis.com https://securetoken.googleapis.com https://api.emailjs.com https://vitals.vercel-insights.com https://*.vercel-insights.com https://*.vercel-analytics.com https://vercel.com https://*.vercel.app https://ipapi.co; img-src 'self' data: blob: https://i.ibb.co https://images.unsplash.com https://assets.aceternity.com https://www.google-analytics.com https://grainy-gradients.vercel.app; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://www.google-analytics.com https://*.vercel-scripts.com https://*.vercel-insights.com https://*.vercel-analytics.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://*.googleapis.com; font-src 'self' data: https://fonts.gstatic.com https://*.gstatic.com https://fonts.googleapis.com; frame-src 'self' https://www.youtube.com; form-action 'self' https://formspree.io api.formspree.io; worker-src 'self' blob:;",
       },
       proxy: {
         '/api/formspree': {
@@ -39,14 +39,23 @@ export default defineConfig(({ mode }) => {
       }),
       viteCompression({
         algorithm: 'gzip',
-        threshold: 10240, // Only compress files > 10kb
+        threshold: 1024, // Lower threshold to 1kb
+        deleteOriginFile: false,
+        compressionOptions: {
+          level: 9 // Maximum compression
+        },
       }),
       viteCompression({
         algorithm: 'brotliCompress',
-        threshold: 10240,
+        threshold: 1024, // Lower threshold to 1kb
+        deleteOriginFile: false,
+        compressionOptions: {
+          level: 11 // Maximum compression for Brotli
+        },
       }),
       VitePWA({
         registerType: 'autoUpdate',
+        includeAssets: ['og-image.png', 'logo192.png', 'favicon.ico'],
         workbox: {
           globPatterns: ['**/*.{js,css,html,ico,png,svg,jpg,jpeg,gif,webp,woff,woff2,ttf,eot}'],
           maximumFileSizeToCacheInBytes: 4 * 1024 * 1024, // 4MB - increased from default 2MB
@@ -73,6 +82,28 @@ export default defineConfig(({ mode }) => {
                 expiration: {
                   maxEntries: 50,
                   maxAgeSeconds: 60 * 60 * 24 * 30 // 30 days
+                }
+              }
+            },
+            {
+              urlPattern: /^https:\/\/i\.ibb\.co\/.*/i,
+              handler: 'CacheFirst',
+              options: {
+                cacheName: 'external-images-cache',
+                expiration: {
+                  maxEntries: 50,
+                  maxAgeSeconds: 60 * 60 * 24 * 7 // 7 days
+                }
+              }
+            },
+            {
+              urlPattern: /^https:\/\/assets\.aceternity\.com\/.*/i,
+              handler: 'StaleWhileRevalidate',
+              options: {
+                cacheName: 'aceternity-assets-cache',
+                expiration: {
+                  maxEntries: 20,
+                  maxAgeSeconds: 60 * 60 * 24 * 7 // 7 days
                 }
               }
             }
@@ -111,6 +142,7 @@ export default defineConfig(({ mode }) => {
       sourcemap: false,
       reportCompressedSize: false,
       chunkSizeWarningLimit: 1000,
+      assetsInlineLimit: 4096, // Inline assets < 4kb
       rollupOptions: {
         treeshake: true,
         output: {
@@ -157,7 +189,18 @@ export default defineConfig(({ mode }) => {
           inlineDynamicImports: false,
           entryFileNames: 'assets/[name].[hash].js',
           chunkFileNames: 'assets/[name].[hash].js',
-          assetFileNames: 'assets/[name].[hash].[ext]',
+          assetFileNames: (assetInfo) => {
+            // Use a special directory for images
+            if (assetInfo.name && /\.(png|jpe?g|svg|gif|webp|ico)$/.test(assetInfo.name)) {
+              return 'assets/images/[name].[hash][extname]';
+            }
+            // Special directory for fonts
+            if (assetInfo.name && /\.(woff2?|eot|ttf|otf)$/.test(assetInfo.name)) {
+              return 'assets/fonts/[name].[hash][extname]';
+            }
+            // Default is assets folder
+            return 'assets/[name].[hash][extname]';
+          },
         },
       },
       terserOptions: {
@@ -180,7 +223,7 @@ export default defineConfig(({ mode }) => {
       port: 4000,
       open: true,
       headers: {
-        "Content-Security-Policy": "default-src 'self'; connect-src 'self' localhost:* ws://localhost:* http://localhost:* https://www.google-analytics.com https://analytics.google.com https://www.googletagmanager.com https://*.formspree.io https://formspree.io https://api.formspree.io https://api.hunter.io https://generativelanguage.googleapis.com https://firestore.googleapis.com https://*.firebaseio.com https://identitytoolkit.googleapis.com https://securetoken.googleapis.com https://api.emailjs.com https://vitals.vercel-insights.com https://*.vercel-insights.com https://*.vercel-analytics.com https://vercel.com https://*.vercel.app; img-src 'self' data: blob: https://i.ibb.co https://images.unsplash.com https://assets.aceternity.com https://www.google-analytics.com https://grainy-gradients.vercel.app; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://www.google-analytics.com https://*.vercel-scripts.com https://*.vercel-insights.com https://*.vercel-analytics.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://*.googleapis.com; font-src 'self' data: https://fonts.gstatic.com https://*.gstatic.com https://fonts.googleapis.com; frame-src 'self' https://www.youtube.com; form-action 'self' https://formspree.io api.formspree.io; worker-src 'self' blob:;"
+        "Content-Security-Policy": "default-src 'self'; connect-src 'self' localhost:* ws://localhost:* http://localhost:* https://www.google-analytics.com https://analytics.google.com https://www.googletagmanager.com https://*.formspree.io https://formspree.io https://api.formspree.io https://api.hunter.io https://generativelanguage.googleapis.com https://firestore.googleapis.com https://*.firebaseio.com https://identitytoolkit.googleapis.com https://securetoken.googleapis.com https://api.emailjs.com https://vitals.vercel-insights.com https://*.vercel-insights.com https://*.vercel-analytics.com https://vercel.com https://*.vercel.app https://ipapi.co; img-src 'self' data: blob: https://i.ibb.co https://images.unsplash.com https://assets.aceternity.com https://www.google-analytics.com https://grainy-gradients.vercel.app; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://www.google-analytics.com https://*.vercel-scripts.com https://*.vercel-insights.com https://*.vercel-analytics.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://*.googleapis.com; font-src 'self' data: https://fonts.gstatic.com https://*.gstatic.com https://fonts.googleapis.com; frame-src 'self' https://www.youtube.com; form-action 'self' https://formspree.io api.formspree.io; worker-src 'self' blob:;"
       }
     },
     esbuild: {

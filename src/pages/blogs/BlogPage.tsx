@@ -8,6 +8,7 @@ import BlogSummarizer from "../../components/BlogSummarizer";
 import LikeButton from "../../components/LikeButton";
 import { getBlogById } from "../../data/blogs";
 import BlogSEO from "../../components/BlogSEO";
+import BlogTable from "../../components/BlogTable";
 
 export default function BlogPage() {
   const { blogId } = useParams<{ blogId: string }>();
@@ -21,10 +22,67 @@ export default function BlogPage() {
     if (!blog?.content) return [];
     
     const lines = blog.content.split('\n');
+    let skipUntilIndex = -1;
+    
     const contentElements = lines.map((line, i) => {
+      // Skip lines that are part of the table
+      if (i <= skipUntilIndex) {
+        return null;
+      }
+      
       // If the line is empty, render it as a paragraph break
       if (!line.trim()) {
         return <div key={`line-${i}`} className="h-4" />;
+      }
+      
+      // Special case for BlogTable component
+      if (line.includes('<BlogTable')) {
+        // Extract the entire BlogTable component usage until the closing tag
+        let tableCode = line;
+        let j = i + 1;
+        let foundClosingTag = false;
+        
+        while (j < lines.length) {
+          tableCode += '\n' + lines[j];
+          // Check if we've found the closing tag in this line
+          if (lines[j].includes('/>')) {
+            foundClosingTag = true;
+            break;
+          }
+          j++;
+        }
+        
+        // Only process if we found the complete component (with closing tag)
+        if (foundClosingTag) {
+          try {
+            // Extract headers and rows from the table code
+            const headersMatch = tableCode.match(/headers=\{(\[.*?\])\}/s);
+            const rowsMatch = tableCode.match(/rows=\{(\[.*?\])\}/s);
+            
+            if (headersMatch && rowsMatch) {
+              // Parse the headers and rows from the extracted strings
+              const headers = JSON.parse(headersMatch[1].replace(/"/g, '"').replace(/'/g, '"'));
+              const rowsString = rowsMatch[1].replace(/"/g, '"').replace(/'/g, '"');
+              const rows = JSON.parse(rowsString);
+              
+              // Set the skipUntilIndex to skip all the processed lines
+              skipUntilIndex = j;
+              
+              return (
+                <BlogTable
+                  key={`table-${i}`}
+                  headers={headers}
+                  rows={rows}
+                />
+              );
+            }
+          } catch (error) {
+            console.error("Error rendering BlogTable:", error);
+          }
+        }
+        
+        // If we get here, return null to avoid displaying the raw table code
+        return null;
       }
       
       // Special case for Ghibli blog's image grid - directly render the HTML instead of replacing
@@ -91,6 +149,23 @@ export default function BlogPage() {
                 // Remove the ** markers and make text bold
                 const boldText = part.slice(2, -2);
                 return <strong key={j} className="font-bold text-white">{boldText}</strong>;
+              }
+              return part;
+            })}
+          </p>
+        );
+      }
+      
+      // Process markdown-style italic text (*text*)
+      if (line.includes('*')) {
+        const parts = line.split(/(\*[^*]+\*)/g);
+        return (
+          <p key={`line-${i}`} className="mb-4 text-gray-300 leading-relaxed">
+            {parts.map((part, j) => {
+              if (part.startsWith('*') && part.endsWith('*') && !part.startsWith('**') && !part.endsWith('**')) {
+                // Remove the * markers and make text italic
+                const italicText = part.slice(1, -1);
+                return <em key={j} className="italic">{italicText}</em>;
               }
               return part;
             })}
