@@ -114,6 +114,5 @@
     }
   ],
   "trailingSlash": false,
-  "cleanUrls": true,
-  "buildVersion": "2025-04-11-1"
+  "cleanUrls": true
 } 
