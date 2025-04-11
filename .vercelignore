@@ -1,0 +1,46 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Build artifacts
+stats.html
+
+# Source control
+.git
+.github
+.gitignore
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Development files
+*.test.js
+*.spec.js
+tests/
+test/
+__tests__/
+coverage/
+
+# Deployment scripts that aren't needed on Vercel
+deploy.bat
+deploy.ps1
+deploy.sh
+
+# Local env file - not needed as Vercel provides env variables
+.env.local
+
+# Don't ignore .vercel directory for Vercel deployments
+!.vercel 

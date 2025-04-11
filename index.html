@@ -60,6 +60,12 @@
     <link rel="preload" href="/src/index.css" as="style" />
     <link rel="modulepreload" href="/src/main.tsx" />
     
+    <!-- Fix for Vercel deployments -->
+    <script>
+      // Ensure correct base path for assets
+      window.global = window;
+    </script>
+    
     <!-- Compression hints -->
     <meta http-equiv="Accept-CH" content="Sec-CH-UA, Sec-CH-UA-Mobile, Sec-CH-UA-Platform, Sec-CH-UA-Arch, Sec-CH-UA-Model, Sec-CH-UA-Bitness, Sec-CH-UA-Full-Version-List, Device-Memory, Width, Viewport-Width, DPR, RTT, Downlink, ECT" />
     

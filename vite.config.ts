@@ -117,7 +117,7 @@ export default defineConfig(({ mode }) => {
         filename: 'stats.html',
       }),
     ],
-    base: './',
+    base: '/',
     resolve: {
       alias: {
         '@': path.resolve(__dirname, './'),
@@ -205,9 +205,9 @@ export default defineConfig(({ mode }) => {
       },
       terserOptions: {
         compress: {
-          drop_console: false, // Changed to false to help with debugging
-          drop_debugger: false, // Changed to false to help with debugging
-          pure_funcs: [], // Removed console functions to help with debugging
+          drop_console: false, // Keeping console logs for debugging
+          drop_debugger: false,
+          pure_funcs: [],
         },
         format: {
           comments: false,
@@ -217,6 +217,8 @@ export default defineConfig(({ mode }) => {
         },
       },
       target: 'es2018',
+      outDir: 'dist',
+      emptyOutDir: true,
     },
     
     preview: {

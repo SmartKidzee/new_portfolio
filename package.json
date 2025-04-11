@@ -8,7 +8,8 @@
     "prebuild": "npm run generate-sitemap",
     "build": "vite build",
     "preview": "vite preview",
-    "deploy": "gh-pages -d dist",
+    "deploy": "vercel --prod",
+    "deploy:preview": "vercel",
     "generate-sitemap": "node scripts/generate-sitemap.js",
     "test-seo": "node scripts/test-structured-data.js"
   },

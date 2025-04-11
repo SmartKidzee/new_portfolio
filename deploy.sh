@@ -1,18 +1,16 @@
 #!/bin/bash
 
-# Ensure vercel CLI is installed
-if ! command -v vercel &> /dev/null; then
-    echo "Installing Vercel CLI..."
-    npm install -g vercel
-fi
+# Clear cache to ensure fresh build
+rm -rf dist/ .vercel/output/ node_modules/.vite
 
-# Deploy with production flag if specified
-if [ "$1" == "prod" ]; then
-    echo "Deploying to production..."
-    vercel --prod
-else
-    echo "Deploying to preview environment..."
-    vercel
-fi
+# Install dependencies
+npm install
+
+# Build the project
+npm run build
+
+# Deploy to Vercel production
+echo "Deploying to Vercel production..."
+npx vercel --prod
 
 echo "Deployment complete!" 
