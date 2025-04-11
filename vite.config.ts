@@ -117,7 +117,7 @@ export default defineConfig(({ mode }) => {
         filename: 'stats.html',
       }),
     ],
-    base: './',
+    base: '/',
     resolve: {
       alias: {
         '@': path.resolve(__dirname, './'),
@@ -205,9 +205,9 @@ export default defineConfig(({ mode }) => {
       },
       terserOptions: {
         compress: {
-          drop_console: true,
-          drop_debugger: true,
-          pure_funcs: ['console.log', 'console.info', 'console.debug', 'console.trace'],
+          drop_console: false, // Changed to false to help with debugging
+          drop_debugger: false, // Changed to false to help with debugging
+          pure_funcs: [], // Removed console functions to help with debugging
         },
         format: {
           comments: false,

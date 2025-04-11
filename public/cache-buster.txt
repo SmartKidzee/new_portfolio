@@ -1,0 +1,6 @@
+Forced rebuild: 2025-04-11 20:30
+Version: v1.0.7
+Last deployment: 2025-04-11
+
+This file exists to force Vercel to rebuild and redeploy the application when needed.
+It helps overcome cache issues by changing file content to trigger a new deployment. 
