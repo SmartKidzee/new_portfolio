@@ -1,5 +1,5 @@
 import React from 'react';
-import Head from 'next/head';
+import { Helmet } from 'react-helmet';
 
 interface PersonStructuredDataProps {
   name: string;
@@ -30,12 +30,11 @@ export const PersonStructuredData: React.FC<PersonStructuredDataProps> = ({
   };
 
   return (
-    <Head>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(personSchema) }}
-      />
-    </Head>
+    <Helmet>
+      <script type="application/ld+json">
+        {JSON.stringify(personSchema)}
+      </script>
+    </Helmet>
   );
 };
 
@@ -69,12 +68,11 @@ export const WebsiteStructuredData: React.FC<WebsiteStructuredDataProps> = ({
   };
 
   return (
-    <Head>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }}
-      />
-    </Head>
+    <Helmet>
+      <script type="application/ld+json">
+        {JSON.stringify(websiteSchema)}
+      </script>
+    </Helmet>
   );
 };
 
@@ -131,12 +129,11 @@ export const BlogPostingStructuredData: React.FC<BlogPostingStructuredDataProps>
   };
 
   return (
-    <Head>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(blogPostSchema) }}
-      />
-    </Head>
+    <Helmet>
+      <script type="application/ld+json">
+        {JSON.stringify(blogPostSchema)}
+      </script>
+    </Helmet>
   );
 };
 

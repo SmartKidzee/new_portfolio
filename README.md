@@ -19,6 +19,11 @@
 - 🔮 **Glassmorphism Elements** - Apple-inspired glassmorphism UI components for modern aesthetic
 - 📊 **Interactive Blog Tables** - Beautifully styled tables with rounded corners and glassmorphism effects
 - 🧹 **Optimized Codebase** - Clean, well-organized code structure with unnecessary files removed
+- 🎴 **Tech Card Builder** - Create and share personalized tech stack cards with your programming skills
+- 🖥️ **Desktop-Stable, Mobile-Beta** - Tech Card Builder is fully stable on desktop devices, currently in beta for mobile users
+- 🔄 **Social Sharing** - Share tech cards directly to WhatsApp, X (Twitter), or copy shareable links
+- 📥 **Mobile Optimized Downloads** - Download tech cards on any device with automatic mobile detection
+- 📄 **Terms & Conditions** - Professional legal terms page with clear guidelines for site usage and Tech Card Builder
 
 ## 🛠️ Built With
 
@@ -28,6 +33,8 @@
 - **Animations**: [Framer Motion](https://www.framer.com/motion/)
 - **Routing**: [React Router](https://reactrouter.com/)
 - **3D Effects**: [Three.js](https://threejs.org/)
+- **Database**: [Firebase Firestore](https://firebase.google.com/docs/firestore) for tech card storage
+- **Image Processing**: [html-to-image](https://github.com/bubkoo/html-to-image) for card generation
 - **SEO**: [React Helmet](https://github.com/nfl/react-helmet) & custom SEO components
 - **Deployment**: Optimized for various hosting platforms
 
@@ -175,8 +182,62 @@ This portfolio includes comprehensive SEO optimizations:
 - [ ] Integrate a headless CMS for content management
 - [ ] Expand glassmorphism UI elements across more components
 
+## 🎴 Tech Card Builder
+
+The Tech Card Builder is a web application that allows you to create beautiful tech cards showcasing your tech stack. You can customize your profile, select technologies, and share your tech card with others.
+
+<div align="center">
+  <img src="public/tech-card-preview.png" alt="Tech Card Builder Preview" width="80%" style="border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);" />
+</div>
+
+**Note: The Tech Card Builder is currently stable on desktop devices but in beta on mobile platforms. For the best experience, we recommend using a desktop browser. We're actively improving the mobile experience.**
+
+**Mobile Browser Compatibility:** Some features like direct downloads may behave differently across mobile browsers. If you encounter issues with downloads on mobile, you can use the "Copy Link" button to view your card in a new tab and save it from there.
+
+Features:
+- Customize your profile with name, bio, and profile picture
+- Select from a wide range of technologies across different categories
+- Drag and drop to arrange your tech stack
+- Share your tech card on social media
+- Download your tech card as an image
+- Each tech card gets a unique shareable URL
+
+## 📄 Terms & Conditions
+
+The website includes a comprehensive Terms & Conditions page that covers legal aspects of using the site and its features, particularly the Tech Card Builder.
+
+### What's Covered
+
+- **Website Ownership** - Clear declaration of site ownership
+- **Intellectual Property Rights** - Protection of website content and design
+- **User Content Guidelines** - Rules for Tech Card Builder uploads
+- **Limitation of Liability** - Protection against misuse and damage
+- **Acceptable Use Policy** - Guidelines for proper website usage
+- **Governing Law** - Legal jurisdiction for the website
+- **Privacy Protection** - How we handle and protect your personal information
+- **Data Security** - Measures taken to secure data stored in Firebase
+- **Mobile Compatibility** - Information about mobile browser limitations
+
+### Privacy & Data Security
+
+Your privacy is important to us. When using the Tech Card Builder:
+- Your tech card data is stored securely in Firebase
+- We only collect the information necessary to provide the service
+- We don't share your personal information with third parties
+- You retain ownership of the content you create
+
+The Terms & Conditions page helps protect both the website owner and users by establishing clear expectations and legal boundaries. It's accessible via a link in the site footer on all pages.
+
 ## 🧹 Recent Updates
 
+- Updated footer to include both Terms & Conditions and Privacy Policy links
+- Enhanced mobile compatibility details for the Tech Card Builder feature
+- Added Privacy and Data Security section to the README and terms page
+- Added Terms & Conditions page with comprehensive legal guidelines
+- Added new Tech Card Builder feature for creating shareable developer profiles
+- Implemented Firebase integration for storing and retrieving tech cards
+- Added direct app sharing to WhatsApp and X (Twitter) with mobile optimization
+- Improved mobile experience for the tech card builder with responsive design
 - Added Apple-style glassmorphism effect to blog tables
 - Fixed blog parsing to properly render complex components
 - Improved rendering of markdown elements in blog posts

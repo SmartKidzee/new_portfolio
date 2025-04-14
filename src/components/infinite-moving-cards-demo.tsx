@@ -55,7 +55,7 @@ const statsData = [
   { icon: "🌐", value: 40, label: "Website Daily Visitors", suffix: "+" },
   { icon: "👥", value: 350, label: "LinkedIn Connections", suffix: "+" },
   { icon: "📊", value: 20, label: "YouTube Views", suffix: "K+" },
-  { icon: "📝", value: 5000, label: "Lines of Code Written for This Website", suffix: "+" },
+  { icon: "📝", value: 10000, label: "Lines of Code Written for This Website", suffix: "+" },
 ];
 
 export default InfiniteMovingCardsDemo; 

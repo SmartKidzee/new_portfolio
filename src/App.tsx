@@ -82,6 +82,7 @@ import ContactForm from './cpmponents/ContactForm/ContactForm';
 import HomeBlogSection from './components/HomeBlogSection';
 import { WebsiteStructuredData, PersonStructuredData } from "./components/StructuredData";
 import GeoGreetingPopup from './components/GeoGreetingPopup';
+import './styles/mobile-card-fix.css';
 
 // SEO component with Helmet
 const SEOHelmet = () => {
@@ -122,7 +123,7 @@ const SEOHelmet = () => {
           "@type": "WebSite", 
           "name": "Shreyas Portfolio",
           "url": "https://iamshreyas.live",
-          "description": "Full Stack Software Engineer specializing in React, TypeScript and modern web technologies. View my portfolio, blog, and projects.",
+          "description": "Shreyas J is a Computer Science & Engineering student with a focus on Artificial Intelligence and Machine Learning. Follow his journey, projects, and tech insights through his portfolio website.",
           "potentialAction": {
             "@type": "SearchAction",
             "target": "https://iamshreyas.live/blogs?search={search_term_string}",
@@ -374,7 +375,7 @@ function App() {
     { icon: "🌐", value: 40, label: "Website Daily Visitors", suffix: "+" },
     { icon: "👥", value: 350, label: "LinkedIn Connections", suffix: "+" },
     { icon: "📊", value: 20, label: "YouTube Views", suffix: "K+" },
-    { icon: "📝", value: 5000, label: "Lines of Code Written for This Website", suffix: "+" },
+    { icon: "📝", value: 10000, label: "Lines of Code Written for This Website", suffix: "+" },
   ];
 
   // Refs for DOM elements
@@ -801,14 +802,13 @@ function App() {
     <>
       <SEOHelmet />
       
-      <WebsiteStructuredData
+      <WebsiteStructuredData 
         url="https://iamshreyas.live"
         name="Shreyas | Tech Enthusiast"
         description="Shreyas J is a Computer Science & Engineering student with a focus on Artificial Intelligence and Machine Learning. Follow his journey, projects, and tech insights through his portfolio website."
         searchUrl="https://iamshreyas.live/search"
       />
-      
-      <PersonStructuredData
+      <PersonStructuredData 
         name="Shreyas J"
         jobTitle="Tech Enthusiast"
         description="Shreyas J is a Computer Science & Engineering student with a focus on Artificial Intelligence and Machine Learning. Follow his journey, projects, and tech insights through his portfolio website."
@@ -821,6 +821,37 @@ function App() {
           "https://instagram.com/smartkidzee"
         ]}
       />
+      
+      {/* Card Builder Button */}
+      <Link to="/tech-card-builder" className="absolute top-24 left-8 z-[100]">
+        <button className="no-underline group cursor-pointer relative rounded-full p-px text-sm font-semibold leading-6 text-white inline-block">
+          <span className="absolute inset-0 overflow-hidden rounded-full">
+            <span className="absolute inset-0 rounded-full bg-[image:radial-gradient(75%_100%_at_50%_0%,rgba(56,189,248,0.6)_0%,rgba(56,189,248,0)_75%)] opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
+          </span>
+          <div className="relative flex space-x-2 items-center z-10 rounded-full bg-zinc-950 py-1.5 px-4 ring-1 ring-white/10">
+            <span className="flex items-center">
+              Create Your Own Tech Card
+              <span className="md:hidden ml-1.5 bg-gradient-to-r from-red-500 to-yellow-500 text-black text-[10px] px-1.5 py-0.5 rounded-full font-bold border border-black">BETA</span>
+            </span>
+            <svg
+              fill="none"
+              height="16"
+              viewBox="0 0 24 24"
+              width="16"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M10.75 8.75L14.25 12L10.75 15.25"
+                stroke="currentColor"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="1.5"
+              />
+            </svg>
+          </div>
+          <span className="absolute -bottom-0 left-[1.125rem] h-px w-[calc(100%-2.25rem)] bg-gradient-to-r from-emerald-400/0 via-emerald-400/90 to-emerald-400/0 transition-opacity duration-500 group-hover:opacity-40" />
+        </button>
+      </Link>
       
       <div className="min-h-screen bg-[#030014] text-white">
         {/* Cursor Trails */}
@@ -887,8 +918,7 @@ function App() {
             
             <div className="absolute inset-0 z-5 bg-gradient-to-br from-[#3A29FF]/20 to-[#FF3232]/20" />
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-              {/* Conditional GeoGreeting popup for home page */}
-              {activeSection === 'home' && <GeoGreetingPopup section="home" />}
+              {/* GeoGreeting popup removed from home page */}
               <div className="text-center">
                 <motion.div
                   initial={{ scale: 0 }}
@@ -1728,7 +1758,11 @@ function App() {
         {/* Footer */}
         <footer className="bg-black py-4">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <p className="text-[#94A3B8]">© 2025 Shreyas. All rights reserved.</p>
+            <p className="text-[#94A3B8]">
+              © 2025 Shreyas. All rights reserved. | 
+              <a href="/terms" className="text-[#94A3B8] hover:text-white ml-1 mr-1">Terms & Conditions</a> |
+              <a href="/privacy" className="text-[#94A3B8] hover:text-white ml-1">Privacy Policy</a>
+            </p>
           </div>
         </footer>
       </div>

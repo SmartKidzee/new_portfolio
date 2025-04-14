@@ -5,8 +5,8 @@ Allow: /
 # Important pages for crawling priority
 Allow: /projects
 Allow: /blogs
-Allow: /about
-Allow: /contact
+Allow: /#about
+Allow: /#contact
 
 # Sitemap location
 Sitemap: https://iamshreyas.live/sitemap.xml 

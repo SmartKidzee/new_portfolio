@@ -1,0 +1,135 @@
+/* Mobile Tech Card Fixes */
+
+/* Make navbar more visible on card builder page for mobile */
+@media (max-width: 768px) {
+  .shadcn-navbar.card-builder-page {
+    background-color: rgba(15, 23, 42, 0.95) !important;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5) !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2) !important;
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    z-index: 9999 !important;
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+  }
+  
+  .shadcn-navbar.card-builder-page .shadcn-navbar-mobile-trigger {
+    background-color: rgba(124, 58, 237, 0.3);
+    border: 1px solid rgba(124, 58, 237, 0.4);
+    box-shadow: 0 0 15px rgba(124, 58, 237, 0.3);
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    display: flex !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+  }
+
+  /* Mobile container styles for tech card preview and download */
+  .mobile-card-wrapper {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 100% !important;
+    min-height: 100dvh !important;
+    padding: 1rem !important;
+    background-color: #0f172a !important;
+  }
+
+  .mobile-card-container {
+    width: 100% !important;
+    max-width: 380px !important;
+    margin: 0 auto !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+  }
+
+  /* Fix card ref display on mobile */
+  [data-mobile-card="true"] {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 100% !important;
+    overflow: hidden !important;
+    border-radius: 1.5rem !important;
+    margin: 0 auto !important;
+  }
+
+  /* Card content fixes for mobile */
+  .mobile-card-content {
+    width: 100% !important;
+    height: auto !important;
+    min-height: 500px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    padding: 1.5rem !important;
+    position: relative !important;
+  }
+
+  /* Profile image container */
+  .mobile-profile-container {
+    width: 120px !important;
+    height: 120px !important;
+    border-radius: 9999px !important;
+    border: 4px solid rgba(255, 255, 255, 0.3) !important;
+    overflow: hidden !important;
+    position: relative !important;
+    margin: 0 auto 1rem auto !important;
+  }
+
+  /* Profile image */
+  .mobile-profile-container img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    position: absolute !important;
+    inset: 0 !important;
+  }
+
+  /* Name and bio text */
+  .mobile-text-content {
+    width: 100% !important;
+    text-align: center !important;
+    margin-bottom: 1rem !important;
+  }
+
+  /* Tech stack container */
+  .mobile-tech-stack {
+    width: 100% !important;
+    display: flex !important;
+    flex-wrap: wrap !important;
+    justify-content: center !important;
+    gap: 0.5rem !important;
+    margin-top: 1rem !important;
+  }
+
+  /* Button styling for mobile */
+  .mobile-card-button {
+    width: 100% !important;
+    background: linear-gradient(to right, #3b82f6, #8b5cf6) !important;
+    color: white !important;
+    font-weight: 600 !important;
+    padding: 0.75rem 1.5rem !important;
+    border-radius: 9999px !important;
+    border: none !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    margin-top: 1rem !important;
+  }
+
+  /* Special catch-all rules for the tech card container to force proper display */
+  div[class*="rounded-3xl"] {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+  }
+}

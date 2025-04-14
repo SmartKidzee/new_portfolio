@@ -18,6 +18,7 @@ const ShadcnNavbar: React.FC<ShadcnNavbarProps> = ({
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+  const [isCardBuilderPage, setIsCardBuilderPage] = useState(false);
   const mobileMenuRef = useRef<HTMLDivElement>(null);
   const navbarRef = useRef<HTMLElement>(null);
 
@@ -47,6 +48,44 @@ const ShadcnNavbar: React.FC<ShadcnNavbarProps> = ({
     setTimeout(checkMobile, 500);
     
     return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
+  // Check if current page is card builder page
+  useEffect(() => {
+    const checkIfCardBuilderPage = () => {
+      const path = window.location.pathname;
+      const isCardBuilderPage = path.includes('card-builder') || path.includes('tech-card-builder');
+      
+      // Apply special class for card-builder page
+      if (navbarRef.current) {
+        if (isCardBuilderPage) {
+          navbarRef.current.classList.add('card-builder-page');
+          // Force navbar to be visible on card builder page
+          navbarRef.current.style.display = 'block';
+          navbarRef.current.style.visibility = 'visible';
+          navbarRef.current.style.opacity = '1';
+          
+          // Also ensure mobile trigger is visible
+          const mobileTrigger = navbarRef.current.querySelector('.shadcn-navbar-mobile-trigger');
+          if (mobileTrigger) {
+            (mobileTrigger as HTMLElement).style.display = 'flex';
+            (mobileTrigger as HTMLElement).style.visibility = 'visible';
+            (mobileTrigger as HTMLElement).style.opacity = '1';
+          }
+        } else {
+          navbarRef.current.classList.remove('card-builder-page');
+        }
+      }
+    };
+    
+    checkIfCardBuilderPage();
+    window.addEventListener('popstate', checkIfCardBuilderPage);
+    
+    // Also run the check after a delay to ensure it applies correctly
+    setTimeout(checkIfCardBuilderPage, 100);
+    setTimeout(checkIfCardBuilderPage, 500);
+    
+    return () => window.removeEventListener('popstate', checkIfCardBuilderPage);
   }, []);
 
   // Close mobile menu when clicking outside
@@ -131,7 +170,7 @@ const ShadcnNavbar: React.FC<ShadcnNavbarProps> = ({
   return (
     <header 
       ref={navbarRef}
-      className={`fixed top-0 left-0 right-0 z-[99999] shadcn-navbar ${isScrolled ? 'shadow-md' : ''} ${isMobile ? 'mobile-view' : ''}`}
+      className={`fixed top-0 left-0 right-0 z-[99999] shadcn-navbar ${isScrolled ? 'shadow-md' : ''} ${isMobile ? 'mobile-view' : ''} ${isCardBuilderPage ? 'card-builder-page' : ''}`}
       data-component-id="ShadcnNavbar"
       style={{ 
         willChange: 'transform',
@@ -146,7 +185,7 @@ const ShadcnNavbar: React.FC<ShadcnNavbarProps> = ({
         <div className="flex-none">
           <a 
             href="#home"
-            className="shadcn-navbar-logo"
+            className={`shadcn-navbar-logo ${isCardBuilderPage && isMobile ? 'card-builder-logo' : ''}`}
             onClick={(e) => { 
               e.preventDefault();
               scrollTo('home');
@@ -178,7 +217,7 @@ const ShadcnNavbar: React.FC<ShadcnNavbarProps> = ({
 
         {/* Mobile menu button - always render for mobile but control display with CSS */}
         <button 
-          className="shadcn-navbar-mobile-trigger"
+          className={`shadcn-navbar-mobile-trigger ${isCardBuilderPage ? 'card-builder-button' : ''}`}
           onClick={toggleMenu}
           aria-label={isOpen ? "Close menu" : "Open menu"}
           aria-expanded={isOpen}

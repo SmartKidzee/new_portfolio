@@ -1,0 +1,164 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ... existing styles ... */
+
+@keyframes spin-slow {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes border-glow {
+  0% {
+    opacity: 0.5;
+  }
+  50% {
+    opacity: 0.8;
+  }
+  100% {
+    opacity: 0.5;
+  }
+}
+
+@layer utilities {
+  .animate-spin-slow {
+    animation: spin-slow 15s linear infinite;
+  }
+  
+  .animate-border-glow {
+    animation: border-glow 3s ease-in-out infinite;
+  }
+}
+
+/* ImageCropper and Dialog specific styling - Applied globally */
+.DialogOverlay,
+div[data-radix-portal],
+div[data-state="open"][role="dialog"] {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100vw;
+  height: 100vh;
+  z-index: 9999;
+}
+
+.DialogContent {
+  position: relative;
+  margin: auto;
+  max-width: 600px;
+  border-radius: 12px;
+}
+
+/* Mobile-specific fixes */
+@media (max-width: 768px) {
+  /* Home Button visibility fix - specifically target navbar and make it stand out */
+  header a[href="/"],
+  a[href="/"].bg-black,
+  .flex.items-center a[href="/"],
+  div[class*="fixed top-0"] a[href="/"] {
+    background-color: rgba(0, 0, 0, 0.8) !important;
+    color: white !important;
+    padding: 0.5rem 0.75rem !important;
+    border-radius: 0.5rem !important;
+    box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.2) !important;
+    border: 1px solid rgba(59, 130, 246, 0.5) !important;
+    display: flex !important;
+    align-items: center !important;
+    font-weight: 600 !important;
+    z-index: 9999 !important;
+    position: relative !important;
+  }
+
+  /* Fix 1: Center crop modal on mobile - Force specific targeting */
+  .DialogOverlay,
+  .DialogContent,
+  [role="dialog"],
+  div[data-radix-portal],
+  div[data-state="open"],
+  div[data-radix-popper-content-wrapper] {
+    position: fixed !important;
+    inset: 0 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 100% !important;
+    height: 100% !important;
+    max-width: 100% !important;
+    transform: none !important;
+    margin: 0 auto !important;
+    z-index: 9999 !important;
+  }
+
+  /* Target the specific dialog container from ImageCropper */
+  [class*="sm:max-w-[600px]"],
+  [class*="sm\\:max-w-\\[600px\\]"],
+  div[class*="bg-gray-900"][class*="border-gray-800"] {
+    position: relative !important;
+    width: 90% !important;
+    max-width: 90vw !important;
+    max-height: 90vh !important;
+    margin: auto !important;
+    border-radius: 12px !important;
+    transform: none !important;
+  }
+
+  /* Fix 2: Align text in filter buttons on mobile */
+  [class*="rounded-xl flex-1 py-2"],
+  [class*="flex-1 py-2 sm:py-2.5 px-1 sm:px-4 rounded-xl"] {
+    text-align: center !important;
+    padding-left: 0.5rem !important;
+    padding-right: 0.5rem !important;
+    font-size: 0.75rem !important; /* 12px */
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    line-height: 1.2 !important;
+  }
+
+  /* Fix for category tabs in technologies section */
+  [class*="bg-gray-800/60 p-1.5 rounded-2xl"] button {
+    text-align: center !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    padding-left: 0.25rem !important;
+    padding-right: 0.25rem !important;
+    font-size: 0.7rem !important;
+  }
+
+  /* Fix badge positioning in technology tabs */
+  [class*="bg-gray-800/60 p-1.5 rounded-2xl"] button span[class*="bg-blue-500 rounded-full"] {
+    margin-left: 0.25rem !important;
+    margin-top: 0.25rem !important;
+  }
+
+  /* Ensure tech item text is properly aligned */
+  [class*="rounded-lg px-1.5"],
+  [class*="cursor-pointer py-2.5 px-2"] {
+    display: flex !important;
+    align-items: center !important;
+  }
+
+  /* Fix spacing in tech items */
+  [class*="cursor-pointer py-2.5 px-2"] span {
+    display: inline-flex !important;
+    align-items: center !important;
+    max-width: 60px !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+  }
+
+  /* Fix technology search input alignment */
+  [class*="bg-gray-800 border-gray-700 rounded-lg"] {
+    text-align: left !important;
+    padding: 0.75rem !important;
+  }
+} 

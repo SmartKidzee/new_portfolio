@@ -2,6 +2,7 @@ import type { AppProps } from 'next/app';
 import Head from 'next/head';
 import { DefaultSeo } from 'next-seo';
 import '../styles/globals.css';
+import '../styles/mobile-card-fix.css';
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (

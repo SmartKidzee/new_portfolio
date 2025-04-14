@@ -16,6 +16,9 @@ import './index.css'
 // Import blog image grid styles
 import './styles/blogImages.css'
 
+// Import mobile fixes for card builder
+import './styles/mobile-card-fix.css'
+
 // Import Next.js polyfill
 import './lib/next-image-polyfill'
 
@@ -62,14 +65,42 @@ const BlogPage = lazyWithPreload('BlogPage', () => import('./pages/blogs/BlogPag
   preloadImmediately: false
 });
 
+// Card Builder page - replace with redirect
+const CardBuilderPage = lazyWithPreload('CardBuilderPage', () => import('./pages/card-builder/CardBuilderRedirect.tsx'), {
+  priority: 'medium',
+  preloadImmediately: false
+});
+
+// New Tech Card Builder page
+const TechCardBuilderPage = lazyWithPreload('TechCardBuilderPage', () => import('./pages/card-builder/TechCardBuilder.tsx'), {
+  priority: 'medium',
+  preloadImmediately: false
+});
+
 // Blog-related lazy loads removed
+
+import CardPage from './pages/card/[id]';
+
+// Import Terms page
+const TermsPage = lazyWithPreload('TermsPage', () => import('./pages/Terms.tsx'), {
+  priority: 'low',
+  preloadImmediately: false
+});
+
+// Import Privacy page
+const PrivacyPage = lazyWithPreload('PrivacyPage', () => import('./pages/Privacy.tsx'), {
+  priority: 'low',
+  preloadImmediately: false
+});
 
 // Route-based app with loading screen
 const RouteBasedApp = () => {
   const location = useLocation();
   const isHomePage = location.pathname === '/';
   const isBlogPage = location.pathname.startsWith('/blogs');
-  const is404Page = !isHomePage && !isBlogPage;
+  const isCardBuilderPage = location.pathname === '/card-builder';
+  const isTechCardBuilderPage = location.pathname === '/tech-card-builder';
+  const is404Page = !isHomePage && !isBlogPage && !isCardBuilderPage && !isTechCardBuilderPage;
   
   // On mobile, skip loading screen if it's a refresh (non-first visit)
   const hasVisitedBefore = localStorage.getItem('hasVisitedBefore') === 'true';
@@ -89,8 +120,12 @@ const RouteBasedApp = () => {
       } else {
         BlogPage.preload();
       }
+    } else if (isCardBuilderPage) {
+      CardBuilderPage.preload();
+    } else if (isTechCardBuilderPage) {
+      TechCardBuilderPage.preload();
     }
-  }, [is404Page, isBlogPage, location.pathname]);
+  }, [is404Page, isBlogPage, isCardBuilderPage, isTechCardBuilderPage, location.pathname]);
   
   // Mark that the user has visited before
   useEffect(() => {
@@ -169,6 +204,11 @@ const RouteBasedApp = () => {
             <Route path="/" element={<App />} />
             <Route path="/blogs" element={<BlogListPage />} />
             <Route path="/blogs/:blogId" element={<BlogPage />} />
+            <Route path="/card-builder" element={<CardBuilderPage />} />
+            <Route path="/tech-card-builder" element={<TechCardBuilderPage />} />
+            <Route path="/card/:id" element={<CardPage />} />
+            <Route path="/terms" element={<TermsPage />} />
+            <Route path="/privacy" element={<PrivacyPage />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </PreloadSuspense>

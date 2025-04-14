@@ -73,4 +73,29 @@
 .shadcn-navbar-mobile-menu a:nth-child(6) { animation-delay: 0.3s; }
 .shadcn-navbar-mobile-menu a:nth-child(7) { animation-delay: 0.35s; }
 .shadcn-navbar-mobile-menu a:nth-child(8) { animation-delay: 0.4s; }
-.shadcn-navbar-mobile-menu a:nth-child(9) { animation-delay: 0.45s; } 
+.shadcn-navbar-mobile-menu a:nth-child(9) { animation-delay: 0.45s; }
+
+/* Special styles for card builder page - mobile only */
+@media (max-width: 768px) {
+  .shadcn-navbar.card-builder-page {
+    background-color: rgba(15, 23, 42, 0.95) !important;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5) !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2) !important;
+  }
+  
+  .shadcn-navbar.card-builder-page .shadcn-navbar-container {
+    padding: 0.75rem 1rem !important;
+  }
+  
+  .shadcn-navbar.card-builder-page .card-builder-logo {
+    transform: scale(1.1);
+  }
+  
+  .shadcn-navbar.card-builder-page .card-builder-button {
+    background-color: rgba(124, 58, 237, 0.3);
+    border: 1px solid rgba(124, 58, 237, 0.4);
+    box-shadow: 0 0 15px rgba(124, 58, 237, 0.3);
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+  }
+} 
