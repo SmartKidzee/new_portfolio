@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef, TouchEvent, useCallback, useMemo } from 'react';
 import { motion, useScroll, useSpring, useTransform, AnimatePresence } from 'framer-motion';
-import {
+import { 
   Menu,
   X,
   Github,
@@ -83,6 +83,10 @@ import HomeBlogSection from './components/HomeBlogSection';
 import { WebsiteStructuredData, PersonStructuredData } from "./components/StructuredData";
 import GeoGreetingPopup from './components/GeoGreetingPopup';
 import './styles/mobile-card-fix.css';
+import { InteractiveHoverButton } from './components/magicui/interactive-hover-button';
+import { toast } from 'react-hot-toast';
+import CardDemo from './components/cards-demo-1';
+import { FlickeringGrid } from './components/magicui/flickering-grid';
 
 // SEO component with Helmet
 const SEOHelmet = () => {
@@ -823,35 +827,49 @@ function App() {
       />
       
       {/* Card Builder Button */}
-      <Link to="/tech-card-builder" className="absolute top-24 left-8 z-[100]">
-        <button className="no-underline group cursor-pointer relative rounded-full p-px text-sm font-semibold leading-6 text-white inline-block">
-          <span className="absolute inset-0 overflow-hidden rounded-full">
-            <span className="absolute inset-0 rounded-full bg-[image:radial-gradient(75%_100%_at_50%_0%,rgba(56,189,248,0.6)_0%,rgba(56,189,248,0)_75%)] opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
-          </span>
-          <div className="relative flex space-x-2 items-center z-10 rounded-full bg-zinc-950 py-1.5 px-4 ring-1 ring-white/10">
-            <span className="flex items-center">
+      <div className="absolute top-24 left-8 z-[100]">
+        {/* Desktop version with InteractiveHoverButton - keep link */}
+        <div className="hidden md:block">
+          <Link to="/tech-card-builder">
+            <InteractiveHoverButton className="bg-zinc-950 text-white border border-white/10">
               Create Your Own Tech Card
-              <span className="md:hidden ml-1.5 bg-gradient-to-r from-red-500 to-yellow-500 text-black text-[10px] px-1.5 py-0.5 rounded-full font-bold border border-black">BETA</span>
+            </InteractiveHoverButton>
+          </Link>
+        </div>
+        {/* Mobile version with disabled message */}
+        <div className="block md:hidden">
+          <button
+            onClick={() => toast.error('Tech Card Builder is only available on desktop devices')}
+            className="no-underline group cursor-pointer relative rounded-full p-px text-sm font-semibold leading-6 text-white inline-block"
+          >
+            <span className="absolute inset-0 overflow-hidden rounded-full">
+              <span className="absolute inset-0 rounded-full bg-[image:radial-gradient(75%_100%_at_50%_0%,rgba(56,189,248,0.6)_0%,rgba(56,189,248,0)_75%)] opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
             </span>
-            <svg
-              fill="none"
-              height="16"
-              viewBox="0 0 24 24"
-              width="16"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M10.75 8.75L14.25 12L10.75 15.25"
-                stroke="currentColor"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="1.5"
-              />
-            </svg>
-          </div>
-          <span className="absolute -bottom-0 left-[1.125rem] h-px w-[calc(100%-2.25rem)] bg-gradient-to-r from-emerald-400/0 via-emerald-400/90 to-emerald-400/0 transition-opacity duration-500 group-hover:opacity-40" />
-        </button>
-      </Link>
+            <div className="relative flex space-x-2 items-center z-10 rounded-full bg-zinc-950 py-1.5 px-4 ring-1 ring-white/10">
+              <span className="flex items-center">
+                Desktop Only
+                <span className="ml-1.5 bg-gradient-to-r from-red-500 to-yellow-500 text-black text-[10px] px-1.5 py-0.5 rounded-full font-bold border border-black">DESKTOP</span>
+              </span>
+              <svg
+                fill="none"
+                height="16"
+                viewBox="0 0 24 24"
+                width="16"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M10.75 8.75L14.25 12L10.75 15.25"
+                  stroke="currentColor"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="1.5"
+                />
+              </svg>
+            </div>
+            <span className="absolute -bottom-0 left-[1.125rem] h-px w-[calc(100%-2.25rem)] bg-gradient-to-r from-emerald-400/0 via-emerald-400/90 to-emerald-400/0 transition-opacity duration-500 group-hover:opacity-40" />
+          </button>
+        </div>
+      </div>
       
       <div className="min-h-screen bg-[#030014] text-white">
         {/* Cursor Trails */}
@@ -1608,8 +1626,19 @@ function App() {
           </section>
 
           {/* Projects Section */}
-          <section id="projects" className="py-16 md:py-20">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+          <section id="projects" className="py-16 md:py-20 relative overflow-hidden">
+            {/* Add flickering grid as background */}
+            <div className="absolute inset-0 z-0">
+              <FlickeringGrid 
+                squareSize={3}
+                gridGap={10}
+                flickerChance={0.2}
+                color="rgb(99, 102, 241)"
+                maxOpacity={0.2}
+              />
+            </div>
+
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -1628,32 +1657,21 @@ function App() {
                 </h2>
               </motion.div>
               
-              {/* Desktop View - Google Gemini Effect for Projects */}
+              {/* Desktop View - CardDemo */}
               <div className="hidden md:block w-full mx-auto">
-                <GoogleGeminiEffectDemo />
+                <div className="flex items-center justify-center">
+                  <div className="max-w-lg w-full">
+                    <CardDemo />
+                  </div>
+                </div>
               </div>
               
-              {/* Mobile View - Orb Background with Project Content */}
+              {/* Mobile View - CardDemo with flickering grid background */}
               <div className="block md:hidden w-full mx-auto">
-                <div className="orb-container" style={{ width: '100%', height: '600px', position: 'relative', overflow: 'hidden', borderRadius: '1rem', margin: '0 auto' }}>
-                  {/* Orb Background */}
-                  <Orb
-                    hoverIntensity={0.7}
-                    rotateOnHover={true}
-                    hue={0}
-                    forceHoverState={false}
-                  />
-                  
-                  {/* Mobile Project Content */}
-                  <div className="absolute inset-0 z-10 flex flex-col items-center justify-center py-4 px-5 text-center">
-                    <div className="w-full max-w-[240px] mx-auto flex flex-col items-center justify-center">
-                      <h3 className="text-white">Building My Own Programming Language</h3>
-                      <p className="text-white/90">I'm currently working on an ambitious project that combines the elegance of modern languages with intuitive syntax. Follow along as I bring this vision to life!</p>
-                      <button 
-                        className="px-5 py-2.5 bg-gradient-to-r from-[#38BDF8] to-[#A855F7] rounded-full text-white font-medium shadow-lg hover:shadow-xl transition-all text-sm"
-                      >
-                        Coming Soon!
-                      </button>
+                <div className="relative w-full overflow-hidden rounded-xl" style={{ height: '600px' }}>
+                  <div className="absolute inset-0 z-10 flex flex-col items-center justify-center p-5">
+                    <div className="w-full max-w-[300px] mx-auto">
+                      <CardDemo />
                     </div>
                   </div>
                 </div>

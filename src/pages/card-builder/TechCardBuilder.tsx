@@ -354,15 +354,40 @@ const TechCardBuilder: React.FC = () => {
         toast.loading('Generating your tech card...', { id: 'download' });
         
         // Force fixed dimensions and styles for capture
-        cardRef.current.style.width = '320px';
-        cardRef.current.style.minHeight = '500px';
+        // Increasing width to ensure content doesn't get cut off
+        cardRef.current.style.width = '420px'; // Further increased from 360px to prevent any cutting
+        cardRef.current.style.minHeight = '650px'; // Increased for better proportions
         cardRef.current.style.margin = '0 auto';
         
-        // Generate the image with simpler options
+        // Force profile image to be visible (fix for mobile)
+        const profileContainer = cardRef.current.querySelector('.mobile-profile-container');
+        if (profileContainer) {
+          (profileContainer as HTMLElement).style.position = 'relative';
+          (profileContainer as HTMLElement).style.zIndex = '50';
+          (profileContainer as HTMLElement).style.display = 'block';
+          
+          // Ensure the image inside is visible
+          const profileImg = profileContainer.querySelector('img');
+          if (profileImg) {
+            (profileImg as HTMLElement).style.position = 'relative';
+            (profileImg as HTMLElement).style.opacity = '1';
+            (profileImg as HTMLElement).style.visibility = 'visible';
+          }
+        }
+        
+        // Small delay to ensure styles are applied
+        await new Promise(resolve => setTimeout(resolve, 100));
+        
+        // Generate the image with higher quality options
         const dataUrl = await toPng(cardRef.current, {
           cacheBust: true,
-          pixelRatio: 2,
-          quality: 0.95
+          pixelRatio: 3, // Increased from 2 for higher quality
+          quality: 1.0, // Maximum quality
+          width: 420, // Explicit width matching the style
+          height: 650, // Explicit height
+          canvasWidth: 1260, // 3x the width for higher resolution
+          canvasHeight: 1950, // 3x the height for higher resolution
+          skipAutoScale: false // Don't skip auto scaling
         });
         
         // Reset styles
@@ -370,21 +395,53 @@ const TechCardBuilder: React.FC = () => {
         cardRef.current.style.minHeight = '';
         cardRef.current.style.margin = '';
         
+        // Reset profile container styles
+        if (profileContainer) {
+          (profileContainer as HTMLElement).style.position = '';
+          (profileContainer as HTMLElement).style.zIndex = '';
+          (profileContainer as HTMLElement).style.display = '';
+          
+          // Reset image styles
+          const profileImg = profileContainer.querySelector('img');
+          if (profileImg) {
+            (profileImg as HTMLElement).style.position = '';
+            (profileImg as HTMLElement).style.opacity = '';
+            (profileImg as HTMLElement).style.visibility = '';
+          }
+        }
+        
         // Save the image URL to formData
         handleChange('image', dataUrl);
         
         // Save the card to Firestore
         await saveTechCard({...formData, image: dataUrl});
         
-        // Direct download approach - create a direct download link in the current page
-        const downloadLink = document.createElement('a');
-        downloadLink.href = dataUrl;
-        downloadLink.download = `tech-card-${formData.name.toLowerCase().replace(/\s+/g, '-') || 'tech-card'}.png`;
-        document.body.appendChild(downloadLink);
-        downloadLink.click();
-        document.body.removeChild(downloadLink);
+        // Create a temporary image to confirm the data URL is valid
+        const img = new Image();
+        img.src = dataUrl;
         
-        toast.success('Card downloaded and saved!', { id: 'download' });
+        // Wait for image to load to confirm it's valid
+        img.onload = () => {
+          // Direct download approach - create a direct download link in the current page
+          const downloadLink = document.createElement('a');
+          downloadLink.href = dataUrl;
+          downloadLink.download = `tech-card-${formData.name.toLowerCase().replace(/\s+/g, '-') || 'tech-card'}.png`;
+          document.body.appendChild(downloadLink);
+          
+          // For mobile Safari, we need a different approach
+          if (/iPhone|iPad|iPod/i.test(navigator.userAgent)) {
+            window.open(dataUrl, '_blank');
+          }
+          
+          downloadLink.click();
+          document.body.removeChild(downloadLink);
+          
+          toast.success('Card downloaded and saved!', { id: 'download' });
+        };
+        
+        img.onerror = () => {
+          toast.error('Could not generate image. Please try again.', { id: 'download' });
+        };
       } catch (error) {
         console.error('Error generating card:', error);
         toast.error('Failed to generate tech card. Please try again.');
@@ -468,32 +525,141 @@ const TechCardBuilder: React.FC = () => {
 
         toast.success('Card saved successfully!', { id: 'share' });
         
-        // Always copy to clipboard first, regardless of platform
+        // Mobile detection
+        const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+        
+        // Try various clipboard methods for best device support
+        let copySuccess = false;
+        
+        // First try the clipboard API with fallbacks
         try {
           await navigator.clipboard.writeText(shareUrl);
+          copySuccess = true;
           toast.success('Link copied to clipboard!');
         } catch (err) {
-          // Fallback for clipboard API
-          const textArea = document.createElement('textarea');
-          textArea.value = shareUrl;
-          textArea.style.position = 'fixed';
-          textArea.style.left = '-999999px';
-          textArea.style.top = '-999999px';
-          document.body.appendChild(textArea);
-          textArea.focus();
-          textArea.select();
+          console.log('Clipboard API failed, trying fallbacks...');
           
-          try {
-            document.execCommand('copy');
-            toast.success('Link copied to clipboard!');
-          } catch (e) {
-            console.error('Failed to copy link');
+          // For iOS devices
+          if (/iPad|iPhone|iPod/.test(navigator.userAgent)) {
+            try {
+              // Create temporary editable element
+              const el = document.createElement('input');
+              el.value = shareUrl;
+              el.contentEditable = 'true';
+              el.readOnly = false;
+              
+              // Specific iOS styles for visibility
+              el.style.position = 'fixed';
+              el.style.left = '0';
+              el.style.top = '0';
+              el.style.opacity = '1';
+              el.style.fontSize = '16px'; // iOS zooms in with smaller fonts
+              document.body.appendChild(el);
+              
+              // Select and focus
+              const range = document.createRange();
+              range.selectNodeContents(el);
+              
+              const selection = window.getSelection();
+              if (selection) {
+                selection.removeAllRanges();
+                selection.addRange(range);
+                el.setSelectionRange(0, 999999);
+              }
+              
+              // Show visible feedback so user knows to copy manually if needed
+              toast.success('Press Copy on your keyboard');
+              
+              // Try execCommand
+              copySuccess = document.execCommand('copy');
+              if (copySuccess) {
+                toast.success('Link copied to clipboard!');
+              } else {
+                // Show URL for manual copy
+                toast.success('Copy manually: ' + shareUrl);
+              }
+              
+              document.body.removeChild(el);
+            } catch (e) {
+              console.error('iOS copy failed', e);
+              copySuccess = false;
+            }
+          } else {
+            // For Android and other devices
+            try {
+              const textArea = document.createElement('textarea');
+              textArea.value = shareUrl;
+              textArea.style.position = 'fixed';
+              textArea.style.top = '0';
+              textArea.style.left = '0';
+              textArea.style.width = '100%';
+              textArea.style.opacity = '0';
+              document.body.appendChild(textArea);
+              textArea.focus();
+              textArea.select();
+              
+              try {
+                copySuccess = document.execCommand('copy');
+                if (copySuccess) {
+                  toast.success('Link copied to clipboard!');
+                }
+              } catch (e) {
+                console.error('execCommand failed', e);
+                copySuccess = false;
+              }
+              
+              document.body.removeChild(textArea);
+            } catch (e) {
+              console.error('Android copy failed', e);
+              copySuccess = false;
+            }
           }
-          
-          document.body.removeChild(textArea);
         }
         
-        // Open app or web version based on platform
+        // If all else fails, at least show the URL
+        if (!copySuccess) {
+          // Create modal or popup with the URL to make it obvious
+          toast.success('Copy this manually: ' + shareUrl);
+          
+          // If on mobile, try to make the URL selectable
+          if (isMobile) {
+            // Create a visible element for manual selection on mobile
+            const urlDisplay = document.createElement('div');
+            urlDisplay.style.position = 'fixed';
+            urlDisplay.style.left = '10%';
+            urlDisplay.style.right = '10%';
+            urlDisplay.style.top = '40%';
+            urlDisplay.style.padding = '20px';
+            urlDisplay.style.backgroundColor = '#333';
+            urlDisplay.style.color = 'white';
+            urlDisplay.style.borderRadius = '12px';
+            urlDisplay.style.zIndex = '9999';
+            urlDisplay.style.textAlign = 'center';
+            urlDisplay.style.boxShadow = '0 4px 20px rgba(0,0,0,0.3)';
+            
+            urlDisplay.innerHTML = `
+              <p style="margin-bottom:10px;font-weight:bold;">Copy this link:</p>
+              <p style="background:#222;padding:10px;border-radius:6px;word-break:break-all;margin-bottom:10px;user-select:all;">${shareUrl}</p>
+              <button id="url-close-btn" style="background:#4a5568;border:none;padding:8px 16px;border-radius:6px;color:white;">Close</button>
+            `;
+            
+            document.body.appendChild(urlDisplay);
+            
+            // Add close handler
+            document.getElementById('url-close-btn')?.addEventListener('click', () => {
+              document.body.removeChild(urlDisplay);
+            });
+            
+            // Auto-remove after 10 seconds
+            setTimeout(() => {
+              if (document.body.contains(urlDisplay)) {
+                document.body.removeChild(urlDisplay);
+              }
+            }, 10000);
+          }
+        }
+        
+        // Continue with platform sharing
         switch (platform) {
           case 'whatsapp':
             // Create the message text
