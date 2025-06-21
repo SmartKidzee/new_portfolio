@@ -26,9 +26,7 @@ const InfiniteMovingCardsDemo = memo(() => {
   // Use fewer items on mobile for better performance
   const items = useMemo(() => {
     // Use all items on desktop, fewer on mobile
-    return isMobile 
-      ? statsData.slice(0, 6) // Only first 6 items on mobile
-      : statsData;
+    return statsData; // Display all items on both mobile and desktop
   }, [isMobile]);
 
   // Return the component with optimized rendering
@@ -58,4 +56,4 @@ const statsData = [
   { icon: "📝", value: 10000, label: "Lines of Code Written for This Website", suffix: "+" },
 ];
 
-export default InfiniteMovingCardsDemo; 
+export default InfiniteMovingCardsDemo;

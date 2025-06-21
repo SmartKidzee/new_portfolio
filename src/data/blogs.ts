@@ -16,6 +16,112 @@ export interface Blog {
 // Blog data
 export const blogs: Blog[] = [
   {
+    id: '7',
+    category: "Tech",
+    title: "The Great Digital Heist: 16 Billion Passwords Leaked in 2025’s Unprecedented Cyber Breach 🚨",
+    content: `
+🔑 **Key Points**
+
+- A massive 16 billion usernames and passwords have been leaked in 2025, dubbed the "Mother of All Breaches," affecting platforms like Google, Apple, and Facebook. 😱
+- This breach, driven by infostealer malware, provides a blueprint for phishing, identity theft, and account takeovers, threatening personal and corporate security. 🦠
+- Immediate action—changing passwords, enabling MFA, and using passkeys—can protect users, while the breach signals a shift toward more secure authentication methods. 🛡️
+
+**🌟 Introduction to the 2025 Data Breach**
+
+In the digital tapestry of 2025, where every click and login weaves our lives into the internet, a catastrophic breach has torn through the fabric of cybersecurity. 🌐 Picture a cosmic vault holding the keys to billions of lives—your email, social media, bank accounts, and even government portals—now shattered, its contents strewn across the dark web like embers from a wildfire. 🔥 This is the reality of the **16 billion username and password leak**, uncovered by Cybernews researchers and reported by Forbes, marking it as the largest data breach in history. 😲 This isn’t just a leak; it’s a digital heist of unprecedented scale, a blueprint for chaos that demands immediate action to secure your online life. 🚨
+
+**🔄 The Breach and Its Mechanics**
+
+This colossal breach, a compilation of **30 distinct datasets** ranging from millions to 3.5 billion records, was orchestrated by **infostealer malware**—silent predators that infiltrate devices to harvest login credentials. 🦠 These datasets, structured with chilling precision (URL, username, password), target platforms like **Google**, **Apple**, **Facebook**, **GitHub**, **Telegram**, and government services. 🏛️ Unlike prior leaks like **RockYou2024** (10 billion passwords) or the **Mother of All Breaches** (26 billion records), most of this data is fresh, making it a potent weapon for cybercriminals. 🔫 The scale—16 billion credentials against 5.5 billion internet users—implies multiple compromised accounts per person, amplifying the risk of mass exploitation. 📊
+
+**🌍 Real-World Impact and Risks**
+
+The fallout from this breach is a hacker’s paradise, enabling a wave of attacks:
+
+- **Phishing Attacks** 🎣: Cybercriminals can craft targeted emails using leaked credentials, tricking users into revealing more data or clicking malicious links.
+- **Account Takeovers** 🔓: Reused passwords across platforms could unlock your entire digital life—email, banking, social media—in seconds.
+- **Identity Theft** 😷: Your data on the dark web could fuel fraudulent accounts or impersonation, draining finances and reputations.
+- **Ransomware and Extortion** 💸: Access to corporate or government systems could lead to devastating system lockdowns or data extortion.
+
+Cybersecurity expert Javvad Malik warns, “Do not wait for your credentials to appear in one of these breaches.” 🚫 Password reuse is the Achilles’ heel, and the structured data format makes automated attacks terrifyingly efficient. ⚡
+
+**📑 Detailed Analysis: The Mother of All Breaches**
+
+**🧩 Overview and Scope**
+
+The 2025 breach, dubbed the "Mother of All Breaches," is a compilation of 16 billion username-password pairs, uncovered by Cybernews in early 2025. 📜 Unlike singular breaches, this is a curated dataset from **30 sources**, each meticulously organized for maximum exploitability. Platforms like **Google**, **Apple**, **Facebook**, **GitHub**, and **Telegram** are heavily impacted, alongside VPNs and government portals. 🖥️ Vilius Petkauskas of Cybernews calls it “a blueprint for mass exploitation,” with its standardized format enabling rapid deployment in phishing and credential-stuffing campaigns. 📈
+
+**🧠 Origins and Mechanisms**
+
+The breach stems from **infostealer malware**, which covertly collects login details from infected devices, and **credential stuffing**, where attackers test stolen credentials across multiple platforms. 🕸️ These datasets, briefly exposed on the dark web, were aggregated with surgical precision, though their exact origins remain elusive. 🕵️‍♂️ While 184 million records overlap with prior leaks, the majority are new, amplifying the threat. Tether CEO Paolo Ardoino, reacting on X, announced **PearPass**, a local password manager, stating, “No cloud. No servers. No leaks. Ever,” highlighting the cloud’s vulnerabilities. ☁️
+
+**🔧 How It Works: The Hacker’s Playbook**
+
+The process behind this breach is chillingly efficient:
+
+1. **Infection**: Malware infiltrates devices via phishing emails, malicious downloads, or unsecured apps, silently harvesting login data. 🦠
+2. **Data Collection**: Credentials are organized into structured datasets (URL, username, password), ready for exploitation. 📋
+3. **Distribution**: These datasets are sold or shared on the dark web, fueling a black market for stolen credentials. 🌑
+4. **Exploitation**: Hackers use automated tools for credential stuffing or craft targeted phishing campaigns to maximize damage. 🎣
+
+This streamlined process makes the breach a plug-and-play toolkit for cybercriminals, with immediate risks to individuals and organizations. 🔍
+
+**⚡ Impacts: Immediate and Long-Term**
+
+The immediate risks are dire: phishing, account takeovers, identity theft, and ransomware threaten individuals and institutions. 💸 Long-term, this breach exposes the fragility of password-based systems. Google, Apple, and others are pushing **passkeys**, cryptographic alternatives immune to phishing. 🔒 The breach has also sparked a shift toward local storage solutions like PearPass, reducing reliance on vulnerable cloud systems. 🌟
+
+**⚠️ Challenges: Navigating the Fallout**
+
+- **Password Reuse** 🚫: Reusing passwords across platforms multiplies risks, as a single leak can compromise multiple accounts.
+- **Malware Detection** 🧹: Infostealers are hard to detect, requiring robust antivirus software and user vigilance.
+- **Scale of Exposure** 📊: With 16 billion credentials, the sheer volume overwhelms traditional response strategies, necessitating urgent action.
+
+**🧪 Protective Measures: A Cybersecurity Battle Plan**
+
+To combat this threat, adopt these actionable steps:
+
+1. **Check for Breaches** 🔎: Use **Have I Been Pwned** (haveibeenpwned.com) to verify if your email or phone is compromised. 📬
+2. **Update Passwords** 🔄: Create **strong, unique passwords** with letters, numbers, and symbols. Avoid “12345678” or “password.” 🚫
+3. **Enable MFA** 🔐: Add multi-factor authentication to email, banking, and social media for an extra security layer. 📱
+4. **Use a Password Manager** 📋: Tools like LastPass, 1Password, or PearPass generate and store complex passwords securely. 🛠️
+5. **Adopt Passkeys** 🔑: Switch to passkeys on supported platforms like Google and Apple for phishing-resistant authentication. 😎
+6. **Scan for Malware** 🧹: Run trusted antivirus software to detect and remove infostealers before updating passwords. 🦠
+7. **Monitor Accounts** 👀: Watch for suspicious activity in bank accounts, email, and social media, reporting issues immediately. 🚨
+8. **Delete Old Accounts** 🗑️: Remove unused accounts to shrink your digital footprint. 🧹
+9. **Stay Vigilant** 🛡️: Avoid suspicious links in emails or texts, as phishing attacks will spike post-breach. 🚔
+
+**🔮 Future Outlook: Redefining Cybersecurity**
+
+This breach is a wake-up call for a new era of cybersecurity. 🌅 Companies must adopt **zero-trust frameworks** and **privileged access controls**, while users embrace **cyber hygiene**—no weak passwords, no reuse. 🙅‍♂️ The shift to **passkeys** and local storage solutions like PearPass signals a move away from vulnerable password systems. 🌍 As cybercriminals evolve, so must we, leveraging AI-driven security tools and proactive monitoring to stay ahead. 🧭
+
+**📢 Conclusion and Call to Action**
+
+The 16 billion credential leak of 2025 is a digital reckoning, exposing the fragility of our online world. 🚨 But it’s also a chance to fortify your defenses. Check your accounts on **Have I Been Pwned**, update passwords, enable MFA, and explore passkeys. 💪 Tools like PearPass and antivirus software can safeguard your data, while vigilance against phishing keeps hackers at bay. 🛡️ The internet is a wild frontier, but with the right strategies, you can navigate it safely. Visit <a href=\"https://cybernews.com" target=\"_blank\" rel=\"noopener noreferrer\" class=\"text-indigo-400 hover:text-indigo-300 hover:underline inline-flex items-center gap-1\">CyberNews</a> or <a href=\"https://forbes.com" target=\"_blank\" rel=\"noopener noreferrer\" class=\"text-indigo-400 hover:text-indigo-300 hover:underline inline-flex items-center gap-1\">Forbes</a> for updates, and take control of your digital life today! 🌟
+    `,
+    created_at: "2025-06-21",
+    updated_at: "2025-06-21",
+    tags: [
+      "cybersecurity",
+      "data breach",
+      "password leak",
+      "infostealer malware",
+      "phishing attacks",
+      "identity theft",
+      "account takeover",
+      "password manager",
+      "passkeys",
+      "multi-factor authentication",
+      "dark web",
+      "online security",
+      "credential stuffing",
+      "Google security",
+      "Apple security",
+      "Facebook security",
+      "2025 data breach"
+    ],
+    src: "/blogassets/blog7.avif"
+  },
+  {
     id: '6',
     category: "Tech",
     title: "🚀 Vibe Coding: The Future of AI-Powered Software Creation",
@@ -36,7 +142,7 @@ export const blogs: Blog[] = [
   },
   {
     id: '1',
-    category: "Tech & Development",
+    category: "Tech",
     title: "🚀 My Portfolio Website 2.0: A Complete Overhaul 🎨💻",
     content: "**🌟 The Big Transformation**\n\nWhen I first built my portfolio website, it was just another static site with HTML & CSS—functional, yes, but not meant to turn heads. I knew I needed something bigger, better, and bolder. So, I rolled up my sleeves and embarked on an adventure to completely revamp my website from scratch using Vite, React, and TypeScript! 🛠️\n\nAnd wow, what a journey it has been! 🚀 From adding fancy animations to completely overhauling the blog system, I've pushed my skills to the next level to create something that feels modern, interactive, and uniquely mine. Let's dive into every single update I made! 👇\n\n**🔥 Every Cool Thing I Added & Upgraded**\n\n**🏗️ Tech Stack Upgrade - A Stronger Foundation**\n\n🔹 Old Site: Static HTML & CSS 💤\n🔹 New Site: Vite + React + TypeScript ⚡\n🔹 Styling: Switched to Tailwind CSS for faster and cleaner designs ✨\n🔹 Animations: Introduced Framer Motion for sleek, professional transitions 🌀\n🔹 Performance Boost: Optimized loading speeds and lazy-loaded assets 🚄\n\n**🎨 UI & UX Glow-Up - Making It Visually Stunning ✨**\n\n✅ 3D Effects & Glassmorphism: Smooth, futuristic, and modern! 🪩\n✅ Cursor Interactions: Subtle yet effective hover & motion effects\n✅ Smooth Page Transitions: No more clunky reloads! Just sleek animations 🕶️\n✅ Mobile-First Design: It looks gorgeous on ANY screen size 📱💻\n✅ Loading Animations: A little extra magic when you land on the page ✨\n\n**📝 Blog Section - The Ultimate Revamp 🔄**\n\n💡 Dynamic Blog System: No more basic static posts—blogs are now fully interactive!\n💡 Apple-Style Card Carousel: The latest 3 blogs are displayed in a sleek carousel 🎠\n💡 Dedicated Blog Pages: Each post has its own individual page 📝\n💡 Back Button: Easily return to the main blog list 🔙\n💡 Read More Button: Expands previews into full-length posts 📖\n💡 Blog List Page: A clean, modern interface to browse all posts at once 🌍\n\n**❤️ Likes & Comments System - Because Interaction Matters!**\n\n💬 Like & React Feature: Users can now express their thoughts with reactions! 🔥💖👍\n💬 Comment System: I'm working on an easy, lightweight way to let users leave comments 📝\n💬 Engaging UI for Likes: Smooth hover animations make it fun to interact 🎭\n\n**📩 Contact Form - Smarter & More Responsive**\n\n✉️ Formspree Integration: A simple, effective way to handle messages 📬\n✉️ Automatic Email Replies: Users instantly get an email confirmation after submitting the form 📧\n✉️ Basic Email Validation: Prevents spam & fake submissions 🚫\n\n**🌐 Additional Tweaks & Polish**\n\n✨ SEO Optimization: Now Google & search engines can find me faster! 🔍\n✨ Optimized Performance: Reduced load times by compressing images & removing bloat 🚀\n✨ Cleaned Up Code: Refactored everything to make it more efficient & readable 💻🧹\n\n**🎯 The Final Result? A Portfolio That Finally Feels Like Me**\n\nThis wasn't just a redesign—it was a passion project. Every color, animation, and interaction was carefully crafted to create a website that feels alive, modern, and professional. 🌟\n\nBut guess what? This is just the beginning. More features, tweaks, and improvements are coming! 🔥 If you have any ideas or feedback, I'd love to hear them. 🤗\n\n**📂 Want to See the Source Code? Here's My GitHub Repo! 👨‍💻**\n\n<a href=\"https://github.com/SmartKidzee/new_portfolio\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"text-indigo-400 hover:text-indigo-300 hover:underline inline-flex items-center gap-1\">Check out the code on GitHub - SmartKidzee/new_portfolio</a>\n\n**🌟 What's Next?**\n\n📌 Implementing real-time comments for blog posts 💬\n📌 Adding more interactive elements (think: cool hover effects & sound cues!) 🎵\n📌 Experimenting with new UI animations using GSAP 🎭\n\nThis journey was incredibly rewarding, and I'm so excited to keep refining & improving. What do you think of the new site? Let me know in the comments! 🚀💬",
     created_at: "2025-03-29",

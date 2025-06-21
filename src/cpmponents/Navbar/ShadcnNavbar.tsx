@@ -3,6 +3,7 @@ import { Menu, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Logo } from '../Components/Logo/Logo';
 import './mobile-nav.css';
+import '../../styles/glassmorphism.css';
 
 interface ShadcnNavbarProps {
   sections: string[];
@@ -170,7 +171,7 @@ const ShadcnNavbar: React.FC<ShadcnNavbarProps> = ({
   return (
     <header 
       ref={navbarRef}
-      className={`fixed top-0 left-0 right-0 z-[99999] shadcn-navbar ${isScrolled ? 'shadow-md' : ''} ${isMobile ? 'mobile-view' : ''} ${isCardBuilderPage ? 'card-builder-page' : ''}`}
+      className={`fixed top-0 left-0 right-0 z-[99999] shadcn-navbar glass-effect ${isScrolled ? 'shadow-md' : ''} ${isMobile ? 'mobile-view' : ''} ${isCardBuilderPage ? 'card-builder-page' : ''}`}
       data-component-id="ShadcnNavbar"
       style={{ 
         willChange: 'transform',
@@ -236,7 +237,7 @@ const ShadcnNavbar: React.FC<ShadcnNavbarProps> = ({
         {isOpen && isMobile && (
           <motion.div
             ref={mobileMenuRef}
-            className="shadcn-navbar-mobile-menu"
+            className="shadcn-navbar-mobile-menu glass-effect"
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}

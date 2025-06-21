@@ -422,21 +422,21 @@ const TechCardBuilder: React.FC = () => {
         
         // Wait for image to load to confirm it's valid
         img.onload = () => {
-          // Direct download approach - create a direct download link in the current page
-          const downloadLink = document.createElement('a');
-          downloadLink.href = dataUrl;
-          downloadLink.download = `tech-card-${formData.name.toLowerCase().replace(/\s+/g, '-') || 'tech-card'}.png`;
-          document.body.appendChild(downloadLink);
+        // Direct download approach - create a direct download link in the current page
+        const downloadLink = document.createElement('a');
+        downloadLink.href = dataUrl;
+        downloadLink.download = `tech-card-${formData.name.toLowerCase().replace(/\s+/g, '-') || 'tech-card'}.png`;
+        document.body.appendChild(downloadLink);
           
           // For mobile Safari, we need a different approach
           if (/iPhone|iPad|iPod/i.test(navigator.userAgent)) {
             window.open(dataUrl, '_blank');
           }
           
-          downloadLink.click();
-          document.body.removeChild(downloadLink);
-          
-          toast.success('Card downloaded and saved!', { id: 'download' });
+        downloadLink.click();
+        document.body.removeChild(downloadLink);
+        
+        toast.success('Card downloaded and saved!', { id: 'download' });
         };
         
         img.onerror = () => {
@@ -587,28 +587,28 @@ const TechCardBuilder: React.FC = () => {
           } else {
             // For Android and other devices
             try {
-              const textArea = document.createElement('textarea');
-              textArea.value = shareUrl;
-              textArea.style.position = 'fixed';
+          const textArea = document.createElement('textarea');
+          textArea.value = shareUrl;
+          textArea.style.position = 'fixed';
               textArea.style.top = '0';
               textArea.style.left = '0';
               textArea.style.width = '100%';
               textArea.style.opacity = '0';
-              document.body.appendChild(textArea);
-              textArea.focus();
-              textArea.select();
-              
-              try {
+          document.body.appendChild(textArea);
+          textArea.focus();
+          textArea.select();
+          
+          try {
                 copySuccess = document.execCommand('copy');
                 if (copySuccess) {
-                  toast.success('Link copied to clipboard!');
+            toast.success('Link copied to clipboard!');
                 }
-              } catch (e) {
+          } catch (e) {
                 console.error('execCommand failed', e);
                 copySuccess = false;
-              }
-              
-              document.body.removeChild(textArea);
+          }
+          
+          document.body.removeChild(textArea);
             } catch (e) {
               console.error('Android copy failed', e);
               copySuccess = false;

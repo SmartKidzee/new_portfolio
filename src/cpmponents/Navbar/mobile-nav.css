@@ -9,8 +9,11 @@
   font-weight: 500;
   width: 100%;
   text-align: left;
-  background-color: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .shadcn-navbar-mobile-menu .mobile-nav-link:active,
@@ -98,4 +101,4 @@
     padding: 0.5rem;
     border-radius: 0.5rem;
   }
-} 
+}

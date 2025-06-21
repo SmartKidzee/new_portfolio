@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef, TouchEvent, useCallback, useMemo } from 'react';
 import { motion, useScroll, useSpring, useTransform, AnimatePresence } from 'framer-motion';
-import { 
+import {
   Menu,
   X,
   Github,
@@ -836,39 +836,6 @@ function App() {
             </InteractiveHoverButton>
           </Link>
         </div>
-        {/* Mobile version with disabled message */}
-        <div className="block md:hidden">
-          <button
-            onClick={() => toast.error('Tech Card Builder is only available on desktop devices')}
-            className="no-underline group cursor-pointer relative rounded-full p-px text-sm font-semibold leading-6 text-white inline-block"
-          >
-            <span className="absolute inset-0 overflow-hidden rounded-full">
-              <span className="absolute inset-0 rounded-full bg-[image:radial-gradient(75%_100%_at_50%_0%,rgba(56,189,248,0.6)_0%,rgba(56,189,248,0)_75%)] opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
-            </span>
-            <div className="relative flex space-x-2 items-center z-10 rounded-full bg-zinc-950 py-1.5 px-4 ring-1 ring-white/10">
-              <span className="flex items-center">
-                Desktop Only
-                <span className="ml-1.5 bg-gradient-to-r from-red-500 to-yellow-500 text-black text-[10px] px-1.5 py-0.5 rounded-full font-bold border border-black">DESKTOP</span>
-              </span>
-              <svg
-                fill="none"
-                height="16"
-                viewBox="0 0 24 24"
-                width="16"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M10.75 8.75L14.25 12L10.75 15.25"
-                  stroke="currentColor"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="1.5"
-                />
-              </svg>
-            </div>
-            <span className="absolute -bottom-0 left-[1.125rem] h-px w-[calc(100%-2.25rem)] bg-gradient-to-r from-emerald-400/0 via-emerald-400/90 to-emerald-400/0 transition-opacity duration-500 group-hover:opacity-40" />
-          </button>
-        </div>
       </div>
       
       <div className="min-h-screen bg-[#030014] text-white">
@@ -945,7 +912,7 @@ function App() {
                   className="relative w-52 h-52 mx-auto mb-8 sm:w-60 sm:h-60 md:w-72 md:h-72"
                 >
                   <div 
-                    className="profile-tilted-card w-full h-full"
+                    className="profile-tilted-card w-full h-full aspect-square"
                     onMouseMove={(e) => {
                       // Throttle mousemove events for better performance
                       if (!e.currentTarget.dataset.lastMove || 
@@ -1191,10 +1158,10 @@ function App() {
                   initial={{ opacity: 0, x: 20 }}
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true }}
-                  className="relative group about-image-container mx-auto"
+                  className="relative group about-image-container mx-auto flex items-center justify-center"
                 >
                   <div 
-                    className="profile-tilted-card w-full h-full"
+                    className="profile-tilted-card w-full h-full aspect-square"
                     onMouseMove={(e) => {
                       // Throttle mousemove events for better performance
                       if (!e.currentTarget.dataset.lastMove || 
@@ -1239,7 +1206,7 @@ function App() {
                     <div className="corner corner-bottom-right"></div>
                     
                     <TiltedCard 
-                      imageSrc="https://i.ibb.co/C3DZvL6k/about-me-img.png"
+                      imageSrc="/about-me.png"
                       altText="Tech"
                       containerHeight="auto"
                       containerWidth="100%"

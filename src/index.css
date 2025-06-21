@@ -17714,17 +17714,12 @@ section.with-particles > *:not(.particles-container) {
 }
 
 .about-image-container {
-  /* Adjust max-width to constrain the container width-wise */
-  max-width: 380px !important; 
-  width: 100% !important; 
-  min-height: 300px !important; 
-  /* Add overflow hidden to clip the scaled image on hover */
-  overflow: hidden !important; 
+  max-width: 380px !important;
+  width: 100% !important;
   margin: 0 auto !important;
-  /* Remove aspect-ratio to let height adjust */
-  /* aspect-ratio: auto !important; */
-  border-radius: 15px; /* Optional: Add border-radius to match image */
-  position: relative; /* Ensure positioning context */
+  border-radius: 15px;
+  position: relative;
+  overflow: hidden; /* This will clip the image inside the container */
 }
 
 #about figure[data-component-id="TiltedCard"] {
@@ -17746,9 +17741,15 @@ section.with-particles > *:not(.particles-container) {
 
 #about .profile-tilted-card img,
 #about figure[data-component-id="TiltedCard"] img {
-  transform: none !important; /* Reset scale from previous CSS */
-  position: absolute !important; /* Ensure image covers the area */
-  top: 0; left: 0;
+  transform: none !important;
+  position: relative !important; /* Changed to relative */
+  top: 0 !important; /* Align to top */
+  left: 0 !important; /* Align to left */
+  width: 100% !important;
+  height: auto !important; /* Allow height to adjust proportionally */
+  object-fit: contain !important; /* Contain the image within its bounds */
+  object-position: top center !important; /* Position the top of the image at the top of the container */
+  transform: none !important; /* Remove any previous transforms */
 }
 
 @media (max-width: 768px) {
