@@ -4,6 +4,8 @@ import { visualizer } from 'rollup-plugin-visualizer';
 import path from 'path';
 import viteCompression from 'vite-plugin-compression';
 import { VitePWA } from 'vite-plugin-pwa';
+import viteImagemin from 'vite-plugin-imagemin';
+import vitePreload from 'vite-plugin-preload';
 
 export default defineConfig(({ mode }) => {
   // Load env variables
@@ -121,6 +123,34 @@ export default defineConfig(({ mode }) => {
         brotliSize: true,
         filename: 'stats.html',
       }),
+      viteImagemin({
+        gifsicle: {
+          optimizationLevel: 7,
+          interlaced: false,
+        },
+        optipng: {
+          optimizationLevel: 7,
+        },
+        mozjpeg: {
+          quality: 80,
+        },
+        pngquant: {
+          quality: [0.8, 0.9],
+          speed: 4,
+        },
+        svgo: {
+          plugins: [
+            {
+              name: 'removeViewBox',
+            },
+            {
+              name: 'removeEmptyAttrs',
+              active: false,
+            },
+          ],
+        },
+      }),
+      vitePreload(),
     ],
     base: '/',
     resolve: {
@@ -210,8 +240,8 @@ export default defineConfig(({ mode }) => {
       },
       terserOptions: {
         compress: {
-          drop_console: false, // Keeping console logs for debugging
-          drop_debugger: false,
+          drop_console: true,
+          drop_debugger: true,
           pure_funcs: [],
         },
         format: {

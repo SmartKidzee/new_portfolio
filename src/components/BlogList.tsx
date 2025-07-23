@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { useInView } from 'react-intersection-observer';
 import BlogCard from "./BlogCard";
 import SearchBar from "./SearchBar";
 import FilterDropdown from "./FilterDropdown";
@@ -9,6 +10,31 @@ interface BlogListProps {
   limit?: number;
   showFilters?: boolean;
 }
+
+const LazyBlogCard = ({ blog, index }: { blog: Blog, index: number }) => {
+  const { ref, inView } = useInView({
+    triggerOnce: true,
+    rootMargin: '200px 0px',
+  });
+
+  return (
+    <motion.div
+      ref={ref}
+      key={blog.id}
+      initial={{ opacity: 0, y: 20 }}
+      animate={inView ? { opacity: 1, y: 0 } : {}}
+      exit={{ opacity: 0, y: -20 }}
+      transition={{ 
+        duration: 0.5,
+        delay: index * 0.1,
+        ease: [0.22, 1, 0.36, 1] 
+      }}
+      style={{ minHeight: '400px' }} // Placeholder height
+    >
+      {inView && <BlogCard blog={blog} priority={index < 3} />}
+    </motion.div>
+  );
+};
 
 export default function BlogList({ limit, showFilters = true }: BlogListProps) {
   const [filteredBlogs, setFilteredBlogs] = useState<Blog[]>(blogs);
@@ -120,19 +146,7 @@ export default function BlogList({ limit, showFilters = true }: BlogListProps) {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               <AnimatePresence>
                 {filteredBlogs.map((blog, index) => (
-                  <motion.div
-                    key={blog.id}
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -20 }}
-                    transition={{ 
-                      duration: 0.5,
-                      delay: index * 0.1,
-                      ease: [0.22, 1, 0.36, 1] 
-                    }}
-                  >
-                    <BlogCard blog={blog} priority={index < 3} />
-                  </motion.div>
+                  <LazyBlogCard key={blog.id} blog={blog} index={index} />
                 ))}
               </AnimatePresence>
             </div>

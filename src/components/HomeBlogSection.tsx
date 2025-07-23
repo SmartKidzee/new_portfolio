@@ -202,6 +202,7 @@ export default function HomeBlogSection() {
                               src={blogs[currentIndex]._thumbnailOverride || blogs[currentIndex].src} 
                               alt={blogs[currentIndex].title}
                               className="w-full h-full object-cover object-center sm:w-full sm:h-full sm:max-h-[200px] sm:object-scale-down md:object-contain md:max-h-[180px] lg:object-cover lg:max-h-none transition-transform duration-700 hover:scale-105"
+                              loading="lazy"
                             />
                             
                             {/* Video indicator */}
