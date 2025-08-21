@@ -1,8 +1,7 @@
-import React, { useState, useEffect, useRef, TouchEvent, useCallback, useMemo } from 'react';
-import { motion, useScroll, useSpring, useTransform, AnimatePresence } from 'framer-motion';
+import React, { useState, useEffect, useRef, TouchEvent, useCallback } from 'react';
+import { motion, useScroll, useSpring } from 'framer-motion';
 import {
-  Menu,
-  X,
+  
   Github,
   Linkedin,
   Youtube,
@@ -11,38 +10,24 @@ import {
   Code,
   Briefcase,
   BookOpen,
-  Phone,
   Rocket,
-  ChevronLeft,
-  ChevronRight,
-  Home,
+  
   BarChart2,
-  Settings,
-  Mail,
-  Twitter,
-  BarChart3,
-  Brain,
-  FileCode,
-  PenTool,
-  MessageSquare,
-  Loader2,
-  Send,
-  CheckCircle,
-  AlertTriangle,
+  
 } from 'lucide-react';
-import ReactPlayer from 'react-player';
-import confetti from 'canvas-confetti';
-import { useNavigate, Link, useLocation } from 'react-router-dom';
+ 
+ 
+import { Link, useLocation } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import ShinyText from './cpmponents/TextAnimations/ShinyText/ShinyText';
 import SplitText from './cpmponents/TextAnimations/SplitText/SplitText';
-import ScrollReveal from './cpmponents/TextAnimations/ScrollReveal/ScrollReveal';
+ 
 import RotatingText from './cpmponents/TextAnimations/RotatingText/RotatingText';
-import CountUp from './cpmponents/TextAnimations/CountUp/CountUp';
+ 
 import Aurora from './cpmponents/Backgrounds/Aurora/Aurora';
-import Orb from './cpmponents/Backgrounds/Orb/Orb';
+ 
 import { BackgroundLines } from './components/ui/background-lines';
-import Dock from './cpmponents/Components/Dock/Dock';
+ 
 import TiltedCard from './cpmponents/Components/TiltedCard/TiltedCard';
 import GlassIcons from './cpmponents/Components/GlassIcons/GlassIcons';
 import Hyperspeed from './cpmponents/Backgrounds/Hyperspeed/Hyperspeed';
@@ -59,32 +44,28 @@ import {
   FaJs, 
   FaLinux, 
   FaTerminal, 
-  FaApple, 
   FaCode, 
-  FaGlobe, 
   FaLaptopCode,
   FaYoutube,
   FaGitAlt
 } from 'react-icons/fa';
-import { SiTailwindcss, SiTypescript, SiVite, SiGithubpages, SiC, SiVercel } from 'react-icons/si';
+import { SiTailwindcss, SiTypescript, SiC, SiVercel } from 'react-icons/si';
 import { MdSettingsSuggest } from 'react-icons/md';
 import { BiSolidBrain } from 'react-icons/bi';
 import CircularSkills from './cpmponents/Components/Skills/CircularSkills';
-import { TypewriterEffectSmooth } from './components/ui/typewriter-effect';
-import { Logo } from './cpmponents/Components/Logo/Logo';
+ 
+ 
 import InfiniteMovingCardsDemo from "./components/infinite-moving-cards-demo";
 import TimelineDemo from "./components/timeline-demo";
 import Particles from './cpmponents/Backgrounds/Particles/Particles';
 // Import the GoogleGeminiEffectDemo component
-import GoogleGeminiEffectDemo from "./components/google-gemini-effect-demo";
-import { Carousel, Card } from "./components/ui/apple-cards-carousel";
+ 
 import ContactForm from './cpmponents/ContactForm/ContactForm';
 import HomeBlogSection from './components/HomeBlogSection';
 import { WebsiteStructuredData, PersonStructuredData } from "./components/StructuredData";
 import GeoGreetingPopup from './components/GeoGreetingPopup';
 import './styles/mobile-card-fix.css';
 import { InteractiveHoverButton } from './components/magicui/interactive-hover-button';
-import { toast } from 'react-hot-toast';
 import CardDemo from './components/cards-demo-1';
 import { FlickeringGrid } from './components/magicui/flickering-grid';
 
@@ -139,124 +120,7 @@ const SEOHelmet = () => {
   );
 };
 
-// Stats Item Component
-interface StatsItemProps {
-  value: number;
-  title: string;
-  caption?: string;
-  icon: React.ReactNode;
-  suffix?: string;
-  separator?: string;
-  onAnimationComplete?: () => void;
-}
-
-const StatsItem: React.FC<StatsItemProps> = ({ 
-  value, 
-  title, 
-  caption, 
-  icon, 
-  suffix = '', 
-  separator = '',
-  onAnimationComplete 
-}) => {
-  return (
-    <div className="stat-slide" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-      <div className="stat-content" style={{ 
-        display: 'flex', 
-        flexDirection: 'column', 
-        alignItems: 'center', 
-        justifyContent: 'center',
-        width: '80%',
-        textAlign: 'center'
-      }}>
-        <div style={{ 
-          display: 'flex', 
-          alignItems: 'center', 
-          justifyContent: 'center', 
-          width: '100%',
-          margin: '0 0 0.2rem 0'
-        }}>
-          <div style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center' }}>
-            <div
-              style={{ 
-                fontSize: '2.5rem',
-                fontWeight: 700,
-                background: 'linear-gradient(to right, #7c3aed, #ec4899)',
-                WebkitBackgroundClip: 'text',
-                backgroundClip: 'text',
-                WebkitTextFillColor: 'transparent',
-                display: 'inline-flex',
-                justifyContent: 'center',
-                alignItems: 'center',
-                textAlign: 'center'
-              }}
-            >
-              <CountUp 
-                from={0}
-                to={value} 
-                duration={2}
-                separator={separator}
-                onEnd={onAnimationComplete}
-                style={{
-                  display: 'inline-flex',
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  textAlign: 'center'
-                }}
-              />
-              {suffix && (
-                <span style={{ 
-                  fontSize: '2rem',
-                  display: 'inline-flex',
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  textAlign: 'center',
-                  marginLeft: '2px'
-                }}>
-                  {suffix}
-                </span>
-              )}
-            </div>
-          </div>
-        </div>
-        
-        <h3 style={{ 
-          fontSize: '0.9rem',
-          fontWeight: 600,
-          color: '#ffffff',
-          margin: '0.1rem 0',
-          width: '100%',
-          textAlign: 'center'
-        }}>
-          {title}
-        </h3>
-        
-        {caption && (
-          <div style={{ 
-            fontSize: '0.75rem',
-            color: 'rgba(255, 255, 255, 0.7)',
-            margin: '0.1rem 0',
-            width: '100%',
-            textAlign: 'center'
-          }}>
-            {caption}
-          </div>
-        )}
-        
-        <div style={{ 
-          marginTop: '0.3rem',
-          width: '100%',
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          color: 'rgba(124, 58, 237, 0.8)'
-        }}>
-          {icon}
-        </div>
-      </div>
-    </div>
-  );
-};
+// Stats Item Component (unused helper removed)
 
 function App() {
   const [cursorTrails, setCursorTrails] = useState<
@@ -265,30 +129,18 @@ function App() {
   const trailIdCounter = useRef(0);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
-  const [activeBlog, setActiveBlog] = useState<number | null>(null);
-  const [mousePosition, setMousePosition] = useState({ x: 50, y: 50 });
+  
   const [isMobile, setIsMobile] = useState(false);
-  const [isTablet, setIsTablet] = useState(false);
-  const [isPortrait, setIsPortrait] = useState(false);
-  const [isScrolling, setIsScrolling] = useState(false);
-  const blogContainerRef = useRef<HTMLDivElement>(null);
-  const [lastConfettiTime, setLastConfettiTime] = useState(0);
-  const [activeStatSlide, setActiveStatSlide] = useState(0);
-  const [countUpComplete, setCountUpComplete] = useState(false);
-  const navigate = useNavigate();
-  const navbarRef = useRef(null);
+  
+  
+  
+  
   const location = useLocation();
   const blogsSectionRef = useRef<HTMLElement>(null);
-  const [isNavOpen, setIsNavOpen] = useState(false);
-  const [isContactModalOpen, setIsContactModalOpen] = useState(false);
-  const [isExplainingModalOpen, setIsExplainingModalOpen] = useState(false);
-  const [modalContent, setModalContent] = useState('');
-  const [scrollPosition, setScrollPosition] = useState(0);
-  const [scrollDirection, setScrollDirection] = useState('none');
+  
 
   // Add touch handlers for stats
-  const statsTouchStartX = useRef(0);
-  const statsTouchEndX = useRef(0);
+  
 
   const sections = [
     'home',
@@ -322,68 +174,11 @@ function App() {
   }, [setActiveSection, setIsMenuOpen]);
 
   // Configure dock items for navigation
-  const dockItems = React.useMemo(() => [
-    { 
-      icon: <Home size={18} className="text-white" />, 
-      label: 'Home', 
-      onClick: () => scrollTo('home') 
-    },
-    { 
-      icon: <BarChart3 size={18} className="text-white" />, 
-      label: 'Stats', 
-      onClick: () => scrollTo('stats') 
-    },
-    { 
-      icon: <User size={18} className="text-white" />, 
-      label: 'About', 
-      onClick: () => scrollTo('about') 
-    },
-    { 
-      icon: <Briefcase size={18} className="text-white" />, 
-      label: 'Experience', 
-      onClick: () => scrollTo('experience') 
-    },
-    { 
-      icon: <GraduationCap size={18} className="text-white" />, 
-      label: 'Education', 
-      onClick: () => scrollTo('education') 
-    },
-    { 
-      icon: <Brain size={18} className="text-white" />, 
-      label: 'Skills', 
-      onClick: () => scrollTo('skills') 
-    },
-    { 
-      icon: <FileCode size={18} className="text-white" />, 
-      label: 'Projects', 
-      onClick: () => scrollTo('projects') 
-    },
-    { 
-      icon: <PenTool size={18} className="text-white" />, 
-      label: 'Blogs', 
-      onClick: () => scrollTo('blogs') 
-    },
-    { 
-      icon: <Mail size={18} className="text-white" />, 
-      label: 'Contact', 
-      onClick: () => scrollTo('contact') 
-    },
-  ], [scrollTo]);
+  // Dock items (unused placeholder removed)
 
-  // Stats data
-  const statsData = [
-    { icon: "🛠️", value: 4, label: "GitHub Repositories Created" },
-    { icon: "💻", value: 2, label: "Personal Projects", caption: "Custom Programming Language & Portfolio Website" },
-    { icon: "📜", value: 4, label: "Certifications Earned", suffix: "+" },
-    { icon: "⌨️", value: 5, label: "Programming Languages Learned", suffix: "+" },
-    { icon: "🌐", value: 40, label: "Website Daily Visitors", suffix: "+" },
-    { icon: "👥", value: 350, label: "LinkedIn Connections", suffix: "+" },
-    { icon: "📊", value: 20, label: "YouTube Views", suffix: "K+" },
-    { icon: "📝", value: 10000, label: "Lines of Code Written for This Website", suffix: "+" },
-  ];
+  // Stats data (unused placeholder removed)
 
   // Refs for DOM elements
-  const containerRef = useRef<HTMLDivElement>(null);
 
   // Force consistent font sizing - fix for text resizing issues
   useEffect(() => {
@@ -457,22 +252,16 @@ function App() {
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
-      // Update cursor trails with a unique ID (combination of timestamp and counter)
       const newTrail = { 
         x: e.clientX, 
         y: e.clientY, 
         id: `${Date.now()}-${trailIdCounter.current++}` 
       };
-      
-      setCursorTrails((prev) => {
-        // Add new trail and remove old ones
-        return [...prev, newTrail].filter(
+      setCursorTrails((prev) =>
+        [...prev, newTrail].filter(
           (trail) => Date.now() - parseInt(trail.id.split('-')[0]) < 800
-        );
-      });
-      
-      // Update mouse position for other effects
-      setMousePosition({ x: e.clientX, y: e.clientY });
+        )
+      );
     };
 
     const handleScroll = () => {
@@ -515,9 +304,7 @@ function App() {
     return colors[Math.floor(Math.random() * colors.length)];
   };
 
-  const getRandomSize = () => {
-    return Math.floor(Math.random() * 4) + 3; // Random size between 3-6px
-  };
+  const getRandomSize = () => Math.floor(Math.random() * 4) + 3; // Random size between 3-6px
 
   // Add useScroll hook for progress bar
   const { scrollYProgress } = useScroll();
@@ -549,69 +336,19 @@ function App() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Skills data with categories
-  const skillCategories = [
-    {
-      title: "🌐 Web Development",
-      skills: [
-        { name: 'HTML & CSS', level: 'Advanced', progress: '85%', icon: <div className="flex"><FaHtml5 className="text-orange-500 mr-2" size={36} /><FaCss3Alt className="text-blue-500" size={36} /></div> },
-        { name: 'React + Vite', level: 'Intermediate', progress: '60%', icon: <div className="flex"><FaReact className="text-blue-400 mr-2" size={36} /><SiVite className="text-purple-400" size={36} /></div> },
-        { name: 'Tailwind CSS', level: 'Intermediate', progress: '65%', icon: <SiTailwindcss className="text-cyan-400" size={36} /> },
-        { name: 'Vercel', level: '75%', icon: <SiVercel className="text-white" size={36} /> }
-      ]
-    },
-    {
-      title: "⚙️ Tools & Platforms",
-      skills: [
-        { name: 'Linux & Terminal', level: 'Intermediate', progress: '60%', icon: <div className="flex"><FaLinux className="text-white mr-2" size={36} /><FaTerminal className="text-gray-100" size={36} /></div> },
-        { name: 'VS Code & Development Setup', level: 'Advanced', progress: '80%', icon: <MdSettingsSuggest className="text-blue-400" size={36} /> },
-        { name: 'MacOS for Coding', level: 'Intermediate', progress: '60%', icon: <FaApple className="text-gray-100" size={36} /> },
-        { name: 'GitHub Pages (Deployment)', level: 'Advanced', progress: '70%', icon: <SiGithubpages className="text-gray-100" size={36} /> }
-      ]
-    },
-    {
-      title: "📌 Other Skills",
-      skills: [
-        { name: 'Artificial Intelligence (Basics)', level: 'Beginner', progress: '40%', icon: <BiSolidBrain className="text-purple-500" size={36} /> },
-        { name: 'Machine Learning (Basics)', level: 'Beginner', progress: '30%', icon: <FaLaptopCode className="text-green-400" size={36} /> },
-        { name: 'Prompt Engineering', level: 'Advanced', progress: '80%', icon: <FaCode className="text-orange-300" size={36} /> },
-        { name: 'Tech Content Creation (YouTube, Blog)', level: 'Intermediate', progress: '65%', icon: <FaYoutube className="text-red-500" size={36} /> }
-      ]
-    }
-  ];
+  // Skills categories (unused placeholder removed)
 
-  // Legacy skills data - keeping for compatibility
-  const skills = [
-    { name: 'C (Programming Language)', level: 'Beginner', progress: '30%' },
-    { name: 'Python', level: 'Intermediate', progress: '60%' },
-    { name: 'MySQL DBMS', level: 'Beginner', progress: '35%' },
-    { name: 'HTML', level: 'Intermediate', progress: '65%' },
-    { name: 'React JS', level: 'Beginner', progress: '40%' },
-    { name: 'Prompt Engineering', level: 'Intermediate', progress: '70%' },
-    { name: 'Computer Networking', level: 'Beginner', progress: '30%' },
-    { name: 'Figma', level: 'Beginner', progress: '35%' },
-    { name: 'Adobe Premiere Pro', level: 'Intermediate', progress: '65%' },
-  ];
+  // Legacy skills data (unused placeholder removed)
 
-  const triggerConfetti = () => {
-    const now = Date.now();
-    if (now - lastConfettiTime < 1000) return; // Limit to once per second
-    
-    confetti({
-      particleCount: 100,
-      spread: 70,
-      origin: { y: 0.6 }
-    });
-    setLastConfettiTime(now);
-  };
+  // Confetti helper (unused placeholder removed)
 
   // Update device detection to fix navbar rendering
   useEffect(() => {
     const checkDevice = () => {
       const width = window.innerWidth;
       setIsMobile(width <= 768);
-      setIsTablet(width > 768 && width <= 1024);
-      setIsPortrait(window.innerHeight > window.innerWidth);
+      // setIsTablet(width > 768 && width <= 1024);
+      // setIsPortrait(window.innerHeight > window.innerWidth);
       
       // Ensure navbar is properly displayed on mobile
       const navbarElement = document.querySelector('.shadcn-navbar');
@@ -644,27 +381,7 @@ function App() {
   }, []);
 
   // Add scroll functions
-  const scrollLeft = () => {
-    if (blogContainerRef.current) {
-      setIsScrolling(true);
-      blogContainerRef.current.scrollBy({
-        left: -300,
-        behavior: 'smooth'
-      });
-      setTimeout(() => setIsScrolling(false), 500);
-    }
-  };
-
-  const scrollRight = () => {
-    if (blogContainerRef.current) {
-      setIsScrolling(true);
-      blogContainerRef.current.scrollBy({
-        left: 300,
-        behavior: 'smooth'
-      });
-      setTimeout(() => setIsScrolling(false), 500);
-    }
-  };
+  // Blog carousel helpers removed (not used in this file)
 
   // Add event listener for anchor links
   useEffect(() => {
@@ -713,42 +430,9 @@ function App() {
     };
   }, [isMenuOpen]);
 
-  // Add a dedicated mobile navigation function
-  const handleMobileNavClick = (section: string) => {
-    // First close the menu both via state and direct DOM manipulation for reliability
-    setIsMenuOpen(false);
-    
-    // Also hide via direct DOM manipulation as a fallback
-    const mobileMenu = document.querySelector('.mobile-nav-menu');
-    if (mobileMenu) {
-      mobileMenu.classList.add('menu-closing');
-    }
-    
-    // Use setTimeout to ensure menu closing animation completes before scrolling
-    setTimeout(() => {
-      const sectionElement = document.getElementById(section);
-      if (sectionElement) {
-        const offset = 80;
-        const elementPosition = sectionElement.getBoundingClientRect().top;
-        const offsetPosition = elementPosition + window.scrollY - offset;
-        
-        window.scrollTo({
-          top: offsetPosition,
-          behavior: 'smooth',
-        });
-      }
-    }, 150);
-  };
+  // Mobile navigation helper removed (not used)
 
-  // Handle touch events separately for better mobile support
-  const handleTouchStart = (e: React.TouchEvent, section: string) => {
-    e.currentTarget.classList.add('button-pressed');
-  };
-
-  const handleTouchEnd = (e: React.TouchEvent, section: string) => {
-    e.currentTarget.classList.remove('button-pressed');
-    handleMobileNavClick(section);
-  };
+  // Handle touch events separately for better mobile support (helpers removed if unused)
 
   // When section changes, update active state
   useEffect(() => {
@@ -1121,38 +805,35 @@ function App() {
                   viewport={{ once: true }}
                   className="space-y-8 apple-glass"
                 >
-                  <p className="text-gray-300 text-lg leading-relaxed min-h-[4.5rem] sm:min-h-[3rem] md:min-h-[3rem]">
-                    <TypewriterEffectSmooth 
-                      words={[
-                        { text: "I'm Shreyas, a first-year Computer Science and Engineering undergraduate at The National Institute of Engineering, Mysuru, specializing in Artificial Intelligence and Machine Learning." }
-                      ]}
-                      className="text-gray-300"
-                      cursorClassName="bg-violet-500"
-                      startDelay={100}
-                    />
-                  </p>
+                  <motion.p
+                    className="text-gray-300 text-lg leading-relaxed min-h-[4.5rem] sm:min-h-[3rem] md:min-h-[3rem]"
+                    initial={{ opacity: 0, y: 10 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.5, delay: 0.1 }}
+                  >
+                    {"I'm Shreyas, a first-year Computer Science and Engineering undergraduate at The National Institute of Engineering, Mysuru, specializing in Artificial Intelligence and Machine Learning."}
+                  </motion.p>
                   
-                  <p className="text-gray-300 text-lg leading-relaxed min-h-[9rem] sm:min-h-[6rem] md:min-h-[6rem]">
-                    <TypewriterEffectSmooth 
-                      words={[
-                        { text: "I'm passionate about technology and enjoy diving deep into the ever-evolving world of AI and software development. When I'm not exploring the latest tech trends, you'll find me creating content for my YouTube channel, sharing insights as an Apple fanboy, or gaming on my PS5." }
-                      ]}
-                      className="text-gray-300"
-                      cursorClassName="bg-pink-500"
-                      startDelay={1500}
-                    />
-                  </p>
+                  <motion.p
+                    className="text-gray-300 text-lg leading-relaxed min-h-[9rem] sm:min-h-[6rem] md:min-h-[6rem]"
+                    initial={{ opacity: 0, y: 10 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.5, delay: 0.3 }}
+                  >
+                    {"I'm passionate about technology and enjoy diving deep into the ever-evolving world of AI and software development. When I'm not exploring the latest tech trends, you'll find me creating content for my YouTube channel, sharing insights as an Apple fanboy, or gaming on my PS5."}
+                  </motion.p>
                   
-                  <p className="text-gray-300 text-lg leading-relaxed min-h-[9rem] sm:min-h-[6rem] md:min-h-[6rem]">
-                    <TypewriterEffectSmooth
-                      words={[
-                        { text: "This website is built with Vite, React, and TypeScript, designed for speed, flexibility, and a modern experience. It's a step up from my earlier HTML & CSS site, bringing interactive elements and animations to showcase my work more dynamically." }
-                      ]}
-                      className="text-gray-300"
-                      cursorClassName="bg-cyan-500"
-                      startDelay={3000}
-                    />
-                  </p>
+                  <motion.p
+                    className="text-gray-300 text-lg leading-relaxed min-h-[9rem] sm:min-h-[6rem] md:min-h-[6rem]"
+                    initial={{ opacity: 0, y: 10 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.5, delay: 0.5 }}
+                  >
+                    {"This website is built with Vite, React, and TypeScript, designed for speed, flexibility, and a modern experience. It's a step up from my earlier HTML & CSS site, bringing interactive elements and animations to showcase my work more dynamically."}
+                  </motion.p>
                 </motion.div>
                 <motion.div
                   initial={{ opacity: 0, x: 20 }}
@@ -1320,7 +1001,7 @@ function App() {
                     </p>
                     <p className="text-[#FACC15] mt-2 flex items-center font-semibold">
                       <span className="h-2 w-2 rounded-full bg-[#FACC15] inline-block mr-2"></span>
-                      CGPA: 9.00
+                      CGPA: 9.33
                     </p>
                   </div>
                 </motion.div>

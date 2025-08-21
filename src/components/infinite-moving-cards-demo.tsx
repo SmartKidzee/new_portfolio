@@ -47,11 +47,11 @@ InfiniteMovingCardsDemo.displayName = 'InfiniteMovingCardsDemo';
 
 const statsData = [
   { icon: "🛠️", value: 4, label: "GitHub Repositories Created" },
-  { icon: "💻", value: 2, label: "Personal Projects", caption: "Custom Programming Language & Portfolio Website" },
-  { icon: "📜", value: 4, label: "Certifications Earned", suffix: "+" },
+  { icon: "💻", value: 2, label: "Personal Projects", caption: "Talk2Job & Portfolio Website" },
+  { icon: "📜", value: 5, label: "Certifications Earned", suffix: "+" },
   { icon: "⌨️", value: 5, label: "Programming Languages Learned", suffix: "+" },
   { icon: "🌐", value: 40, label: "Website Daily Visitors", suffix: "+" },
-  { icon: "👥", value: 350, label: "LinkedIn Connections", suffix: "+" },
+  { icon: "👥", value: 450, label: "LinkedIn Connections", suffix: "+" },
   { icon: "📊", value: 20, label: "YouTube Views", suffix: "K+" },
   { icon: "📝", value: 10000, label: "Lines of Code Written for This Website", suffix: "+" },
 ];

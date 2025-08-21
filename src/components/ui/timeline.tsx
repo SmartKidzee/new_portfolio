@@ -1,6 +1,7 @@
 "use client";
 import React, { useRef, useEffect, useState } from "react";
 import { motion, useScroll, useTransform, useInView } from "framer-motion";
+import { AnimatedList } from "./animated-list";
 
 // Utility function for class name merging
 const cn = (...classes: (string | undefined)[]) => {
@@ -128,18 +129,20 @@ export const Timeline = ({
         />
       </div>
       
-      {data.map((entry, index) => (
-        <TimelineItem 
-          key={index} 
-          entry={entry} 
-          index={index} 
-          total={data.length} 
-          progress={scrollYProgress}
-          isMounted={isMounted}
-          isScrolling={isScrolling}
-          customStyles={customStyles}
-        />
-      ))}
+      <AnimatedList delay={600}>
+        {data.map((entry, index) => (
+          <TimelineItem 
+            key={index} 
+            entry={entry} 
+            index={index} 
+            total={data.length} 
+            progress={scrollYProgress}
+            isMounted={isMounted}
+            isScrolling={isScrolling}
+            customStyles={customStyles}
+          />
+        ))}
+      </AnimatedList>
     </div>
   );
 };
@@ -276,12 +279,15 @@ export const TimePoint = ({
         scale: isMounted ? imageScale : 1,
       }}
       className={cn(
-        "timeline-point relative z-30 h-8 w-8 flex items-center justify-center min-w-[32px]", // Consistent size
+        "timeline-point relative z-30 h-8 w-8 flex items-center justify-center min-w-[32px]",
         customStyles?.timelinePoint
       )}
     >
+      {/* Soft gradient glow behind the point */}
+      <div className="pointer-events-none absolute -inset-1 rounded-full bg-gradient-to-r from-[#38BDF8]/25 to-[#A855F7]/25 blur-sm" />
+
       {/* Inner circle with glow */}
-      <div className="h-2 w-2 rounded-full bg-white shadow-[0_0_8px_rgba(56,189,248,0.8)]" />
+      <div className="h-2 w-2 rounded-full bg-white shadow-[0_0_10px_rgba(56,189,248,0.8)]" />
       
       {/* Outer ring */}
       <div className="absolute inset-0 rounded-full border-2 border-[#38BDF8]/30" />
@@ -301,7 +307,7 @@ export const TimeContent = ({
       {/* Line animation based on scroll position */}
       <motion.div 
         className={cn(
-          "absolute left-0 top-0 bottom-0 w-[1px] h-full bg-gradient-to-b from-[#38BDF8] to-[#A855F7] z-25",
+          "absolute left-0 top-0 bottom-0 w-[1px] h-full bg-gradient-to-b from-[#38BDF8] to-[#A855F7] shadow-[0_0_12px_rgba(56,189,248,0.25)] z-25",
           customStyles?.connector
         )}
         style={{
@@ -313,7 +319,7 @@ export const TimeContent = ({
       />
       
       {/* Ghost line to ensure visibility */}
-      <div className="absolute left-0 top-0 bottom-0 w-[1px] h-full bg-[#38BDF8]/20" style={{ zIndex: 1 }} />
+      <div className="absolute left-0 top-0 bottom-0 w-[1px] h-full bg-[#38BDF8]/15" style={{ zIndex: 1 }} />
       
       {/* Increased z-index and added backdrop for better text visibility */}
       <div className="relative z-30">

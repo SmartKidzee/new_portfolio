@@ -16,6 +16,61 @@ export interface Blog {
 // Blog data
 export const blogs: Blog[] = [
   {
+    id: '8',
+    category: "Education",
+    title: "Semester 2 Results & Reflections",
+    content: `This semester officially comes to an end, and with it, Semester 2 at The National Institute of Engineering, Mysuru.
+
+The results came in: **9.65 SGPA** with all 20 credits earned. On paper, that looks like the headline — but honestly, for me, it isn’t.
+
+What really defined this semester wasn’t the numbers. It was the projects, the learning, and the momentum that came with building consistently.
+
+**📊 Semester 2 Results**
+Here’s a quick breakdown of my marks:
+
+- **Computer-Aided Engineering Drawing**: 94 (O)
+- **Applied Chemistry for CSE Stream**: 94 (O)
+- **Introduction to Mechanical Engineering**: 86 (A+)
+- **Indian Constitution**: 46 (O)
+- **Mathematics-II for CSE Stream**: 89 (A+)
+- **Introduction to Python Programming**: 90 (O)
+- **Professional Writing Skills in English**: 49 (O)
+- **Scientific Foundations of Health**: 50 (O)
+
+**Final SGPA: 9.65**
+
+**🚀 Beyond the Marks**
+The numbers don’t tell the full story. What really mattered this semester was:
+
+- Building and launching **Talk2Job**, my first voice-based AI interview preparation platform.
+- Creating my personal website: [iamshreyas.live](https://iamshreyas.live), a space that truly reflects who I am.
+- Diving into **Next.js, Firebase, Tailwind, Vercel, VAPI, and Google Gemini**, and learning to connect them meaningfully.
+- Participating in the **Generative AI Exchange Program**, which expanded how I think about AI’s real-world impact.
+- Attempting the **All India Naukri Campus Aptitude Test (CAT)**, to benchmark myself nationally.
+
+**🌱 Reflections**
+Grades feel good, but they’re just numbers. What I’ll carry forward are the **skills I built**, the **projects I shipped**, and the **mindset** to keep learning by building.
+
+Semester 2 reinforced something important: marks can open doors, but **skills keep them open**. Real compounding comes from writing, shipping, iterating, and collaborating — not just scoring well.
+
+Here’s to Semester 3, and everything it brings next.`,
+    created_at: "2025-08-21",
+    updated_at: "2025-08-21",
+    src: "/blogassets/blog8.png",
+    isAchievement: true,
+    tags: [
+      "Education",
+      "Semester 2",
+      "Results",
+      "Skills",
+      "Projects",
+      "AI",
+      "Next.js",
+      "Firebase",
+      "Tailwind",
+    ]
+  },
+  {
     id: '7',
     category: "Tech",
     title: "The Great Digital Heist: 16 Billion Passwords Leaked in 2025’s Unprecedented Cyber Breach 🚨",
