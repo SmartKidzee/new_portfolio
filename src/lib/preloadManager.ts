@@ -230,7 +230,7 @@ class PreloadManager {
     const componentModules: Record<string, () => Promise<any>> = {
       'skills-section': () => import('../cpmponents/Components/Skills/CircularSkills').catch(() => {}),
       'projects-section': () => import('../components/infinite-moving-cards-demo').catch(() => {}),
-      'experience-section': () => import('../components/timeline-demo').catch(() => {}),
+      'experience-section': () => import('../components/ExperienceSection').catch(() => {}),
       // Using dynamic import for modules that might not exist yet but will be created later
       'hero-section': () => Promise.resolve().catch(() => {}),
       'about-section': () => Promise.resolve().catch(() => {}),

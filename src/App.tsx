@@ -1,19 +1,15 @@
 import React, { useState, useEffect, useRef, TouchEvent, useCallback } from 'react';
 import { motion, useScroll, useSpring } from 'framer-motion';
 import {
-  
   Github,
   Linkedin,
   Youtube,
   User,
   GraduationCap,
   Code,
-  Briefcase,
   BookOpen,
   Rocket,
-  
   BarChart2,
-  
 } from 'lucide-react';
  
  
@@ -56,7 +52,7 @@ import CircularSkills from './cpmponents/Components/Skills/CircularSkills';
  
  
 import InfiniteMovingCardsDemo from "./components/infinite-moving-cards-demo";
-import TimelineDemo from "./components/timeline-demo";
+import ExperienceSection from './components/ExperienceSection';
 import Particles from './cpmponents/Backgrounds/Particles/Particles';
 // Import the GoogleGeminiEffectDemo component
  
@@ -887,7 +883,7 @@ function App() {
                     <div className="corner corner-bottom-right"></div>
                     
                     <TiltedCard 
-                      imageSrc="/about-me.png"
+                      imageSrc="/about-me.JPEG"
                       altText="Tech"
                       containerHeight="auto"
                       containerWidth="100%"
@@ -907,37 +903,7 @@ function App() {
           </section>
 
           {/* Experience Section */}
-          <section id="experience" className="py-20">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                className="text-center mb-12"
-              >
-                <h2 className="text-3xl md:text-4xl font-bold inline-flex items-center bg-gradient-to-r from-[#38BDF8] to-[#A855F7] py-2 px-6 rounded-lg shadow-lg">
-                  <Briefcase className="w-8 h-8 mr-3 text-[#0F172A]" /> 
-                  <SplitText 
-                    text="Experience" 
-                    delay={40} 
-                    className="text-[#0F172A]"
-                    animationFrom={{ opacity: 0, transform: "translate3d(0,50px,0)" }}
-                    animationTo={{ opacity: 1, transform: "translate3d(0,0,0)" }}
-                  />
-                </h2>
-              </motion.div>
-              
-              {/* Timeline Component */}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                className="mb-16"
-              >
-                <TimelineDemo />
-              </motion.div>
-            </div>
-          </section>
+          <ExperienceSection />
 
           {/* Education Section */}
           <section id="education" className="py-16 md:py-20 bg-[#1E293B]/50 relative overflow-hidden">
