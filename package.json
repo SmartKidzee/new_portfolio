@@ -26,8 +26,6 @@
     "@types/bad-words": "^3.0.3",
     "@types/canvas-confetti": "^1.9.0",
     "@types/react-helmet": "^6.1.11",
-    "@vercel/analytics": "^1.5.0",
-    "@vercel/speed-insights": "^1.2.0",
     "@wellyshen/use-web-animations": "^0.9.1",
     "animated-backgrounds": "^1.1.0",
     "axios": "^1.8.4",
