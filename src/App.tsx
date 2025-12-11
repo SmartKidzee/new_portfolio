@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, TouchEvent, useCallback } from 'react';
+import React, { useState, useEffect, useRef, TouchEvent, useCallback, Suspense, lazy } from 'react';
 import { motion, useScroll, useSpring } from 'framer-motion';
 import {
   Github,
@@ -24,9 +24,9 @@ import Aurora from './cpmponents/Backgrounds/Aurora/Aurora';
  
 import { BackgroundLines } from './components/ui/background-lines';
  
-import TiltedCard from './cpmponents/Components/TiltedCard/TiltedCard';
+const TiltedCard = lazy(() => import('./cpmponents/Components/TiltedCard/TiltedCard'));
 import GlassIcons from './cpmponents/Components/GlassIcons/GlassIcons';
-import Hyperspeed from './cpmponents/Backgrounds/Hyperspeed/Hyperspeed';
+const Hyperspeed = lazy(() => import('./cpmponents/Backgrounds/Hyperspeed/Hyperspeed'));
 import { hyperspeedPresets } from './cpmponents/Backgrounds/Hyperspeed/hyperspeedPresets';
 import Marquee from 'react-fast-marquee';
 import ShadcnNavbar from './cpmponents/Navbar/ShadcnNavbar';
@@ -51,19 +51,19 @@ import { BiSolidBrain } from 'react-icons/bi';
 import CircularSkills from './cpmponents/Components/Skills/CircularSkills';
  
  
-import InfiniteMovingCardsDemo from "./components/infinite-moving-cards-demo";
-import ExperienceSection from './components/ExperienceSection';
-import Particles from './cpmponents/Backgrounds/Particles/Particles';
+const InfiniteMovingCardsDemo = lazy(() => import("./components/infinite-moving-cards-demo"));
+const ExperienceSection = lazy(() => import('./components/ExperienceSection'));
+const Particles = lazy(() => import('./cpmponents/Backgrounds/Particles/Particles'));
 // Import the GoogleGeminiEffectDemo component
  
-import ContactForm from './cpmponents/ContactForm/ContactForm';
-import HomeBlogSection from './components/HomeBlogSection';
+const ContactForm = lazy(() => import('./cpmponents/ContactForm/ContactForm'));
+const HomeBlogSection = lazy(() => import('./components/HomeBlogSection'));
 import { WebsiteStructuredData, PersonStructuredData } from "./components/StructuredData";
-import GeoGreetingPopup from './components/GeoGreetingPopup';
+
 import './styles/mobile-card-fix.css';
-import { InteractiveHoverButton } from './components/magicui/interactive-hover-button';
-import CardDemo from './components/cards-demo-1';
-import { FlickeringGrid } from './components/magicui/flickering-grid';
+const InteractiveHoverButton = lazy(() => import('./components/magicui/interactive-hover-button').then(module => ({ default: module.InteractiveHoverButton })));
+const CardDemo = lazy(() => import('./components/cards-demo-1'));
+const FlickeringGrid = lazy(() => import('./components/magicui/flickering-grid').then(module => ({ default: module.FlickeringGrid })));
 
 // SEO component with Helmet
 const SEOHelmet = () => {
@@ -296,7 +296,7 @@ function App() {
 
   // Enhanced cursor trail effect
   const getRandomColor = () => {
-    const colors = ['#3A29FF', '#FF94B4', '#FF3232'];
+    const colors = ['#dc2626', '#b91c1c', '#f87171'];
     return colors[Math.floor(Math.random() * colors.length)];
   };
 
@@ -511,14 +511,16 @@ function App() {
         {/* Desktop version with InteractiveHoverButton - keep link */}
         <div className="hidden md:block">
           <Link to="/tech-card-builder">
-            <InteractiveHoverButton className="bg-zinc-950 text-white border border-white/10">
-              Create Your Own Tech Card
-            </InteractiveHoverButton>
+            <Suspense fallback={null}>
+              <InteractiveHoverButton className="bg-zinc-950 text-white border border-white/10">
+                Create Your Own Tech Card
+              </InteractiveHoverButton>
+            </Suspense>
           </Link>
         </div>
       </div>
       
-      <div className="min-h-screen bg-[#030014] text-white">
+      <div className="min-h-screen bg-[#000000] text-white">
         {/* Cursor Trails */}
         {cursorTrails.map((trail) => (
           <div
@@ -560,7 +562,7 @@ function App() {
             {/* Aurora background - only on home section */}
             <div className="absolute inset-0 z-1 aurora-container">
               <Aurora 
-                colorStops={["#38BDF8", "#A855F7", "#FACC15"]}
+                colorStops={["#DC2626", "#7F1D1D", "#000000"]}
                 blend={0.5}
                 amplitude={1.0}
                 speed={0.5}
@@ -581,7 +583,7 @@ function App() {
               </BackgroundLines>
             </div>
             
-            <div className="absolute inset-0 z-5 bg-gradient-to-br from-[#3A29FF]/20 to-[#FF3232]/20" />
+            <div className="absolute inset-0 z-5 bg-gradient-to-br from-[#800000]/20 to-[#FF0000]/20" />
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
               {/* GeoGreeting popup removed from home page */}
               <div className="text-center">
@@ -636,20 +638,22 @@ function App() {
                     <div className="corner corner-bottom-left"></div>
                     <div className="corner corner-bottom-right"></div>
                     
-                    <TiltedCard 
-                      imageSrc="/hero.png"
-                      altText="Shreyas Profile"
-                      captionText="Shreyas"
-                      containerHeight="100%"
-                      containerWidth="100%"
-                      imageHeight="100%"
-                      imageWidth="100%"
-                      rotateAmplitude={5}
-                      scaleOnHover={1.02}
-                      showMobileWarning={false}
-                      showTooltip={false}
-                      displayOverlayContent={false}
-                    />
+                    <Suspense fallback={<div className="w-full h-full bg-white/5 animate-pulse rounded-xl" />}>
+                      <TiltedCard 
+                        imageSrc="/hero.png"
+                        altText="Shreyas Profile"
+                        captionText="Shreyas"
+                        containerHeight="100%"
+                        containerWidth="100%"
+                        imageHeight="100%"
+                        imageWidth="100%"
+                        rotateAmplitude={5}
+                        scaleOnHover={1.02}
+                        showMobileWarning={false}
+                        showTooltip={false}
+                        displayOverlayContent={false}
+                      />
+                    </Suspense>
                     <div className="profile-card-glow"></div>
                   </div>
                 </motion.div>
@@ -663,7 +667,7 @@ function App() {
                     text="Shreyas" 
                     disabled={true}
                     speed={0}
-                    className="bg-gradient-to-r from-[#38BDF8] to-[#A855F7] bg-clip-text text-transparent font-bold"
+                    className="bg-gradient-to-r from-[#FF0000] to-[#800000] bg-clip-text text-transparent font-bold"
                   />
                 </motion.h1>
                 <motion.p
@@ -738,16 +742,18 @@ function App() {
           <section id="stats" className="py-16 bg-[#1E293B] text-[#E2E8F0] relative overflow-hidden with-particles">
             {/* Particles Background */}
             <div className="particles-container">
-              <Particles
-                particleColors={['#a855f7', '#38bdf8', '#ffffff']}
-                particleCount={200}
-                particleSpread={10}
-                speed={0.1}
-                particleBaseSize={100}
-                moveParticlesOnHover={true}
-                alphaParticles={true}
-                disableRotation={false}
-              />
+              <Suspense fallback={null}>
+                <Particles
+                  particleColors={['#ff0000', '#991b1b', '#ffffff']}
+                  particleCount={isMobile ? 50 : 200}
+                  particleSpread={10}
+                  speed={0.1}
+                  particleBaseSize={100}
+                  moveParticlesOnHover={!isMobile}
+                  alphaParticles={true}
+                  disableRotation={false}
+                />
+              </Suspense>
             </div>
             <div className="container mx-auto px-4 relative z-10">
               <motion.div
@@ -756,7 +762,7 @@ function App() {
                 viewport={{ once: true }}
                 className="text-center mb-12"
               >
-                <h2 className="text-3xl md:text-4xl font-bold inline-flex items-center bg-gradient-to-r from-[#38BDF8] to-[#A855F7] py-2 px-6 rounded-lg shadow-lg">
+                <h2 className="text-3xl md:text-4xl font-bold inline-flex items-center bg-gradient-to-r from-[#FF0000] to-[#991b1b] py-2 px-6 rounded-lg shadow-lg">
                   <BarChart2 className="w-8 h-8 mr-3 text-[#0F172A]" /> 
                   <SplitText 
                     text="My Stats" 
@@ -767,14 +773,18 @@ function App() {
                   />
                 </h2>
               </motion.div>
-              <InfiniteMovingCardsDemo />
+              <Suspense fallback={<div className="h-32 w-full" />}>
+                <InfiniteMovingCardsDemo />
+              </Suspense>
             </div>
           </section>
 
           {/* About Section */}
-          <section id="about" className="py-16 md:py-20 bg-[#1E293B]/50 relative overflow-hidden">
+          <section id="about" className="py-16 md:py-20 bg-stranger-black relative overflow-hidden">
             <div className="absolute inset-0 z-0">
-              <Hyperspeed effectOptions={hyperspeedPresets.four} />
+              <Suspense fallback={null}>
+                <Hyperspeed effectOptions={hyperspeedPresets.four} />
+              </Suspense>
             </div>
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
               <motion.div
@@ -783,7 +793,7 @@ function App() {
                 viewport={{ once: true }}
                 className="text-center mb-12"
               >
-                <h2 className="text-3xl md:text-4xl font-bold inline-flex items-center bg-gradient-to-r from-[#38BDF8] to-[#A855F7] py-2 px-6 rounded-lg shadow-lg">
+                <h2 className="text-3xl md:text-4xl font-bold inline-flex items-center bg-gradient-to-r from-stranger-red to-stranger-dark py-2 px-6 rounded-lg shadow-lg">
                   <User className="w-8 h-8 mr-3 text-[#0F172A]" /> 
                   <SplitText 
                     text="About Me" 
@@ -808,7 +818,7 @@ function App() {
                     viewport={{ once: true }}
                     transition={{ duration: 0.5, delay: 0.1 }}
                   >
-                    {"I'm Shreyas, a first-year Computer Science and Engineering undergraduate at The National Institute of Engineering, Mysuru, specializing in Artificial Intelligence and Machine Learning."}
+                    {"I'm Shreyas, a Sophomore Computer Science and Engineering undergraduate at The National Institute of Engineering, Mysuru, specializing in Artificial Intelligence and Machine Learning."}
                   </motion.p>
                   
                   <motion.p
@@ -835,10 +845,10 @@ function App() {
                   initial={{ opacity: 0, x: 20 }}
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true }}
-                  className="relative group about-image-container mx-auto flex items-center justify-center"
+                  className="relative group about-image-container mx-auto flex items-center justify-center p-4"
                 >
                   <div 
-                    className="profile-tilted-card w-full h-full aspect-square"
+                    className="profile-tilted-card w-full h-full aspect-square relative z-10"
                     onMouseMove={(e) => {
                       // Throttle mousemove events for better performance
                       if (!e.currentTarget.dataset.lastMove || 
@@ -903,11 +913,13 @@ function App() {
           </section>
 
           {/* Experience Section */}
-          <ExperienceSection />
+          <Suspense fallback={<div className="h-screen w-full flex items-center justify-center"><div className="w-8 h-8 border-4 border-stranger-red border-t-transparent rounded-full animate-spin"></div></div>}>
+            <ExperienceSection />
+          </Suspense>
 
           {/* Education Section */}
-          <section id="education" className="py-16 md:py-20 bg-[#1E293B]/50 relative overflow-hidden">
-            <div className="absolute inset-0 z-0 backdrop-blur-xl bg-gradient-to-b from-[#1E293B]/80 to-[#0F172A]/80"></div>
+          <section id="education" className="py-16 md:py-20 bg-stranger-black relative overflow-hidden">
+            <div className="absolute inset-0 z-0 backdrop-blur-xl bg-gradient-to-b from-stranger-black/80 to-stranger-dark-alt/80"></div>
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
@@ -915,7 +927,7 @@ function App() {
                 viewport={{ once: true }}
                 className="text-center mb-12"
               >
-                <h2 className="text-3xl md:text-4xl font-bold inline-flex items-center bg-gradient-to-r from-[#38BDF8] to-[#A855F7] py-2 px-6 rounded-lg shadow-lg">
+                <h2 className="text-3xl md:text-4xl font-bold inline-flex items-center bg-gradient-to-r from-stranger-red to-stranger-dark py-2 px-6 rounded-lg shadow-lg">
                   <GraduationCap className="w-8 h-8 mr-3 text-[#0F172A]" /> 
                   <SplitText 
                     text="Education" 
@@ -942,7 +954,7 @@ function App() {
                   <div className="absolute inset-0 bg-white/5 backdrop-blur-md rounded-xl border border-white/10 shadow-2xl"></div>
                   
                   {/* Card glow effect */}
-                  <div className="absolute -inset-0.5 bg-gradient-to-r from-[#38BDF8] to-[#A855F7] opacity-0 group-hover:opacity-30 rounded-xl blur-lg transition-opacity duration-500"></div>
+                  <div className="absolute -inset-0.5 bg-gradient-to-r from-stranger-red to-stranger-dark opacity-0 group-hover:opacity-30 rounded-xl blur-lg transition-opacity duration-500"></div>
                   
                   {/* Card content */}
                   <div className="relative p-6 rounded-xl overflow-hidden">
@@ -952,8 +964,8 @@ function App() {
                     <h3 className="text-xl font-bold mb-2 text-white">
                       The National Institute Of Engineering, Mysore
                     </h3>
-                    <p className="text-[#38BDF8] mb-2 flex items-center">
-                      <span className="h-2 w-2 rounded-full bg-[#38BDF8] inline-block mr-2"></span>
+                    <p className="text-stranger-red mb-2 flex items-center">
+                      <span className="h-2 w-2 rounded-full bg-stranger-red inline-block mr-2"></span>
                       Bachelor of Engineering - BE, Computer Science (Specialisation
                       in AI & ML)
                     </p>
@@ -987,7 +999,7 @@ function App() {
                   <div className="absolute inset-0 bg-white/5 backdrop-blur-md rounded-xl border border-white/10 shadow-2xl"></div>
                   
                   {/* Card glow effect */}
-                  <div className="absolute -inset-0.5 bg-gradient-to-r from-[#38BDF8] to-[#A855F7] opacity-0 group-hover:opacity-30 rounded-xl blur-lg transition-opacity duration-500"></div>
+                  <div className="absolute -inset-0.5 bg-gradient-to-r from-stranger-red to-stranger-dark opacity-0 group-hover:opacity-30 rounded-xl blur-lg transition-opacity duration-500"></div>
                   
                   {/* Card content */}
                   <div className="relative p-6 rounded-xl overflow-hidden">
@@ -997,8 +1009,8 @@ function App() {
                     <h3 className="text-xl font-bold mb-2 text-white">
                       Pramati Hill View Academy
                     </h3>
-                    <p className="text-[#38BDF8] mb-2 flex items-center">
-                      <span className="h-2 w-2 rounded-full bg-[#38BDF8] inline-block mr-2"></span>
+                    <p className="text-stranger-red mb-2 flex items-center">
+                      <span className="h-2 w-2 rounded-full bg-stranger-red inline-block mr-2"></span>
                       Senior Secondary Certificate - 12th board
                     </p>
                     <p className="text-[#94A3B8] flex items-center">
@@ -1027,7 +1039,7 @@ function App() {
                   <div className="absolute inset-0 bg-white/5 backdrop-blur-md rounded-xl border border-white/10 shadow-2xl"></div>
                   
                   {/* Card glow effect */}
-                  <div className="absolute -inset-0.5 bg-gradient-to-r from-[#38BDF8] to-[#A855F7] opacity-0 group-hover:opacity-30 rounded-xl blur-lg transition-opacity duration-500"></div>
+                  <div className="absolute -inset-0.5 bg-gradient-to-r from-stranger-red to-stranger-dark opacity-0 group-hover:opacity-30 rounded-xl blur-lg transition-opacity duration-500"></div>
                   
                   {/* Card content */}
                   <div className="relative p-6 rounded-xl overflow-hidden">
@@ -1035,8 +1047,8 @@ function App() {
                     <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
                     
                     <h3 className="text-xl font-bold mb-2 text-white">The Acme School</h3>
-                    <p className="text-[#38BDF8] mb-2 flex items-center">
-                      <span className="h-2 w-2 rounded-full bg-[#38BDF8] inline-block mr-2"></span>
+                    <p className="text-stranger-red mb-2 flex items-center">
+                      <span className="h-2 w-2 rounded-full bg-stranger-red inline-block mr-2"></span>
                       Secondary School Certificate - 10th board
                     </p>
                     <p className="text-[#E2E8F0] mt-2 flex items-center font-semibold">
@@ -1071,7 +1083,7 @@ function App() {
                 viewport={{ once: true }}
                 className="text-center mb-12"
               >
-                <h2 className="text-3xl md:text-4xl font-bold inline-flex items-center bg-gradient-to-r from-[#38BDF8] to-[#A855F7] py-2 px-6 rounded-lg shadow-lg">
+                <h2 className="text-3xl md:text-4xl font-bold inline-flex items-center bg-gradient-to-r from-stranger-red to-stranger-dark py-2 px-6 rounded-lg shadow-lg">
                   <Code className="w-8 h-8 mr-3 text-[#0F172A]" /> 
                   <SplitText 
                     text="Skills" 
@@ -1243,13 +1255,15 @@ function App() {
           <section id="projects" className="py-16 md:py-20 relative overflow-hidden">
             {/* Add flickering grid as background */}
             <div className="absolute inset-0 z-0">
-              <FlickeringGrid 
-                squareSize={3}
-                gridGap={10}
-                flickerChance={0.2}
-                color="rgb(99, 102, 241)"
-                maxOpacity={0.2}
-              />
+              <Suspense fallback={null}>
+                <FlickeringGrid 
+                  squareSize={3}
+                  gridGap={10}
+                  flickerChance={0.2}
+                  color="rgb(99, 102, 241)"
+                  maxOpacity={0.2}
+                />
+              </Suspense>
             </div>
 
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -1259,7 +1273,7 @@ function App() {
                 viewport={{ once: true }}
                 className="text-center mb-6" // Changed from mb-12 to mb-6
               >
-                <h2 className="text-3xl md:text-4xl font-bold inline-flex items-center bg-gradient-to-r from-[#38BDF8] to-[#A855F7] py-2 px-6 rounded-lg shadow-lg">
+                <h2 className="text-3xl md:text-4xl font-bold inline-flex items-center bg-gradient-to-r from-stranger-red to-stranger-dark py-2 px-6 rounded-lg shadow-lg">
                   <Rocket className="w-8 h-8 mr-3 text-[#0F172A]" /> 
                   <SplitText 
                     text="Projects" 
@@ -1275,7 +1289,9 @@ function App() {
               <div className="hidden md:block w-full mx-auto">
                 <div className="flex items-center justify-center">
                   <div className="max-w-lg w-full">
-                    <CardDemo />
+                    <Suspense fallback={<div className="w-full h-64 bg-white/5 animate-pulse rounded-xl" />}>
+                      <CardDemo />
+                    </Suspense>
                   </div>
                 </div>
               </div>
@@ -1285,7 +1301,9 @@ function App() {
                 <div className="relative w-full overflow-hidden rounded-xl" style={{ height: '600px' }}>
                   <div className="absolute inset-0 z-10 flex flex-col items-center justify-center p-5">
                     <div className="w-full max-w-[300px] mx-auto">
-                      <CardDemo />
+                      <Suspense fallback={<div className="w-full h-64 bg-white/5 animate-pulse rounded-xl" />}>
+                        <CardDemo />
+                      </Suspense>
                     </div>
                   </div>
                 </div>
@@ -1294,7 +1312,7 @@ function App() {
           </section>
 
           {/* Blogs Section */}
-          <section id="blogs" ref={blogsSectionRef} className="py-16 md:py-20 bg-[#1E293B]/50">
+          <section id="blogs" ref={blogsSectionRef} className="py-16 md:py-20 bg-stranger-black">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
@@ -1302,7 +1320,7 @@ function App() {
                 viewport={{ once: true }}
                 className="text-center mb-12"
               >
-                <h2 className="text-3xl md:text-4xl font-bold inline-flex items-center bg-gradient-to-r from-[#38BDF8] to-[#A855F7] py-2 px-6 rounded-lg shadow-lg">
+                <h2 className="text-3xl md:text-4xl font-bold inline-flex items-center bg-gradient-to-r from-stranger-red to-stranger-dark py-2 px-6 rounded-lg shadow-lg">
                   <BookOpen className="w-8 h-8 mr-3 text-[#0F172A]" /> 
                   <SplitText 
                     text="Blogs" 
@@ -1314,16 +1332,18 @@ function App() {
                 </h2>
               </motion.div>
               
-              <HomeBlogSection />
+              <Suspense fallback={<div className="w-full h-96 flex items-center justify-center"><div className="w-8 h-8 border-4 border-stranger-red border-t-transparent rounded-full animate-spin"></div></div>}>
+                <HomeBlogSection />
+              </Suspense>
             </div>
           </section>
 
           {/* Contact Section */}
           <section id="contact" className="py-24 md:py-32 relative overflow-hidden">
             {/* Conditional GeoGreeting popup for contact page */}
-            {activeSection === 'contact' && <GeoGreetingPopup section="contact" />}
+
             {/* Bold solid background that matches site theme better */}
-            <div className="absolute inset-0 bg-[#1E293B] z-0"></div>
+            <div className="absolute inset-0 bg-stranger-black z-0"></div>
             
             {/* Patterned background with higher opacity for neobrutalism */}
             <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-[0.2] z-[1]"></div>
@@ -1335,8 +1355,8 @@ function App() {
                 viewport={{ once: true }}
                 className="text-center mb-16"
               >
-                <div className="inline-block bg-[#38BDF8] px-8 py-6 rounded-md border-4 border-black shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] mb-6 transform -rotate-1">
-                  <h2 className="text-4xl md:text-6xl font-extrabold text-black uppercase" style={{ textShadow: '3px 3px 0px rgba(0,0,0,0.3)' }}>
+                <div className="inline-block bg-stranger-red px-8 py-6 rounded-md border-4 border-white/10 shadow-[0_0_15px_rgba(229,9,20,0.5)] mb-6 transform -rotate-1">
+                  <h2 className="text-4xl md:text-6xl font-extrabold text-white uppercase" style={{ textShadow: '0 0 10px rgba(0,0,0,0.5)' }}>
                     Get in Touch
                   </h2>
                 </div>
@@ -1345,38 +1365,40 @@ function App() {
                 </p>
               </motion.div>
               
-              <div className="max-w-4xl mx-auto">
+                  <div className="max-w-4xl mx-auto">
                 {/* Contact form with neobrutalism wrapper */}
                 <div className="transform rotate-1 hover:rotate-0 transition-transform duration-300">
-                  <ContactForm formId="xkndlgya" />
+                  <Suspense fallback={<div className="w-full h-96 bg-white/5 animate-pulse rounded-xl" />}>
+                    <ContactForm formId="xkndlgya" />
+                  </Suspense>
                 </div>
                 
-                {/* Social media links with neobrutalism styling */}
+                {/* Social media links with stranger theme styling */}
                 <div className="flex justify-center gap-5 mt-16">
                   <a 
                     href="https://github.com/SmartKidzee" 
-                    className="p-4 bg-[#0F172A] rounded-md border-4 border-black shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] hover:translate-y-1 hover:translate-x-1 hover:shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] transition-all duration-200"
+                    className="p-4 bg-stranger-black rounded-md border border-white/20 shadow-[0_0_15px_rgba(255,255,255,0.1)] hover:translate-y-1 hover:translate-x-1 hover:shadow-[0_0_20px_rgba(255,255,255,0.2)] transition-all duration-200"
                     aria-label="GitHub"
                   >
                     <Github className="w-6 h-6 text-white" />
                   </a>
                   <a 
                     href="https://youtube.com/SmartKidzee" 
-                    className="p-4 bg-[#FF0000] rounded-md border-4 border-black shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] hover:translate-y-1 hover:translate-x-1 hover:shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] transition-all duration-200"
+                    className="p-4 bg-stranger-red rounded-md border border-stranger-red shadow-[0_0_15px_rgba(229,9,20,0.3)] hover:translate-y-1 hover:translate-x-1 hover:shadow-[0_0_20px_rgba(229,9,20,0.5)] transition-all duration-200"
                     aria-label="YouTube"
                   >
                     <Youtube className="w-6 h-6 text-white" />
                   </a>
                   <a 
                     href="https://www.linkedin.com/in/smartshreyas/" 
-                    className="p-4 bg-[#0077B5] rounded-md border-4 border-black shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] hover:translate-y-1 hover:translate-x-1 hover:shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] transition-all duration-200"
+                    className="p-4 bg-[#0077B5] rounded-md border border-white/20 shadow-[0_0_15px_rgba(0,119,181,0.3)] hover:translate-y-1 hover:translate-x-1 hover:shadow-[0_0_20px_rgba(0,119,181,0.5)] transition-all duration-200"
                     aria-label="LinkedIn"
                   >
                     <Linkedin className="w-6 h-6 text-white" />
                   </a>
                   <a 
                     href="https://x.com/KidzeeSmart" 
-                    className="p-4 bg-black rounded-md border-4 border-[#333] shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] hover:translate-y-1 hover:translate-x-1 hover:shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] transition-all duration-200"
+                    className="p-4 bg-black rounded-md border border-white/20 shadow-[0_0_15px_rgba(255,255,255,0.1)] hover:translate-y-1 hover:translate-x-1 hover:shadow-[0_0_20px_rgba(255,255,255,0.2)] transition-all duration-200"
                     aria-label="X (Twitter)"
                   >
                     <img src="https://i.ibb.co/5hYX5GVr/logo-white.png" alt="X" className="w-6 h-6" />

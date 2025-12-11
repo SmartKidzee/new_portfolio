@@ -125,9 +125,9 @@ const GeoGreetingPopup: React.FC<GeoGreetingPopupProps> = ({ section = 'default'
         >
           <div className="relative group">
             {/* Shadow effect that moves with hover */}
-            <div className="absolute -inset-1 bg-gradient-to-r from-[#38BDF8] to-[#A855F7] opacity-70 rounded-2xl blur transition-all group-hover:blur-md group-hover:opacity-80"></div>
+            <div className="absolute -inset-1 bg-gradient-to-r from-[#FF0000] to-[#800000] opacity-70 rounded-2xl blur transition-all group-hover:blur-md group-hover:opacity-80"></div>
             
-            <div className="relative bg-[#1E293B] text-white px-4 py-3 sm:px-6 sm:py-4 rounded-xl shadow-lg border border-white/10 backdrop-blur-lg flex items-center gap-3 group-hover:shadow-xl transition-all duration-300">
+            <div className="relative bg-[#000000] text-white px-4 py-3 sm:px-6 sm:py-4 rounded-xl shadow-lg border border-white/10 backdrop-blur-lg flex items-center gap-3 group-hover:shadow-xl transition-all duration-300">
               <div className="flex items-center gap-2 text-sm sm:text-base overflow-hidden">
                 {loading ? (
                   <div className="animate-pulse flex items-center">
@@ -136,7 +136,7 @@ const GeoGreetingPopup: React.FC<GeoGreetingPopupProps> = ({ section = 'default'
                   </div>
                 ) : (
                   <>
-                    <div className="flex-shrink-0 text-[#38BDF8]">
+                    <div className="flex-shrink-0 text-[#FF0000]">
                       <MapPin size={16} className="animate-bounce" />
                     </div>
                     <span className="font-medium whitespace-nowrap overflow-hidden text-ellipsis">

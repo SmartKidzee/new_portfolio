@@ -23,7 +23,7 @@ export const Logo = ({ onClick, className = '' }: LogoProps) => {
   const logoStyle = {
     fontSize: 'clamp(1.25rem, 4vw, 2.25rem)',
     fontWeight: 800,
-    background: 'linear-gradient(to right, #38BDF8, #A855F7)',
+    background: 'linear-gradient(to right, #FF0000, #800000)',
     backgroundClip: 'text',
     WebkitBackgroundClip: 'text',
     color: 'transparent',

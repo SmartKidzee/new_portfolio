@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 import { Briefcase, MapPin, Calendar, Link as LinkIcon } from 'lucide-react';
 import SplitText from '../cpmponents/TextAnimations/SplitText/SplitText';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from './ui/card';
-import { FaYoutube, FaGithub, FaSchool, FaLaptopCode, FaGraduationCap, FaCode } from 'react-icons/fa';
+import { FaYoutube, FaSchool, FaLaptopCode, FaGraduationCap, FaCode } from 'react-icons/fa';
 
 type ExperienceItem = {
   role: string;
@@ -27,7 +27,7 @@ const experiences: ExperienceItem[] = [
     achievements: [
       'Got interested in computers and programming. Began learning basic coding.',
     ],
-    icon: <FaLaptopCode className="text-[#38BDF8]" />,
+    icon: <FaLaptopCode className="text-[#FF0000]" />,
     iconLabel: 'Tech',
   },
   {
@@ -43,7 +43,7 @@ const experiences: ExperienceItem[] = [
             href="https://youtube.com/SmartKidzee"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-[#38BDF8] hover:text-[#A855F7]"
+            className="text-[#FF0000] hover:text-[#FF4444]"
             aria-label="SmartKidzee YouTube"
           >
             SmartKidzee
@@ -65,7 +65,7 @@ const experiences: ExperienceItem[] = [
       'Board: Secondary School Certificate',
       'Percentage: 95.2%',
     ],
-    icon: <FaSchool className="text-[#38BDF8]" />,
+    icon: <FaSchool className="text-[#FF0000]" />,
     iconLabel: 'School',
   },
   {
@@ -77,7 +77,7 @@ const experiences: ExperienceItem[] = [
       'Board: Senior Secondary Certificate - 12th',
       'CGPA: 8.0',
     ],
-    icon: <FaSchool className="text-[#A855F7]" />,
+    icon: <FaSchool className="text-[#800000]" />,
     iconLabel: 'Senior Secondary',
   },
   {
@@ -93,7 +93,7 @@ const experiences: ExperienceItem[] = [
             href="https://github.com/SmartKidzee"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-[#38BDF8] hover:text-[#A855F7]"
+            className="text-[#FF0000] hover:text-[#FF4444]"
             aria-label="SmartKidzee GitHub"
           >
             SmartKidzee
@@ -102,7 +102,7 @@ const experiences: ExperienceItem[] = [
       ),
     ],
     link: 'https://github.com/SmartKidzee',
-    icon: <FaCode className="text-[#38BDF8]" />,
+    icon: <FaCode className="text-[#FF0000]" />,
     iconLink: 'https://github.com/SmartKidzee',
     iconLabel: 'GitHub',
   },
@@ -114,9 +114,9 @@ const experiences: ExperienceItem[] = [
       'Institution: The National Institute Of Engineering, Mysore',
       'Degree: BE, Computer Science - AI & ML',
       'CGPA: 9.33',
-      'Currently pursuing my engineering degree with a specialization in AI & ML.',
+      'Currently in my Sophomore year, pursuing my engineering degree with a specialization in AI & ML.',
     ],
-    icon: <FaGraduationCap className="text-[#A855F7]" />,
+    icon: <FaGraduationCap className="text-[#800000]" />,
     iconLabel: 'Engineering',
   },
 ];
@@ -148,7 +148,7 @@ export default function ExperienceSection() {
           viewport={{ once: true }}
           className="text-center mb-12"
         >
-          <h2 className="text-3xl md:text-4xl font-bold inline-flex items-center bg-gradient-to-r from-[#38BDF8] to-[#A855F7] py-2 px-6 rounded-lg shadow-lg">
+          <h2 className="text-3xl md:text-4xl font-bold inline-flex items-center bg-gradient-to-r from-[#FF0000] to-[#800000] py-2 px-6 rounded-lg shadow-lg">
             <Briefcase className="w-8 h-8 mr-3 text-[#0F172A]" />
             <SplitText
               text="Experience"
@@ -161,7 +161,7 @@ export default function ExperienceSection() {
         </motion.div>
 
         <div className="relative">
-          <div className="absolute left-4 top-0 bottom-0 w-px bg-[#38BDF8]/15" aria-hidden="true" />
+          <div className="absolute left-4 top-0 bottom-0 w-px bg-[#FF0000]/15" aria-hidden="true" />
 
           <div className="space-y-8">
             {experiences.map((item, index) => (
@@ -174,7 +174,7 @@ export default function ExperienceSection() {
                 custom={index}
                 variants={containerVariants}
               >
-                <div className="absolute left-4 top-4 -translate-x-1/2 w-3 h-3 rounded-full bg-[#38BDF8] ring-4 ring-[#0F172A]" aria-hidden="true" />
+                <div className="absolute left-4 top-4 -translate-x-1/2 w-3 h-3 rounded-full bg-[#FF0000] ring-4 ring-[#000000]" aria-hidden="true" />
 
                 <Card 
                   className="experience-card bg-white/5 border-white/10 backdrop-blur-md transition-transform duration-200 will-change-transform hover:-translate-y-0.5"
@@ -223,7 +223,7 @@ export default function ExperienceSection() {
                     <div className="flex flex-wrap gap-x-4 gap-y-2 text-sm text-[#94A3B8]">
                       {item.startDate && item.endDate && (
                         <span className="inline-flex items-center">
-                          <Calendar className="w-4 h-4 mr-2 text-[#38BDF8]" />
+                          <Calendar className="w-4 h-4 mr-2 text-[#FF0000]" />
                           <time dateTime={item.startDate}>{item.startDate}</time>
                           <span className="mx-1">—</span>
                           <time dateTime={item.endDate}>{item.endDate}</time>
@@ -231,7 +231,7 @@ export default function ExperienceSection() {
                       )}
                       {item.location && (
                         <span className="inline-flex items-center">
-                          <MapPin className="w-4 h-4 mr-2 text-[#A855F7]" />
+                          <MapPin className="w-4 h-4 mr-2 text-[#800000]" />
                           {item.location}
                         </span>
                       )}
@@ -240,7 +240,7 @@ export default function ExperienceSection() {
                           href={item.link}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="inline-flex items-center text-[#38BDF8] hover:text-[#A855F7]"
+                          className="inline-flex items-center text-[#FF0000] hover:text-[#FF4444]"
                           aria-label="external link"
                         >
                           <LinkIcon className="w-4 h-4 mr-2" /> Visit

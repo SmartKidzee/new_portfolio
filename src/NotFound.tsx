@@ -76,10 +76,10 @@ const NotFound: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#030014] text-white relative flex items-center justify-center overflow-hidden">
+    <div className="min-h-screen bg-[#000000] text-white relative flex items-center justify-center overflow-hidden">
       <div className="stars-container absolute inset-0 z-0"></div>
       
-      <div className="absolute inset-0 bg-gradient-to-br from-[#38BDF8]/20 to-[#A855F7]/20 z-0"></div>
+      <div className="absolute inset-0 bg-gradient-to-br from-[#800000]/20 to-[#FF0000]/20 z-0"></div>
       
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
         {!showSnakeGame ? (
@@ -95,7 +95,7 @@ const NotFound: React.FC = () => {
                 className="glitch-text" 
                 data-text="404"
                 style={{ 
-                  textShadow: '0 0 5px #38BDF8, 0 0 10px #38BDF8, 0 0 15px #A855F7',
+                  textShadow: '0 0 5px #FF0000, 0 0 10px #FF0000, 0 0 15px #800000',
                   color: 'white'
                 }}
               >
@@ -109,7 +109,7 @@ const NotFound: React.FC = () => {
               transition={{ duration: 1, delay: 0.5 }}
               className="text-3xl md:text-4xl font-bold mt-8 mb-4"
               style={{
-                background: 'linear-gradient(to right, #38BDF8, #A855F7)',
+                background: 'linear-gradient(to right, #FF0000, #800000)',
                 WebkitBackgroundClip: 'text',
                 WebkitTextFillColor: 'transparent',
                 backgroundClip: 'text'
@@ -144,13 +144,13 @@ const NotFound: React.FC = () => {
               <button
                 onClick={() => setShowSnakeGame(true)}
                 className="cosmic-button"
-                style={{ background: 'rgba(56, 189, 248, 0.2)' }}
+                style={{ background: 'rgba(255, 0, 0, 0.2)' }}
               >
                 <span className="cosmic-button-text flex items-center justify-center gap-2">
                   <Gamepad size={20} />
                   Play Game
                 </span>
-                <div className="cosmic-button-glow" style={{ background: 'radial-gradient(circle at center, #38BDF8 0%, transparent 70%)' }}></div>
+                <div className="cosmic-button-glow" style={{ background: 'radial-gradient(circle at center, #FF0000 0%, transparent 70%)' }}></div>
               </button>
             </motion.div>
 
@@ -173,7 +173,7 @@ const NotFound: React.FC = () => {
             <h2 
               className="text-2xl md:text-3xl font-bold mb-6"
               style={{
-                background: 'linear-gradient(to right, #38BDF8, #A855F7)',
+                background: 'linear-gradient(to right, #FF0000, #800000)',
                 WebkitBackgroundClip: 'text',
                 WebkitTextFillColor: 'transparent',
                 backgroundClip: 'text'

@@ -104,7 +104,15 @@ export default {
   				'3': 'hsl(var(--chart-3))',
   				'4': 'hsl(var(--chart-4))',
   				'5': 'hsl(var(--chart-5))'
-  			}
+  			},
+        stranger: {
+          red: '#FF0000',
+          dark: '#800000',
+          black: '#000000',
+          accent: '#E50914',
+          'red-light': '#ff4444',
+          'dark-alt': '#1a0505',
+        }
   		}
   	}
   },

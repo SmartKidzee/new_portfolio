@@ -8,7 +8,6 @@ import performanceFlags from "../lib/performanceUtils";
 const InfiniteMovingCardsDemo = memo(() => {
   // Detect if mobile for performance optimizations
   const [isMobile, setIsMobile] = useState(performanceFlags.isMobile);
-  const [isLowEndDevice, setIsLowEndDevice] = useState(performanceFlags.isLowEndDevice);
   
   useEffect(() => {
     const checkMobile = () => {
@@ -51,7 +50,7 @@ const statsData = [
   { icon: "📜", value: 5, label: "Certifications Earned", suffix: "+" },
   { icon: "⌨️", value: 5, label: "Programming Languages Learned", suffix: "+" },
   { icon: "🌐", value: 40, label: "Website Daily Visitors", suffix: "+" },
-  { icon: "👥", value: 450, label: "LinkedIn Connections", suffix: "+" },
+  { icon: "👥", value: 500, label: "LinkedIn Connections", suffix: "+" },
   { icon: "📊", value: 20, label: "YouTube Views", suffix: "K+" },
   { icon: "📝", value: 10000, label: "Lines of Code Written for This Website", suffix: "+" },
 ];

@@ -88,7 +88,7 @@ export function ScrollStackItem({
         }`}
       >
         {/* Soft gradient edge for premium look, non-intrusive */}
-        <div className="pointer-events-none absolute -inset-px rounded-2xl bg-gradient-to-b from-[#38BDF8]/10 to-[#A855F7]/10 opacity-60" />
+        <div className="pointer-events-none absolute -inset-px rounded-2xl bg-gradient-to-b from-[#FF0000]/10 to-[#800000]/10 opacity-60" />
         <div className="relative z-10">{children}</div>
       </div>
     </motion.div>

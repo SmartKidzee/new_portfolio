@@ -18,18 +18,18 @@
 
 .shadcn-navbar-mobile-menu .mobile-nav-link:active,
 .shadcn-navbar-mobile-menu .mobile-nav-link:hover {
-  background-color: rgba(124, 58, 237, 0.2);
+  background-color: rgba(229, 9, 20, 0.2);
   color: white;
   transform: translateX(5px);
-  border-color: rgba(124, 58, 237, 0.4);
-  box-shadow: 0 0 15px rgba(124, 58, 237, 0.3);
+  border-color: rgba(229, 9, 20, 0.4);
+  box-shadow: 0 0 15px rgba(229, 9, 20, 0.3);
 }
 
 .shadcn-navbar-mobile-menu .mobile-nav-link.active {
-  background-color: rgba(124, 58, 237, 0.3);
+  background-color: rgba(229, 9, 20, 0.3);
   color: white;
-  border-color: rgba(124, 58, 237, 0.6);
-  box-shadow: 0 0 20px rgba(124, 58, 237, 0.3);
+  border-color: rgba(229, 9, 20, 0.6);
+  box-shadow: 0 0 20px rgba(229, 9, 20, 0.3);
 }
 
 .mobile-nav-link {
@@ -44,7 +44,7 @@
   left: 0;
   width: 0;
   height: 2px;
-  background: linear-gradient(to right, #38BDF8, #A855F7);
+  background: linear-gradient(to right, #FF0000, #800000);
   transition: width 0.3s ease;
 }
 

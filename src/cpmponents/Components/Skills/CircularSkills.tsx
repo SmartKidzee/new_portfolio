@@ -1,6 +1,5 @@
 import React, { useEffect, useRef } from 'react';
-import { motion, useAnimation } from 'framer-motion';
-import * as Progress from '@radix-ui/react-progress';
+import { motion } from 'framer-motion';
 
 // Interface for individual skill
 interface Skill {
@@ -20,11 +19,7 @@ interface CircularSkillsProps {
   categories: SkillCategory[];
 }
 
-// Function to convert level to angle for circle
-const calculateStrokeDashoffset = (level: number) => {
-  const circumference = 2 * Math.PI * 45; // 45 is the radius
-  return circumference - (circumference * level) / 100;
-};
+
 
 // Fixed SVG settings
 const SVG_SIZE = 100;
@@ -165,8 +160,8 @@ const CircularSkills: React.FC<CircularSkillsProps> = ({ categories }) => {
                       {/* Progress circle with gradient */}
                       <defs>
                         <linearGradient id={`skillGradient-${catIndex}-${skillIndex}`} x1="0%" y1="0%" x2="100%" y2="0%">
-                          <stop offset="0%" stopColor="#3A29FF" />
-                          <stop offset="100%" stopColor="#FF3232" />
+                          <stop offset="0%" stopColor="#e50914" />
+                          <stop offset="100%" stopColor="#800000" />
                         </linearGradient>
                       </defs>
                       

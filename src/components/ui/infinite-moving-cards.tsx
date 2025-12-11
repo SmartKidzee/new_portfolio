@@ -139,14 +139,14 @@ export const InfiniteMovingCards = ({
       >
         {duplicatedItems.map((stat, idx) => (
           <li
-            className="relative w-[280px] sm:w-[320px] max-w-full shrink-0 rounded-2xl border border-b-0 border-[#38BDF8]/20 bg-gradient-to-br from-[#1E293B] to-[#1E293B]/70 p-6 shadow-lg hover:border-[#38BDF8]/50 transition-all duration-300 hover:shadow-[#A855F7]/40 hover:shadow-lg"
+            className="relative w-[280px] sm:w-[320px] max-w-full shrink-0 rounded-2xl border border-b-0 border-[#FF0000]/20 bg-gradient-to-br from-[#000000] to-[#1a0505]/70 p-6 shadow-lg hover:border-[#FF0000]/50 transition-all duration-300 hover:shadow-[#800000]/40 hover:shadow-lg"
             key={`${idx}-${stat.label}`}
             style={{ transform: 'translateZ(0)' }}
           >
             <div className="text-center">
               <div className="text-4xl mb-2">{stat.icon}</div>
               <div className="flex items-center justify-center">
-                <span className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-[#38BDF8] to-[#A855F7] bg-clip-text text-transparent">
+                <span className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-[#FF0000] to-[#800000] bg-clip-text text-transparent">
                   <CountUp 
                     from={0}
                     to={stat.value} 
@@ -155,7 +155,7 @@ export const InfiniteMovingCards = ({
                   />
                 </span>
                 {stat.suffix && (
-                  <span className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-[#38BDF8] to-[#A855F7] bg-clip-text text-transparent ml-1">
+                  <span className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-[#FF0000] to-[#800000] bg-clip-text text-transparent ml-1">
                     {stat.suffix}
                   </span>
                 )}

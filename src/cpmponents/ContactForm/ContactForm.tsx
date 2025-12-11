@@ -16,7 +16,7 @@ interface FormState {
   } | null;
 }
 
-const ContactForm: React.FC<ContactFormProps> = ({ formId }) => {
+const ContactForm: React.FC<ContactFormProps> = ({ }) => {
   const [state, setState] = useState<FormState>({
     submitting: false,
     validating: false,
@@ -136,9 +136,9 @@ const ContactForm: React.FC<ContactFormProps> = ({ formId }) => {
     if (!state.errors || !state.errors[field]) return null;
     
     return (
-      <div className="text-black font-bold text-sm mt-2 bg-[#FF5C5C] p-2 rounded-md border-2 border-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]">
+      <div className="text-white font-bold text-sm mt-2 bg-stranger-red/20 p-2 rounded-md border border-stranger-red shadow-sm">
         {state.errors[field].map((error, index) => (
-          <p key={index} className="flex items-center">
+          <p key={index} className="flex items-center text-stranger-red-light">
             <AlertTriangle className="w-3 h-3 mr-1 flex-shrink-0" />
             {error}
           </p>
@@ -150,14 +150,14 @@ const ContactForm: React.FC<ContactFormProps> = ({ formId }) => {
   const isProcessing = state.submitting || state.validating;
 
   return (
-    <div className="bg-white rounded-md border-4 border-black shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] p-6 md:p-8">
+    <div className="bg-black/50 rounded-xl border border-white/10 shadow-2xl p-6 md:p-8 backdrop-blur-md">
       {state.succeeded ? (
         <div className="py-10 px-6 text-center">
-          <div className="mb-6 w-16 h-16 mx-auto bg-[#00CC66] border-4 border-black rounded-md shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] flex items-center justify-center">
-            <CheckCircle className="w-8 h-8 text-black" />
+          <div className="mb-6 w-16 h-16 mx-auto bg-green-500/10 border border-green-500 rounded-full flex items-center justify-center shadow-[0_0_15px_rgba(34,197,94,0.3)]">
+            <CheckCircle className="w-8 h-8 text-green-500" />
           </div>
-          <p className="text-black text-2xl font-extrabold uppercase mb-3" style={{ textShadow: '2px 2px 0px rgba(0,0,0,0.2)' }}>Message Sent!</p>
-          <p className="text-black text-lg font-medium">Thank you for reaching out. I'll get back to you soon.</p>
+          <p className="text-white text-2xl font-bold uppercase mb-3 text-glow-green">Message Sent!</p>
+          <p className="text-gray-300 text-lg font-medium">Thank you for reaching out. I'll get back to you soon.</p>
         </div>
       ) : (
         <form 
@@ -167,7 +167,7 @@ const ContactForm: React.FC<ContactFormProps> = ({ formId }) => {
           <div>
             <label
               htmlFor="name"
-              className="block text-sm font-extrabold uppercase mb-2 text-black"
+              className="block text-sm font-bold uppercase mb-2 text-stranger-red tracking-wider"
             >
               Name
             </label>
@@ -177,7 +177,7 @@ const ContactForm: React.FC<ContactFormProps> = ({ formId }) => {
               name="name"
               required
               placeholder="Your name"
-              className="w-full px-5 py-4 bg-[#FFE603] rounded-md text-black font-medium border-3 border-black outline-none shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] focus:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] focus:translate-x-1 focus:translate-y-1 transition-all"
+              className="w-full px-5 py-4 bg-black/50 rounded-lg text-white font-medium border border-white/10 outline-none focus:border-stranger-red focus:shadow-[0_0_15px_rgba(229,9,20,0.3)] transition-all duration-300 placeholder:text-gray-600"
               disabled={isProcessing}
             />
             <FieldError field="name" />
@@ -185,7 +185,7 @@ const ContactForm: React.FC<ContactFormProps> = ({ formId }) => {
           <div>
             <label
               htmlFor="email"
-              className="block text-sm font-extrabold uppercase mb-2 text-black"
+              className="block text-sm font-bold uppercase mb-2 text-stranger-red tracking-wider"
             >
               Email
             </label>
@@ -195,7 +195,7 @@ const ContactForm: React.FC<ContactFormProps> = ({ formId }) => {
               name="email"
               required
               placeholder="your.email@example.com"
-              className="w-full px-5 py-4 bg-[#FFE603] rounded-md text-black font-medium border-3 border-black outline-none shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] focus:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] focus:translate-x-1 focus:translate-y-1 transition-all"
+              className="w-full px-5 py-4 bg-black/50 rounded-lg text-white font-medium border border-white/10 outline-none focus:border-stranger-red focus:shadow-[0_0_15px_rgba(229,9,20,0.3)] transition-all duration-300 placeholder:text-gray-600"
               disabled={isProcessing}
             />
             <FieldError field="email" />
@@ -203,7 +203,7 @@ const ContactForm: React.FC<ContactFormProps> = ({ formId }) => {
           <div>
             <label
               htmlFor="message"
-              className="block text-sm font-extrabold uppercase mb-2 text-black"
+              className="block text-sm font-bold uppercase mb-2 text-stranger-red tracking-wider"
             >
               Message
             </label>
@@ -213,15 +213,15 @@ const ContactForm: React.FC<ContactFormProps> = ({ formId }) => {
               rows={5}
               required
               placeholder="Your message here..."
-              className="w-full px-5 py-4 bg-[#FFE603] rounded-md text-black font-medium border-3 border-black outline-none shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] focus:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] focus:translate-x-1 focus:translate-y-1 transition-all"
+              className="w-full px-5 py-4 bg-black/50 rounded-lg text-white font-medium border border-white/10 outline-none focus:border-stranger-red focus:shadow-[0_0_15px_rgba(229,9,20,0.3)] transition-all duration-300 placeholder:text-gray-600"
               disabled={isProcessing}
             ></textarea>
             <FieldError field="message" />
           </div>
           {state.errors && state.errors.form && (
-            <div className="text-black text-sm bg-[#FF5C5C] rounded-md p-4 border-3 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
+            <div className="text-white text-sm bg-stranger-red/10 rounded-lg p-4 border border-stranger-red">
               {state.errors.form.map((error, index) => (
-                <p key={index} className="flex items-center font-bold">
+                <p key={index} className="flex items-center font-bold text-stranger-red-light">
                   <AlertTriangle className="w-4 h-4 mr-2 flex-shrink-0" />
                   {error}
                 </p>
@@ -232,7 +232,7 @@ const ContactForm: React.FC<ContactFormProps> = ({ formId }) => {
             <button
               type="submit"
               disabled={isProcessing}
-              className="w-full py-4 px-6 bg-[#FF3E00] text-white font-extrabold uppercase rounded-md border-3 border-black shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] hover:shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] hover:translate-x-1 hover:translate-y-1 active:shadow-none active:translate-x-2 active:translate-y-2 transition-all duration-150 text-lg"
+              className="w-full py-4 px-6 bg-gradient-to-r from-stranger-red to-stranger-dark text-white font-bold uppercase rounded-lg border border-transparent shadow-lg hover:shadow-[0_0_20px_rgba(229,9,20,0.4)] hover:scale-[1.02] active:scale-[0.98] transition-all duration-300 text-lg tracking-widest"
             >
               {state.validating ? (
                 <span className="flex items-center justify-center">
