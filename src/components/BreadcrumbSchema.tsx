@@ -1,5 +1,5 @@
 import React from 'react';
-import Head from 'next/head';
+import { Helmet } from 'react-helmet';
 
 interface BreadcrumbItem {
   name: string;
@@ -23,12 +23,12 @@ const BreadcrumbSchema: React.FC<BreadcrumbSchemaProps> = ({ items }) => {
   };
 
   return (
-    <Head>
+    <Helmet>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbList) }}
       />
-    </Head>
+    </Helmet>
   );
 };
 

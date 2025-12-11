@@ -1,5 +1,5 @@
 import React from 'react';
-import Head from 'next/head';
+import { Helmet } from 'react-helmet';
 
 interface FAQItem {
   question: string;
@@ -25,12 +25,12 @@ const FAQSchema: React.FC<FAQSchemaProps> = ({ items }) => {
   };
 
   return (
-    <Head>
+    <Helmet>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
       />
-    </Head>
+    </Helmet>
   );
 };
 
