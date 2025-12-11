@@ -47,7 +47,6 @@
     "http-proxy-middleware": "^3.0.3",
     "lucide-react": "^0.344.0",
     "motion": "^12.6.5",
-
     "ogl": "^1.0.11",
     "postprocessing": "^6.37.1",
     "process": "^0.11.10",
