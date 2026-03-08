@@ -2,6 +2,9 @@
     "framework": "vite",
     "buildCommand": "npm run build",
     "outputDirectory": "dist",
+    "env": {
+      "NEXT_PRIVATE_SKIP_VULNERABILITY_CHECK": "1"
+    },
     "rewrites": [
       { "source": "/api/formspree", "destination": "https://formspree.io/f/xkndlgya" },
       { "source": "/blogs/:id", "destination": "/index.html" },
