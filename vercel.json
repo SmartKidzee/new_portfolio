@@ -3,7 +3,8 @@
     "buildCommand": "npm run build",
     "outputDirectory": "dist",
     "env": {
-      "NEXT_PRIVATE_SKIP_VULNERABILITY_CHECK": "1"
+      "NEXT_PRIVATE_SKIP_VULNERABILITY_CHECK": "1",
+      "VERCEL_FORCE_NO_BUILD_CACHE": "1"
     },
     "rewrites": [
       { "source": "/api/formspree", "destination": "https://formspree.io/f/xkndlgya" },
