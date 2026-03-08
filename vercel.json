@@ -6,6 +6,7 @@
       "NEXT_PRIVATE_SKIP_VULNERABILITY_CHECK": "1",
       "VERCEL_FORCE_NO_BUILD_CACHE": "1"
     },
+    "installCommand": "npm install && rm -rf node_modules/next node_modules/@next node_modules/react-server-dom-webpack node_modules/react-server-dom-turbopack node_modules/react-server-dom-parcel",
     "rewrites": [
       { "source": "/api/formspree", "destination": "https://formspree.io/f/xkndlgya" },
       { "source": "/blogs/:id", "destination": "/index.html" },
