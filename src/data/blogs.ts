@@ -16,6 +16,61 @@ export interface Blog {
 // Blog data
 export const blogs: Blog[] = [
   {
+    id: '9',
+    category: "Education",
+    title: "Semester 3 Results — 9.33 SGPA & Growing Stronger",
+    content: `Another semester wraps up, and with it, Semester 3 at **The National Institute of Engineering, Mysuru** comes to a close.
+
+The results are in: **9.33 SGPA** with all 21 credits earned. Not perfect — but real. And honestly? This semester taught me more outside the exam hall than inside it.
+
+**📊 Semester 3 — The Subjects**
+
+This was the semester where things got *serious* in Computer Science. Here's what I tackled:
+
+- **Mathematics for Computer Science** — A+ grade. The mathematical foundations behind algorithms and computation finally started clicking.
+- **Digital Design and Computer Organization** — O grade. Understanding how hardware and software talk to each other at the lowest level was fascinating.
+- **Operating Systems** — A+ grade. Processes, threads, scheduling, memory management — the backbone of every system we use daily.
+- **Data Structures and Applications** — A+ grade. Trees, graphs, heaps, hashing — this is where real problem solving lives.
+- **Object Oriented Programming with Java** — A+ grade. Solidified my understanding of OOP beyond just syntax.
+- **Data Visualization using Python** — O grade. Turning raw data into meaningful visuals — a skill I'll carry everywhere.
+- **Data Structures Laboratory** — O grade. Hands-on implementation of everything we learned in theory. Nothing beats building it yourself.
+- **Physical Education** — PP grade. Yes, even engineers need to move.
+- **Social Connect and Responsibility** — O grade. A reminder that tech exists to serve people, not the other way around.
+
+**Final SGPA: 9.33**
+
+**🚀 Beyond the Classroom**
+
+What truly defined Semester 3 wasn't grades — it was growth:
+
+- Continued building and shipping real projects, pushing my portfolio further.
+- Dove deeper into **Agentic AI**, exploring autonomous systems and how they'll reshape our world.
+- Strengthened my foundations in **Data Structures & Algorithms**, which I know will pay dividends in interviews and real-world engineering.
+- Explored **operating system internals** — understanding the "why" behind every system call.
+- Kept creating content and sharing my learning journey with the community.
+
+**🌱 Reflections**
+
+Semester 3 was harder. The subjects demanded more depth, more rigor, and more time. A 9.33 isn't a 9.65, and that's okay. What matters is that the knowledge actually stuck this time — not just for exams, but for building.
+
+The truth remains the same: **marks open doors, skills keep them open.** I'd rather deeply understand operating systems and data structures than memorize answers for a perfect score.
+
+Here's to Semester 4, and the relentless pursuit of building things that matter. 🔥`,
+    created_at: "2026-03-08",
+    updated_at: "2026-03-08",
+    src: "/blogassets/blog9.png",
+    isAchievement: true,
+    tags: [
+      "Education",
+      "Semester 3",
+      "Results",
+      "Data Structures",
+      "Operating Systems",
+      "Computer Science",
+      "NIE Mysuru",
+    ]
+  },
+  {
     id: '8',
     category: "Education",
     title: "Semester 2 Results & Reflections",

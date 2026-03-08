@@ -544,11 +544,11 @@ function App() {
             <div className="absolute bottom-[-20%] left-[-20%] w-[600px] h-[300px] bg-[#F4791B] rounded-full blur-[80px] mix-blend-screen opacity-60 pointer-events-none z-0" />
 
             {/* Main Centered Hero */}
-            <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full flex flex-col justify-center min-h-[100svh] pt-20">
-              <div className="relative w-full flex flex-col items-center justify-center mt-12 md:mt-0">
+            <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full flex flex-col justify-center min-h-[100svh] pt-24 md:pt-20">
+              <div className="relative w-full flex flex-col items-center justify-center mt-8 md:mt-0 min-h-[40vh] md:min-h-[50vh]">
                 
                 {/* Portrait Image — BEHIND the headline */}
-                <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[260px] sm:w-[340px] md:w-[440px] aspect-[3/4] z-[5] pointer-events-none drop-shadow-[0_0_60px_rgba(253,38,1,0.35)]">
+                <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[220px] sm:w-[280px] md:w-[440px] aspect-[3/4] z-[5] pointer-events-none drop-shadow-[0_0_60px_rgba(253,38,1,0.35)]">
                   <img
                     src="https://i.ibb.co/B55KFGh2/IMG-1106.jpg" 
                     alt="Shreyas"
@@ -558,7 +558,7 @@ function App() {
                 </div>
 
                 {/* Massive Headline — ON TOP of the photo */}
-                <h1 className="font-['Anton'] text-[16vw] sm:text-[13vw] md:text-[min(11vw,170px)] leading-[0.85] tracking-wide text-center uppercase md:whitespace-nowrap z-10 mx-auto w-full relative drop-shadow-2xl">
+                <h1 className="font-['Anton'] text-[14vw] sm:text-[13vw] md:text-[min(11vw,170px)] leading-[0.85] tracking-wide text-center uppercase md:whitespace-nowrap z-10 mx-auto w-full relative drop-shadow-2xl">
                   <span className="block md:inline-block">BUILDING</span>
                   <span className="block md:inline-block md:ml-4">THE</span>
                   <span className="block md:inline-block md:ml-4">FUTURE</span>
@@ -567,8 +567,8 @@ function App() {
               </div>
 
               {/* Floating Elements (Desktop + Mobile alignment) */}
-              <div className="w-full mt-12 md:mt-24 pb-20 md:pb-0 flex flex-col md:flex-row justify-between items-start md:items-end z-30 gap-8 md:gap-0 px-4 md:px-0">
-                <div className="font-['Inter'] text-sm sm:text-base max-w-xs uppercase tracking-widest leading-relaxed">
+              <div className="w-full mt-6 md:mt-24 pb-28 md:pb-0 flex flex-col md:flex-row justify-between items-start md:items-end z-30 gap-6 md:gap-0 px-2 md:px-0">
+                <div className="font-['Inter'] text-xs sm:text-sm md:text-base max-w-xs uppercase tracking-widest leading-relaxed">
                   <span className="opacity-80">
                     // I'm Shreyas — an upcoming agentic engineer,<br/>
                     student & content creator<br/>
@@ -576,7 +576,7 @@ function App() {
                   </span>
                 </div>
                 
-                <div className="font-['Inter'] font-semibold text-lg sm:text-xl md:text-2xl tracking-widest uppercase text-left md:text-right max-w-sm">
+                <div className="font-['Inter'] font-semibold text-sm sm:text-lg md:text-2xl tracking-widest uppercase text-left md:text-right max-w-sm">
                   // CODE THAT <br/>
                   SPEAKS YOUR VISION
                 </div>
