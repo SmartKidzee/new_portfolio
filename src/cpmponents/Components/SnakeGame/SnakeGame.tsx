@@ -269,7 +269,7 @@ const SnakeGame: React.FC<SnakeGameProps> = ({ onClose }) => {
 
   return (
     <motion.div 
-      className="snake-game-container bg-[#000000] shadow-lg rounded-xl border border-[#FF0000]/30 p-4 md:p-6"
+      className="snake-game-container bg-vibrant-bg shadow-lg rounded-xl border border-[#2DD4BF]/30 p-4 md:p-6"
       initial={{ scale: 0.8, opacity: 0 }}
       animate={{ scale: 1, opacity: 1 }}
       transition={{ duration: 0.3 }}
@@ -277,21 +277,21 @@ const SnakeGame: React.FC<SnakeGameProps> = ({ onClose }) => {
     >
       <div className="flex flex-col sm:flex-row justify-between items-center mb-4 gap-2">
         <div className="text-white font-bold text-lg">
-          <span className="text-[#FF0000]">Snake</span>
-          <span className="text-[#800000]">Game</span>
+          <span className="text-vibrant-orange">Snake</span>
+          <span className="text-[#93C5FD]">Game</span>
         </div>
         <div className="flex space-x-4">
           <div className="text-[#e2e8f0] text-sm">
-            Score: <span className="text-[#FF0000] font-bold">{score}</span>
+            Score: <span className="text-vibrant-orange font-bold">{score}</span>
           </div>
           <div className="text-[#e2e8f0] text-sm">
-            High Score: <span className="text-[#800000] font-bold">{highScore}</span>
+            High Score: <span className="text-[#93C5FD] font-bold">{highScore}</span>
           </div>
         </div>
       </div>
 
       <div 
-        className="relative bg-[#000000] border border-[#FF0000]/20 rounded-lg overflow-hidden mx-auto"
+        className="relative bg-vibrant-bg border border-[#2DD4BF]/20 rounded-lg overflow-hidden mx-auto"
         style={{ 
           width: `${containerSize}px`, 
           height: `${containerSize}px`,
@@ -305,7 +305,7 @@ const SnakeGame: React.FC<SnakeGameProps> = ({ onClose }) => {
       >
         {/* Grid background with subtle lines */}
         <div className="absolute inset-0" style={{ 
-          backgroundImage: 'linear-gradient(to right, #FF0000 1px, transparent 1px), linear-gradient(to bottom, #FF0000 1px, transparent 1px)',
+          backgroundImage: 'linear-gradient(to right, #2DD4BF 1px, transparent 1px), linear-gradient(to bottom, #2DD4BF 1px, transparent 1px)',
           backgroundSize: `${cellSize}px ${cellSize}px`,
           opacity: 0.05 
         }}></div>
@@ -314,7 +314,7 @@ const SnakeGame: React.FC<SnakeGameProps> = ({ onClose }) => {
         {snake.map((segment, index) => (
           <div
             key={`${segment.x}-${segment.y}-${index}`}
-            className={`absolute rounded-sm ${index === 0 ? 'bg-gradient-to-r from-[#FF0000] to-[#800000]' : 'bg-[#800000]'}`}
+            className={`absolute rounded-sm ${index === 0 ? 'bg-gradient-to-r from-vibrant-orange to-vibrant-orange-gradient' : 'bg-[#93C5FD]'}`}
             style={{
               left: `${segment.x * cellSize}px`,
               top: `${segment.y * cellSize}px`,
@@ -327,7 +327,7 @@ const SnakeGame: React.FC<SnakeGameProps> = ({ onClose }) => {
 
         {/* Food */}
         <div
-          className="absolute bg-[#FF0000] rounded-full animate-pulse"
+          className="absolute bg-[#2DD4BF] rounded-full animate-pulse"
           style={{
             left: `${food.x * cellSize + cellSize / 4}px`,
             top: `${food.y * cellSize + cellSize / 4}px`,
@@ -339,10 +339,10 @@ const SnakeGame: React.FC<SnakeGameProps> = ({ onClose }) => {
         {/* Game over overlay */}
         {gameOver && (
           <div className="absolute inset-0 bg-black/80 flex flex-col items-center justify-center p-4">
-            <h2 className="text-[#800000] text-xl sm:text-2xl md:text-3xl font-bold mb-2">Game Over!</h2>
+            <h2 className="text-[#93C5FD] text-xl sm:text-2xl md:text-3xl font-bold mb-2">Game Over!</h2>
             <p className="text-white mb-4">Final Score: {score}</p>
             <button
-              className="px-4 py-2 bg-gradient-to-r from-[#FF0000] to-[#800000] text-white rounded-lg hover:opacity-90 transition-opacity"
+              className="px-4 py-2 bg-gradient-to-r from-vibrant-orange to-vibrant-orange-gradient text-white rounded-lg hover:opacity-90 transition-opacity"
               onClick={resetGame}
             >
               Play Again
@@ -353,7 +353,7 @@ const SnakeGame: React.FC<SnakeGameProps> = ({ onClose }) => {
         {/* Pause overlay */}
         {paused && !gameOver && (
           <div className="absolute inset-0 bg-black/70 flex items-center justify-center">
-            <h2 className="text-[#FF0000] text-xl sm:text-2xl md:text-3xl font-bold">Paused</h2>
+            <h2 className="text-vibrant-orange text-xl sm:text-2xl md:text-3xl font-bold">Paused</h2>
           </div>
         )}
       </div>
@@ -382,7 +382,7 @@ const SnakeGame: React.FC<SnakeGameProps> = ({ onClose }) => {
           </button>
           
           <button
-            className="snake-control-button bg-gradient-to-r from-[#FF0000] to-[#800000]"
+            className="snake-control-button bg-gradient-to-r from-vibrant-orange to-vibrant-orange-gradient"
             onClick={() => {
               if (!gameOver) setPaused(prev => !prev);
             }}
@@ -411,7 +411,7 @@ const SnakeGame: React.FC<SnakeGameProps> = ({ onClose }) => {
           </button>
           
           <button
-            className="snake-control-button bg-[#000000]"
+            className="snake-control-button bg-vibrant-bg"
             onClick={resetGame}
             aria-label="Reset Game"
           >

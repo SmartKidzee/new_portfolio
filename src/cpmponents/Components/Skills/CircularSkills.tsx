@@ -161,7 +161,7 @@ const CircularSkills: React.FC<CircularSkillsProps> = ({ categories }) => {
                       <defs>
                         <linearGradient id={`skillGradient-${catIndex}-${skillIndex}`} x1="0%" y1="0%" x2="100%" y2="0%">
                           <stop offset="0%" stopColor="#e50914" />
-                          <stop offset="100%" stopColor="#800000" />
+                          <stop offset="100%" stopColor="#93C5FD" />
                         </linearGradient>
                       </defs>
                       

@@ -139,14 +139,14 @@ export const InfiniteMovingCards = ({
       >
         {duplicatedItems.map((stat, idx) => (
           <li
-            className="relative w-[280px] sm:w-[320px] max-w-full shrink-0 rounded-2xl border border-b-0 border-[#FF0000]/20 bg-gradient-to-br from-[#000000] to-[#1a0505]/70 p-6 shadow-lg hover:border-[#FF0000]/50 transition-all duration-300 hover:shadow-[#800000]/40 hover:shadow-lg"
+            className="relative w-[280px] sm:w-[320px] max-w-full shrink-0 rounded-2xl border border-b-0 border-[#2DD4BF]/20 bg-gradient-to-br from-[#0a0f1c] to-[#1a0505]/70 p-6 shadow-lg hover:border-[#2DD4BF]/50 transition-all duration-300 hover:shadow-[#93C5FD]/40 hover:shadow-lg"
             key={`${idx}-${stat.label}`}
             style={{ transform: 'translateZ(0)' }}
           >
             <div className="text-center">
               <div className="text-4xl mb-2">{stat.icon}</div>
               <div className="flex items-center justify-center">
-                <span className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-[#FF0000] to-[#800000] bg-clip-text text-transparent">
+                <span className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-vibrant-orange to-vibrant-orange-gradient bg-clip-text text-transparent">
                   <CountUp 
                     from={0}
                     to={stat.value} 
@@ -155,12 +155,12 @@ export const InfiniteMovingCards = ({
                   />
                 </span>
                 {stat.suffix && (
-                  <span className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-[#FF0000] to-[#800000] bg-clip-text text-transparent ml-1">
+                  <span className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-vibrant-orange to-vibrant-orange-gradient bg-clip-text text-transparent ml-1">
                     {stat.suffix}
                   </span>
                 )}
               </div>
-              <h3 className="text-lg font-semibold mt-2 text-[#E2E8F0]">{stat.label}</h3>
+              <h3 className="text-lg font-semibold mt-2 text-vibrant-text">{stat.label}</h3>
               {stat.caption && (
                 <p className="text-sm text-[#94A3B8] mt-1">{stat.caption}</p>
               )}

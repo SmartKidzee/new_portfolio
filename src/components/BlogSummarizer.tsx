@@ -107,16 +107,11 @@ const BlogSummarizer: React.FC<BlogSummarizerProps> = ({ blogContent, blogTitle 
         throw new Error("No blog content available to summarize.");
       }
       
-      // Call the API utility function
+      // Call the API utility function (now throws on error instead of returning null)
       const response = await fetchGeminiSummary(blogContent, blogTitle);
       
-      // Handle potential errors
-      if (!response) {
-        throw new Error("Failed to get response from the AI model.");
-      }
-      
       // Extract the text from the response
-      const resultText = response.candidates?.[0]?.content?.parts?.[0]?.text;
+      const resultText = response?.candidates?.[0]?.content?.parts?.[0]?.text;
       
       if (!resultText) {
         throw new Error("Received an empty summary from the AI model.");

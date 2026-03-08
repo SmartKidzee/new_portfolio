@@ -20,14 +20,8 @@ import SplitText from './cpmponents/TextAnimations/SplitText/SplitText';
  
 import RotatingText from './cpmponents/TextAnimations/RotatingText/RotatingText';
  
-import Aurora from './cpmponents/Backgrounds/Aurora/Aurora';
- 
-import { BackgroundLines } from './components/ui/background-lines';
- 
 const TiltedCard = lazy(() => import('./cpmponents/Components/TiltedCard/TiltedCard'));
 import GlassIcons from './cpmponents/Components/GlassIcons/GlassIcons';
-const Hyperspeed = lazy(() => import('./cpmponents/Backgrounds/Hyperspeed/Hyperspeed'));
-import { hyperspeedPresets } from './cpmponents/Backgrounds/Hyperspeed/hyperspeedPresets';
 import Marquee from 'react-fast-marquee';
 import ShadcnNavbar from './cpmponents/Navbar/ShadcnNavbar';
 import { 
@@ -61,10 +55,8 @@ const HomeBlogSection = lazy(() => import('./components/HomeBlogSection'));
 import { WebsiteStructuredData, PersonStructuredData } from "./components/StructuredData";
 
 import './styles/mobile-card-fix.css';
-const InteractiveHoverButton = lazy(() => import('./components/magicui/interactive-hover-button').then(module => ({ default: module.InteractiveHoverButton })));
 const CardDemo = lazy(() => import('./components/cards-demo-1'));
-const FlickeringGrid = lazy(() => import('./components/magicui/flickering-grid').then(module => ({ default: module.FlickeringGrid })));
-
+import { FlickeringGrid } from './components/magicui/flickering-grid';
 // SEO component with Helmet
 const SEOHelmet = () => {
   return (
@@ -506,21 +498,8 @@ function App() {
         ]}
       />
       
-      {/* Card Builder Button */}
-      <div className="absolute top-24 left-8 z-[100]">
-        {/* Desktop version with InteractiveHoverButton - keep link */}
-        <div className="hidden md:block">
-          <Link to="/tech-card-builder">
-            <Suspense fallback={null}>
-              <InteractiveHoverButton className="bg-zinc-950 text-white border border-white/10">
-                Create Your Own Tech Card
-              </InteractiveHoverButton>
-            </Suspense>
-          </Link>
-        </div>
-      </div>
-      
-      <div className="min-h-screen bg-[#000000] text-white">
+
+      <div className="min-h-screen bg-vibrant-bg text-white">
         {/* Cursor Trails */}
         {cursorTrails.map((trail) => (
           <div
@@ -552,209 +531,82 @@ function App() {
         {/* Main Content */}
         <main className="md:pt-16 pt-0 pb-24">
           {/* Hero Section */}
-          <motion.section
-            id="home"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 1 }}
-            className="min-h-screen flex items-center justify-center relative overflow-hidden py-8 md:py-12 px-4"
-          >
-            {/* Aurora background - only on home section */}
-            <div className="absolute inset-0 z-1 aurora-container">
-              <Aurora 
-                colorStops={["#DC2626", "#7F1D1D", "#000000"]}
-                blend={0.5}
-                amplitude={1.0}
-                speed={0.5}
-                style={{ width: '100%', height: '100%', position: 'absolute', top: 0, left: 0 }}
-              />
-            </div>
-            
-            {/* BackgroundLines effect - only on home section */}
-            <div className="absolute inset-0 z-5 pointer-events-auto">
-              <BackgroundLines 
-                className="bg-transparent"
-                svgOptions={{
-                  duration: 10,
-                  lineCount: isMobile ? 40 : 80
-                }}
-              >
-                <div></div>
-              </BackgroundLines>
-            </div>
-            
-            <div className="absolute inset-0 z-5 bg-gradient-to-br from-[#800000]/20 to-[#FF0000]/20" />
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-              {/* GeoGreeting popup removed from home page */}
-              <div className="text-center">
-                <motion.div
-                  initial={{ scale: 0 }}
-                  animate={{ scale: 1 }}
-                  transition={{ duration: 0.5 }}
-                  className="relative w-52 h-52 mx-auto mb-8 sm:w-60 sm:h-60 md:w-72 md:h-72"
-                >
-                  <div 
-                    className="profile-tilted-card w-full h-full aspect-square"
-                    onMouseMove={(e) => {
-                      // Throttle mousemove events for better performance
-                      if (!e.currentTarget.dataset.lastMove || 
-                          Number(e.currentTarget.dataset.lastMove) < Date.now() - 25) {
-                        
-                        const card = e.currentTarget;
-                        const rect = card.getBoundingClientRect();
-                        const x = e.clientX - rect.left;
-                        const y = e.clientY - rect.top;
-                        const centerX = rect.width / 2;
-                        const centerY = rect.height / 2;
-                        
-                        // Calculate rotation values with damping for smoother effect
-                        const rotateY = ((x - centerX) / centerX) * 6; // Reduced for smoother effect
-                        const rotateX = ((centerY - y) / centerY) * 6; // Reduced for smoother effect
-                        
-                        // Set CSS variables for the 3D effect
-                        card.style.setProperty('--rotateX', `${rotateX}deg`);
-                        card.style.setProperty('--rotateY', `${rotateY}deg`);
-                        
-                        // Set mouse position for glow effect
-                        const mouseX = ((x / rect.width) * 100);
-                        const mouseY = ((y / rect.height) * 100);
-                        card.style.setProperty('--mouse-x', `${mouseX}%`);
-                        card.style.setProperty('--mouse-y', `${mouseY}%`);
-                        
-                        // Record last move time for throttling
-                        card.dataset.lastMove = Date.now().toString();
-                      }
-                    }}
-                    onMouseLeave={(e) => {
-                      const card = e.currentTarget;
-                      // Reset rotations when mouse leaves with smooth transition
-                      card.style.setProperty('--rotateX', '0deg');
-                      card.style.setProperty('--rotateY', '0deg');
-                    }}
-                  >
-                    {/* Corner accent elements */}
-                    <div className="corner corner-top-left"></div>
-                    <div className="corner corner-top-right"></div>
-                    <div className="corner corner-bottom-left"></div>
-                    <div className="corner corner-bottom-right"></div>
-                    
-                    <Suspense fallback={<div className="w-full h-full bg-white/5 animate-pulse rounded-xl" />}>
-                      <TiltedCard 
-                        imageSrc="/hero.png"
-                        altText="Shreyas Profile"
-                        captionText="Shreyas"
-                        containerHeight="100%"
-                        containerWidth="100%"
-                        imageHeight="100%"
-                        imageWidth="100%"
-                        rotateAmplitude={5}
-                        scaleOnHover={1.02}
-                        showMobileWarning={false}
-                        showTooltip={false}
-                        displayOverlayContent={false}
-                      />
-                    </Suspense>
-                    <div className="profile-card-glow"></div>
-                  </div>
-                </motion.div>
-                <motion.h1
-                  initial={{ y: 20, opacity: 0 }}
-                  animate={{ y: 0, opacity: 1 }}
-                  transition={{ duration: 0.8 }}
-                  className="text-5xl md:text-7xl font-bold mb-6"
-                >
-                  Hello, I'm <ShinyText 
-                    text="Shreyas" 
-                    disabled={true}
-                    speed={0}
-                    className="bg-gradient-to-r from-[#FF0000] to-[#800000] bg-clip-text text-transparent font-bold"
-                  />
-                </motion.h1>
-                <motion.p
-                  initial={{ y: 20, opacity: 0 }}
-                  animate={{ y: 0, opacity: 1 }}
-                  transition={{ duration: 0.8, delay: 0.2 }}
-                  className="text-xl md:text-2xl text-[#E2E8F0] mb-8 flex flex-wrap justify-center items-center gap-2 hero-subtitle"
-                >
-                  <span className="inline-flex items-center">I am a{" "}</span>
-                  <span className="rotating-text-container">
-                    <RotatingText 
-                      texts={["Student", "Technophile", "Content Creator", "Tech Enthusiast"]} 
-                      transition={{ type: "spring", damping: 20, stiffness: 250 }}
-                      rotationInterval={3000}
-                      loop={true}
-                      auto={true}
-                      splitBy="characters"
-                      staggerDuration={0.03}
-                      staggerFrom="first"
-                      mainClassName="inline-flex justify-center items-center w-full"
-                      splitLevelClassName="mx-0.5"
-                      elementLevelClassName="text-[#E2E8F0] font-semibold"
-                    />
-                  </span>
-                </motion.p>
-                
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.2 }}
-                  className="flex flex-col items-center justify-center"
-                >
-                  <GlassIcons
-                    className="w-full max-w-md mx-auto justify-center py-0 sm:py-4"
-                    items={[
-                      {
-                        icon: <Github className="w-5 h-5 sm:w-6 sm:h-6 text-white" />,
-                        color: "indigo",
-                        label: "GitHub",
-                        customClass: "transform-gpu cursor-pointer",
-                        url: "https://github.com/SmartKidzee"
-                      },
-                      {
-                        icon: <Youtube className="w-5 h-5 sm:w-6 sm:h-6 text-white" />,
-                        color: "red",
-                        label: "YouTube",
-                        customClass: "transform-gpu cursor-pointer",
-                        url: "https://youtube.com/SmartKidzee"
-                      },
-                      {
-                        icon: <Linkedin className="w-5 h-5 sm:w-6 sm:h-6 text-white" />,
-                        color: "blue",
-                        label: "LinkedIn",
-                        customClass: "transform-gpu cursor-pointer",
-                        url: "https://www.linkedin.com/in/smartshreyas/"
-                      },
-                      {
-                        icon: <img src="https://i.ibb.co/5hYX5GVr/logo-white.png" alt="X" className="w-5 h-5 sm:w-6 sm:h-6" />,
-                        color: "black",
-                        label: "X",
-                        customClass: "transform-gpu cursor-pointer",
-                        url: "https://x.com/KidzeeSmart"
-                      },
-                    ]}
-                  />
-                </motion.div>
+          <section id="home" className="min-h-[100svh] relative flex items-center justify-center overflow-hidden bg-gradient-to-b from-[#fd2601] to-[#f37e1c] text-white selection:bg-white selection:text-[#fd2601]">
+            {/* Ambient Background Elements */}
+            <div className="absolute inset-0 z-0 pointer-events-none flex items-center justify-center overflow-hidden">
+              <div className="text-[25vw] font-['Anton'] opacity-[0.08] blur-[4px] whitespace-nowrap tracking-widest text-center select-none leading-none">
+                SHREYAS
               </div>
             </div>
-          </motion.section>
+
+            {/* Glowing Blobs */}
+            <div className="absolute bottom-[-10%] right-[-10%] w-[300px] h-[300px] bg-[#F4791B] rounded-full blur-[80px] mix-blend-screen opacity-60 pointer-events-none z-0" />
+            <div className="absolute bottom-[-20%] left-[-20%] w-[600px] h-[300px] bg-[#F4791B] rounded-full blur-[80px] mix-blend-screen opacity-60 pointer-events-none z-0" />
+
+            {/* Main Centered Hero */}
+            <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full flex flex-col justify-center min-h-[100svh] pt-20">
+              <div className="relative w-full flex flex-col items-center justify-center mt-12 md:mt-0">
+                
+                {/* Portrait Image — BEHIND the headline */}
+                <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[260px] sm:w-[340px] md:w-[440px] aspect-[3/4] z-[5] pointer-events-none drop-shadow-[0_0_60px_rgba(253,38,1,0.35)]">
+                  <img
+                    src="https://i.ibb.co/B55KFGh2/IMG-1106.jpg" 
+                    alt="Shreyas"
+                    className="w-full h-full object-cover object-top rounded-[2rem]"
+                    loading="eager"
+                  />
+                </div>
+
+                {/* Massive Headline — ON TOP of the photo */}
+                <h1 className="font-['Anton'] text-[16vw] sm:text-[13vw] md:text-[min(11vw,170px)] leading-[0.85] tracking-wide text-center uppercase md:whitespace-nowrap z-10 mx-auto w-full relative drop-shadow-2xl">
+                  <span className="block md:inline-block">BUILDING</span>
+                  <span className="block md:inline-block md:ml-4">THE</span>
+                  <span className="block md:inline-block md:ml-4">FUTURE</span>
+                </h1>
+
+              </div>
+
+              {/* Floating Elements (Desktop + Mobile alignment) */}
+              <div className="w-full mt-12 md:mt-24 pb-20 md:pb-0 flex flex-col md:flex-row justify-between items-start md:items-end z-30 gap-8 md:gap-0 px-4 md:px-0">
+                <div className="font-['Inter'] text-sm sm:text-base max-w-xs uppercase tracking-widest leading-relaxed">
+                  <span className="opacity-80">
+                    // I'm Shreyas — an upcoming agentic engineer,<br/>
+                    student & content creator<br/>
+                    specializing in AI & FullStack.
+                  </span>
+                </div>
+                
+                <div className="font-['Inter'] font-semibold text-lg sm:text-xl md:text-2xl tracking-widest uppercase text-left md:text-right max-w-sm">
+                  // CODE THAT <br/>
+                  SPEAKS YOUR VISION
+                </div>
+              </div>
+            </div>
+
+            {/* Brand Strip / Tech Stack Footer inside Hero */}
+            <div className="absolute bottom-0 left-0 w-full pb-8 pt-12 z-40 bg-gradient-to-t from-[#f37e1c] to-transparent overflow-hidden">
+              <div className="w-full whitespace-nowrap overflow-hidden">
+                <div className="inline-block animate-marquee-fast">
+                  {/* Repeat the tech stack content twice to create a seamless infinite scroll loop */}
+                  <span className="font-['Inter'] font-bold tracking-widest text-lg md:text-xl drop-shadow-md mx-8 opacity-90">REACT</span>
+                  <span className="font-['Inter'] font-bold tracking-widest text-lg md:text-xl drop-shadow-md mx-8 opacity-90">TYPESCRIPT</span>
+                  <span className="font-['Inter'] font-bold tracking-widest text-lg md:text-xl drop-shadow-md mx-8 opacity-90">NEXT.JS</span>
+                  <span className="font-['Inter'] font-bold tracking-widest text-lg md:text-xl drop-shadow-md mx-8 opacity-90">TAILWIND</span>
+                  <span className="font-['Inter'] font-bold tracking-widest text-lg md:text-xl drop-shadow-md mx-8 opacity-90">NODE.JS</span>
+                  <span className="font-['Inter'] font-bold tracking-widest text-lg md:text-xl drop-shadow-md mx-8 opacity-90">VERCEL</span>
+                  <span className="font-['Inter'] font-bold tracking-widest text-lg md:text-xl drop-shadow-md mx-8 opacity-90">REACT</span>
+                  <span className="font-['Inter'] font-bold tracking-widest text-lg md:text-xl drop-shadow-md mx-8 opacity-90">TYPESCRIPT</span>
+                  <span className="font-['Inter'] font-bold tracking-widest text-lg md:text-xl drop-shadow-md mx-8 opacity-90">NEXT.JS</span>
+                  <span className="font-['Inter'] font-bold tracking-widest text-lg md:text-xl drop-shadow-md mx-8 opacity-90">TAILWIND</span>
+                  <span className="font-['Inter'] font-bold tracking-widest text-lg md:text-xl drop-shadow-md mx-8 opacity-90">NODE.JS</span>
+                  <span className="font-['Inter'] font-bold tracking-widest text-lg md:text-xl drop-shadow-md mx-8 opacity-90">VERCEL</span>
+                </div>
+              </div>
+            </div>
+          </section>
 
           {/* Stats Section */}
-          <section id="stats" className="py-16 bg-[#1E293B] text-[#E2E8F0] relative overflow-hidden with-particles">
-            {/* Particles Background */}
-            <div className="particles-container">
-              <Suspense fallback={null}>
-                <Particles
-                  particleColors={['#ff0000', '#991b1b', '#ffffff']}
-                  particleCount={isMobile ? 50 : 200}
-                  particleSpread={10}
-                  speed={0.1}
-                  particleBaseSize={100}
-                  moveParticlesOnHover={!isMobile}
-                  alphaParticles={true}
-                  disableRotation={false}
-                />
-              </Suspense>
-            </div>
+          <section id="stats" className="py-16 bg-vibrant-bg-alt text-vibrant-text relative overflow-hidden">
             <div className="container mx-auto px-4 relative z-10">
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
@@ -762,12 +614,12 @@ function App() {
                 viewport={{ once: true }}
                 className="text-center mb-12"
               >
-                <h2 className="text-3xl md:text-4xl font-bold inline-flex items-center bg-gradient-to-r from-[#FF0000] to-[#991b1b] py-2 px-6 rounded-lg shadow-lg">
-                  <BarChart2 className="w-8 h-8 mr-3 text-[#0F172A]" /> 
+                <h2 className="font-['Anton'] text-4xl md:text-5xl uppercase tracking-widest text-[#fd2601] drop-shadow-md inline-flex items-center">
+                  <BarChart2 className="w-8 h-8 mr-3 " /> 
                   <SplitText 
                     text="My Stats" 
                     delay={40} 
-                    className="text-[#0F172A]"
+                    className=""
                     animationFrom={{ opacity: 0, transform: "translate3d(0,50px,0)" }}
                     animationTo={{ opacity: 1, transform: "translate3d(0,0,0)" }}
                   />
@@ -780,12 +632,7 @@ function App() {
           </section>
 
           {/* About Section */}
-          <section id="about" className="py-16 md:py-20 bg-stranger-black relative overflow-hidden">
-            <div className="absolute inset-0 z-0">
-              <Suspense fallback={null}>
-                <Hyperspeed effectOptions={hyperspeedPresets.four} />
-              </Suspense>
-            </div>
+          <section id="about" className="py-16 md:py-20 bg-vibrant-bg relative overflow-hidden">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
@@ -793,12 +640,12 @@ function App() {
                 viewport={{ once: true }}
                 className="text-center mb-12"
               >
-                <h2 className="text-3xl md:text-4xl font-bold inline-flex items-center bg-gradient-to-r from-stranger-red to-stranger-dark py-2 px-6 rounded-lg shadow-lg">
-                  <User className="w-8 h-8 mr-3 text-[#0F172A]" /> 
+                <h2 className="font-['Anton'] text-4xl md:text-5xl uppercase tracking-widest text-[#fd2601] drop-shadow-md inline-flex items-center">
+                  <User className="w-8 h-8 mr-3 " /> 
                   <SplitText 
                     text="About Me" 
                     delay={40} 
-                    className="text-[#0F172A]"
+                    className=""
                     animationFrom={{ opacity: 0, transform: "translate3d(0,50px,0)" }}
                     animationTo={{ opacity: 1, transform: "translate3d(0,0,0)" }}
                   />
@@ -913,13 +760,13 @@ function App() {
           </section>
 
           {/* Experience Section */}
-          <Suspense fallback={<div className="h-screen w-full flex items-center justify-center"><div className="w-8 h-8 border-4 border-stranger-red border-t-transparent rounded-full animate-spin"></div></div>}>
+          <Suspense fallback={<div className="h-screen w-full flex items-center justify-center"><div className="w-8 h-8 border-4 border-vibrant-orange border-t-transparent rounded-full animate-spin"></div></div>}>
             <ExperienceSection />
           </Suspense>
 
           {/* Education Section */}
-          <section id="education" className="py-16 md:py-20 bg-stranger-black relative overflow-hidden">
-            <div className="absolute inset-0 z-0 backdrop-blur-xl bg-gradient-to-b from-stranger-black/80 to-stranger-dark-alt/80"></div>
+          <section id="education" className="py-16 md:py-20 bg-vibrant-bg relative overflow-hidden">
+            <div className="absolute inset-0 z-0 backdrop-blur-xl bg-gradient-to-b from-vibrant-bg/80 to-vibrant-orange-gradient-alt/80"></div>
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
@@ -927,12 +774,12 @@ function App() {
                 viewport={{ once: true }}
                 className="text-center mb-12"
               >
-                <h2 className="text-3xl md:text-4xl font-bold inline-flex items-center bg-gradient-to-r from-stranger-red to-stranger-dark py-2 px-6 rounded-lg shadow-lg">
-                  <GraduationCap className="w-8 h-8 mr-3 text-[#0F172A]" /> 
+                <h2 className="font-['Anton'] text-4xl md:text-5xl uppercase tracking-widest text-[#fd2601] drop-shadow-md inline-flex items-center">
+                  <GraduationCap className="w-8 h-8 mr-3 " /> 
                   <SplitText 
                     text="Education" 
                     delay={40} 
-                    className="text-[#0F172A]"
+                    className=""
                     animationFrom={{ opacity: 0, transform: "translate3d(0,50px,0)" }}
                     animationTo={{ opacity: 1, transform: "translate3d(0,0,0)" }}
                   />
@@ -954,7 +801,7 @@ function App() {
                   <div className="absolute inset-0 bg-white/5 backdrop-blur-md rounded-xl border border-white/10 shadow-2xl"></div>
                   
                   {/* Card glow effect */}
-                  <div className="absolute -inset-0.5 bg-gradient-to-r from-stranger-red to-stranger-dark opacity-0 group-hover:opacity-30 rounded-xl blur-lg transition-opacity duration-500"></div>
+                  <div className="absolute -inset-0.5 bg-gradient-to-r from-vibrant-orange to-vibrant-orange-gradient opacity-0 group-hover:opacity-30 rounded-xl blur-lg transition-opacity duration-500"></div>
                   
                   {/* Card content */}
                   <div className="relative p-6 rounded-xl overflow-hidden">
@@ -964,8 +811,8 @@ function App() {
                     <h3 className="text-xl font-bold mb-2 text-white">
                       The National Institute Of Engineering, Mysore
                     </h3>
-                    <p className="text-stranger-red mb-2 flex items-center">
-                      <span className="h-2 w-2 rounded-full bg-stranger-red inline-block mr-2"></span>
+                    <p className="text-vibrant-orange mb-2 flex items-center">
+                      <span className="h-2 w-2 rounded-full bg-vibrant-orange inline-block mr-2"></span>
                       Bachelor of Engineering - BE, Computer Science (Specialisation
                       in AI & ML)
                     </p>
@@ -973,7 +820,7 @@ function App() {
                       <span className="h-2 w-2 rounded-full bg-[#94A3B8] inline-block mr-2"></span>
                       Sep 2024 - Jul 2028
                     </p>
-                    <p className="text-[#E2E8F0] mt-2 flex items-center">
+                    <p className="text-vibrant-text mt-2 flex items-center">
                       <span className="h-2 w-2 rounded-full bg-[#E2E8F0] inline-block mr-2"></span>
                       Activities: Tech Enthusiast, ISSA
                     </p>
@@ -999,7 +846,7 @@ function App() {
                   <div className="absolute inset-0 bg-white/5 backdrop-blur-md rounded-xl border border-white/10 shadow-2xl"></div>
                   
                   {/* Card glow effect */}
-                  <div className="absolute -inset-0.5 bg-gradient-to-r from-stranger-red to-stranger-dark opacity-0 group-hover:opacity-30 rounded-xl blur-lg transition-opacity duration-500"></div>
+                  <div className="absolute -inset-0.5 bg-gradient-to-r from-vibrant-orange to-vibrant-orange-gradient opacity-0 group-hover:opacity-30 rounded-xl blur-lg transition-opacity duration-500"></div>
                   
                   {/* Card content */}
                   <div className="relative p-6 rounded-xl overflow-hidden">
@@ -1009,15 +856,15 @@ function App() {
                     <h3 className="text-xl font-bold mb-2 text-white">
                       Pramati Hill View Academy
                     </h3>
-                    <p className="text-stranger-red mb-2 flex items-center">
-                      <span className="h-2 w-2 rounded-full bg-stranger-red inline-block mr-2"></span>
+                    <p className="text-vibrant-orange mb-2 flex items-center">
+                      <span className="h-2 w-2 rounded-full bg-vibrant-orange inline-block mr-2"></span>
                       Senior Secondary Certificate - 12th board
                     </p>
                     <p className="text-[#94A3B8] flex items-center">
                       <span className="h-2 w-2 rounded-full bg-[#94A3B8] inline-block mr-2"></span>
                       2022 - 2024
                     </p>
-                    <p className="text-[#E2E8F0] mt-2 flex items-center font-semibold">
+                    <p className="text-vibrant-text mt-2 flex items-center font-semibold">
                       <span className="h-2 w-2 rounded-full bg-[#E2E8F0] inline-block mr-2"></span>
                       CGPA: 8.0
                     </p>
@@ -1039,7 +886,7 @@ function App() {
                   <div className="absolute inset-0 bg-white/5 backdrop-blur-md rounded-xl border border-white/10 shadow-2xl"></div>
                   
                   {/* Card glow effect */}
-                  <div className="absolute -inset-0.5 bg-gradient-to-r from-stranger-red to-stranger-dark opacity-0 group-hover:opacity-30 rounded-xl blur-lg transition-opacity duration-500"></div>
+                  <div className="absolute -inset-0.5 bg-gradient-to-r from-vibrant-orange to-vibrant-orange-gradient opacity-0 group-hover:opacity-30 rounded-xl blur-lg transition-opacity duration-500"></div>
                   
                   {/* Card content */}
                   <div className="relative p-6 rounded-xl overflow-hidden">
@@ -1047,11 +894,11 @@ function App() {
                     <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
                     
                     <h3 className="text-xl font-bold mb-2 text-white">The Acme School</h3>
-                    <p className="text-stranger-red mb-2 flex items-center">
-                      <span className="h-2 w-2 rounded-full bg-stranger-red inline-block mr-2"></span>
+                    <p className="text-vibrant-orange mb-2 flex items-center">
+                      <span className="h-2 w-2 rounded-full bg-vibrant-orange inline-block mr-2"></span>
                       Secondary School Certificate - 10th board
                     </p>
-                    <p className="text-[#E2E8F0] mt-2 flex items-center font-semibold">
+                    <p className="text-vibrant-text mt-2 flex items-center font-semibold">
                       <span className="h-2 w-2 rounded-full bg-[#FACC15] inline-block mr-2"></span>
                       Percentage: 95.2%
                     </p>
@@ -1083,12 +930,12 @@ function App() {
                 viewport={{ once: true }}
                 className="text-center mb-12"
               >
-                <h2 className="text-3xl md:text-4xl font-bold inline-flex items-center bg-gradient-to-r from-stranger-red to-stranger-dark py-2 px-6 rounded-lg shadow-lg">
-                  <Code className="w-8 h-8 mr-3 text-[#0F172A]" /> 
+                <h2 className="font-['Anton'] text-4xl md:text-5xl uppercase tracking-widest text-[#fd2601] drop-shadow-md inline-flex items-center">
+                  <Code className="w-8 h-8 mr-3 " /> 
                   <SplitText 
                     text="Skills" 
                     delay={40} 
-                    className="text-[#0F172A]"
+                    className=""
                     animationFrom={{ opacity: 0, transform: "translate3d(0,50px,0)" }}
                     animationTo={{ opacity: 1, transform: "translate3d(0,0,0)" }}
                   />
@@ -1273,12 +1120,12 @@ function App() {
                 viewport={{ once: true }}
                 className="text-center mb-6" // Changed from mb-12 to mb-6
               >
-                <h2 className="text-3xl md:text-4xl font-bold inline-flex items-center bg-gradient-to-r from-stranger-red to-stranger-dark py-2 px-6 rounded-lg shadow-lg">
-                  <Rocket className="w-8 h-8 mr-3 text-[#0F172A]" /> 
+                <h2 className="font-['Anton'] text-4xl md:text-5xl uppercase tracking-widest text-[#fd2601] drop-shadow-md inline-flex items-center">
+                  <Rocket className="w-8 h-8 mr-3 " /> 
                   <SplitText 
                     text="Projects" 
                     delay={40} 
-                    className="text-[#0F172A]"
+                    className=""
                     animationFrom={{ opacity: 0, transform: "translate3d(0,50px,0)" }}
                     animationTo={{ opacity: 1, transform: "translate3d(0,0,0)" }}
                   />
@@ -1312,7 +1159,7 @@ function App() {
           </section>
 
           {/* Blogs Section */}
-          <section id="blogs" ref={blogsSectionRef} className="py-16 md:py-20 bg-stranger-black">
+          <section id="blogs" ref={blogsSectionRef} className="py-16 md:py-20 bg-vibrant-bg">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
@@ -1320,19 +1167,19 @@ function App() {
                 viewport={{ once: true }}
                 className="text-center mb-12"
               >
-                <h2 className="text-3xl md:text-4xl font-bold inline-flex items-center bg-gradient-to-r from-stranger-red to-stranger-dark py-2 px-6 rounded-lg shadow-lg">
-                  <BookOpen className="w-8 h-8 mr-3 text-[#0F172A]" /> 
+                <h2 className="font-['Anton'] text-4xl md:text-5xl uppercase tracking-widest text-[#fd2601] drop-shadow-md inline-flex items-center">
+                  <BookOpen className="w-8 h-8 mr-3 " /> 
                   <SplitText 
                     text="Blogs" 
                     delay={40} 
-                    className="text-[#0F172A]"
+                    className=""
                     animationFrom={{ opacity: 0, transform: "translate3d(0,50px,0)" }}
                     animationTo={{ opacity: 1, transform: "translate3d(0,0,0)" }}
                   />
                 </h2>
               </motion.div>
               
-              <Suspense fallback={<div className="w-full h-96 flex items-center justify-center"><div className="w-8 h-8 border-4 border-stranger-red border-t-transparent rounded-full animate-spin"></div></div>}>
+              <Suspense fallback={<div className="w-full h-96 flex items-center justify-center"><div className="w-8 h-8 border-4 border-vibrant-orange border-t-transparent rounded-full animate-spin"></div></div>}>
                 <HomeBlogSection />
               </Suspense>
             </div>
@@ -1343,7 +1190,7 @@ function App() {
             {/* Conditional GeoGreeting popup for contact page */}
 
             {/* Bold solid background that matches site theme better */}
-            <div className="absolute inset-0 bg-stranger-black z-0"></div>
+            <div className="absolute inset-0 bg-vibrant-bg z-0"></div>
             
             {/* Patterned background with higher opacity for neobrutalism */}
             <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-[0.2] z-[1]"></div>
@@ -1355,7 +1202,7 @@ function App() {
                 viewport={{ once: true }}
                 className="text-center mb-16"
               >
-                <div className="inline-block bg-stranger-red px-8 py-6 rounded-md border-4 border-white/10 shadow-[0_0_15px_rgba(229,9,20,0.5)] mb-6 transform -rotate-1">
+                <div className="inline-block bg-vibrant-orange px-8 py-6 rounded-md border-4 border-white/10 shadow-[0_0_15px_rgba(229,9,20,0.5)] mb-6 transform -rotate-1">
                   <h2 className="text-4xl md:text-6xl font-extrabold text-white uppercase" style={{ textShadow: '0 0 10px rgba(0,0,0,0.5)' }}>
                     Get in Touch
                   </h2>
@@ -1373,18 +1220,18 @@ function App() {
                   </Suspense>
                 </div>
                 
-                {/* Social media links with stranger theme styling */}
+                {/* Social media links with soothing theme styling */}
                 <div className="flex justify-center gap-5 mt-16">
                   <a 
                     href="https://github.com/SmartKidzee" 
-                    className="p-4 bg-stranger-black rounded-md border border-white/20 shadow-[0_0_15px_rgba(255,255,255,0.1)] hover:translate-y-1 hover:translate-x-1 hover:shadow-[0_0_20px_rgba(255,255,255,0.2)] transition-all duration-200"
+                    className="p-4 bg-vibrant-bg rounded-md border border-white/20 shadow-[0_0_15px_rgba(255,255,255,0.1)] hover:translate-y-1 hover:translate-x-1 hover:shadow-[0_0_20px_rgba(255,255,255,0.2)] transition-all duration-200"
                     aria-label="GitHub"
                   >
                     <Github className="w-6 h-6 text-white" />
                   </a>
                   <a 
                     href="https://youtube.com/SmartKidzee" 
-                    className="p-4 bg-stranger-red rounded-md border border-stranger-red shadow-[0_0_15px_rgba(229,9,20,0.3)] hover:translate-y-1 hover:translate-x-1 hover:shadow-[0_0_20px_rgba(229,9,20,0.5)] transition-all duration-200"
+                    className="p-4 bg-vibrant-orange rounded-md border border-vibrant-orange shadow-[0_0_15px_rgba(229,9,20,0.3)] hover:translate-y-1 hover:translate-x-1 hover:shadow-[0_0_20px_rgba(229,9,20,0.5)] transition-all duration-200"
                     aria-label="YouTube"
                   >
                     <Youtube className="w-6 h-6 text-white" />

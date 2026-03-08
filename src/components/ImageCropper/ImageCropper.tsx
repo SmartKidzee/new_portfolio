@@ -52,7 +52,7 @@ const getCroppedImg = async (
   canvas.height = pixelCrop.height;
   
   // Fill with black background first to ensure any area beyond the image is black
-  ctx.fillStyle = '#000000';
+  ctx.fillStyle = '#0a0f1c';
   ctx.fillRect(0, 0, canvas.width, canvas.height);
 
   // Translate canvas context to origin (0,0)

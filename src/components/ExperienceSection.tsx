@@ -27,7 +27,7 @@ const experiences: ExperienceItem[] = [
     achievements: [
       'Got interested in computers and programming. Began learning basic coding.',
     ],
-    icon: <FaLaptopCode className="text-[#FF0000]" />,
+    icon: <FaLaptopCode className="text-vibrant-orange" />,
     iconLabel: 'Tech',
   },
   {
@@ -43,7 +43,7 @@ const experiences: ExperienceItem[] = [
             href="https://youtube.com/SmartKidzee"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-[#FF0000] hover:text-[#FF4444]"
+            className="text-vibrant-orange hover:text-[#FF4444]"
             aria-label="SmartKidzee YouTube"
           >
             SmartKidzee
@@ -65,7 +65,7 @@ const experiences: ExperienceItem[] = [
       'Board: Secondary School Certificate',
       'Percentage: 95.2%',
     ],
-    icon: <FaSchool className="text-[#FF0000]" />,
+    icon: <FaSchool className="text-vibrant-orange" />,
     iconLabel: 'School',
   },
   {
@@ -77,7 +77,7 @@ const experiences: ExperienceItem[] = [
       'Board: Senior Secondary Certificate - 12th',
       'CGPA: 8.0',
     ],
-    icon: <FaSchool className="text-[#800000]" />,
+    icon: <FaSchool className="text-[#93C5FD]" />,
     iconLabel: 'Senior Secondary',
   },
   {
@@ -93,7 +93,7 @@ const experiences: ExperienceItem[] = [
             href="https://github.com/SmartKidzee"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-[#FF0000] hover:text-[#FF4444]"
+            className="text-vibrant-orange hover:text-[#FF4444]"
             aria-label="SmartKidzee GitHub"
           >
             SmartKidzee
@@ -102,7 +102,7 @@ const experiences: ExperienceItem[] = [
       ),
     ],
     link: 'https://github.com/SmartKidzee',
-    icon: <FaCode className="text-[#FF0000]" />,
+    icon: <FaCode className="text-vibrant-orange" />,
     iconLink: 'https://github.com/SmartKidzee',
     iconLabel: 'GitHub',
   },
@@ -116,7 +116,7 @@ const experiences: ExperienceItem[] = [
       'CGPA: 9.33',
       'Currently in my Sophomore year, pursuing my engineering degree with a specialization in AI & ML.',
     ],
-    icon: <FaGraduationCap className="text-[#800000]" />,
+    icon: <FaGraduationCap className="text-[#93C5FD]" />,
     iconLabel: 'Engineering',
   },
 ];
@@ -148,12 +148,12 @@ export default function ExperienceSection() {
           viewport={{ once: true }}
           className="text-center mb-12"
         >
-          <h2 className="text-3xl md:text-4xl font-bold inline-flex items-center bg-gradient-to-r from-[#FF0000] to-[#800000] py-2 px-6 rounded-lg shadow-lg">
-            <Briefcase className="w-8 h-8 mr-3 text-[#0F172A]" />
+          <h2 className="font-['Anton'] text-4xl md:text-5xl uppercase tracking-widest text-[#fd2601] drop-shadow-md inline-flex items-center">
+            <Briefcase className="w-8 h-8 mr-3 " />
             <SplitText
               text="Experience"
               delay={40}
-              className="text-[#0F172A]"
+              className=""
               animationFrom={{ opacity: 0, transform: 'translate3d(0,50px,0)' }}
               animationTo={{ opacity: 1, transform: 'translate3d(0,0,0)' }}
             />
@@ -161,7 +161,7 @@ export default function ExperienceSection() {
         </motion.div>
 
         <div className="relative">
-          <div className="absolute left-4 top-0 bottom-0 w-px bg-[#FF0000]/15" aria-hidden="true" />
+          <div className="absolute left-4 top-0 bottom-0 w-px bg-[#2DD4BF]/15" aria-hidden="true" />
 
           <div className="space-y-8">
             {experiences.map((item, index) => (
@@ -174,7 +174,7 @@ export default function ExperienceSection() {
                 custom={index}
                 variants={containerVariants}
               >
-                <div className="absolute left-4 top-4 -translate-x-1/2 w-3 h-3 rounded-full bg-[#FF0000] ring-4 ring-[#000000]" aria-hidden="true" />
+                <div className="absolute left-4 top-4 -translate-x-1/2 w-3 h-3 rounded-full bg-[#2DD4BF] ring-4 ring-[#0a0f1c]" aria-hidden="true" />
 
                 <Card 
                   className="experience-card bg-white/5 border-white/10 backdrop-blur-md transition-transform duration-200 will-change-transform hover:-translate-y-0.5"
@@ -212,7 +212,7 @@ export default function ExperienceSection() {
                         {item.company && (
                           <CardDescription className="text-[#94A3B8]">
                             <span className="inline-flex items-center mr-3">
-                              <span className="font-medium text-[#E2E8F0] mr-1">{item.company}</span>
+                              <span className="font-medium text-vibrant-text mr-1">{item.company}</span>
                             </span>
                           </CardDescription>
                         )}
@@ -223,7 +223,7 @@ export default function ExperienceSection() {
                     <div className="flex flex-wrap gap-x-4 gap-y-2 text-sm text-[#94A3B8]">
                       {item.startDate && item.endDate && (
                         <span className="inline-flex items-center">
-                          <Calendar className="w-4 h-4 mr-2 text-[#FF0000]" />
+                          <Calendar className="w-4 h-4 mr-2 text-vibrant-orange" />
                           <time dateTime={item.startDate}>{item.startDate}</time>
                           <span className="mx-1">—</span>
                           <time dateTime={item.endDate}>{item.endDate}</time>
@@ -231,7 +231,7 @@ export default function ExperienceSection() {
                       )}
                       {item.location && (
                         <span className="inline-flex items-center">
-                          <MapPin className="w-4 h-4 mr-2 text-[#800000]" />
+                          <MapPin className="w-4 h-4 mr-2 text-[#93C5FD]" />
                           {item.location}
                         </span>
                       )}
@@ -240,7 +240,7 @@ export default function ExperienceSection() {
                           href={item.link}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="inline-flex items-center text-[#FF0000] hover:text-[#FF4444]"
+                          className="inline-flex items-center text-vibrant-orange hover:text-[#FF4444]"
                           aria-label="external link"
                         >
                           <LinkIcon className="w-4 h-4 mr-2" /> Visit
@@ -248,7 +248,7 @@ export default function ExperienceSection() {
                       )}
                     </div>
 
-                    <ul className="mt-4 list-disc pl-5 space-y-2 text-[#E2E8F0]">
+                    <ul className="mt-4 list-disc pl-5 space-y-2 text-vibrant-text">
                       {item.achievements.map((point, i) => (
                         <li key={i} className="leading-relaxed text-sm md:text-base">{point}</li>
                       ))}

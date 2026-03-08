@@ -1,71 +1,64 @@
-import axios from "axios";
-
-// Debug information to see if environment variables are loaded
-console.log('Environment variables loaded:', {
-  VITE_GEMINI_API_KEY_EXISTS: !!import.meta.env.VITE_GEMINI_API_KEY,
-  VITE_GEMINI_API_KEY_LENGTH: import.meta.env.VITE_GEMINI_API_KEY?.length,
-  ENV_KEYS: Object.keys(import.meta.env).filter(key => key.startsWith('VITE_'))
-});
-
 // Get API key from environment variables
 const GEMINI_API_KEY = import.meta.env.VITE_GEMINI_API_KEY || "";
 
-// Log API key information (without revealing the full key)
-console.log('Gemini API Key:', {
-  exists: !!GEMINI_API_KEY,
-  length: GEMINI_API_KEY?.length,
-  firstChars: GEMINI_API_KEY ? `${GEMINI_API_KEY.substring(0, 4)}...` : null
-});
+// Models to try in order — if one hits quota, try the next
+const MODELS = [
+  "gemini-2.0-flash",
+  "gemini-1.5-flash",
+  "gemini-1.5-flash-latest",
+  "gemini-pro",
+];
 
 /**
- * Fetches an AI-generated summary of the given text using Google's Gemini API
- * @param text The text to summarize
- * @param title Optional title to provide context for summarization
- * @returns The API response data, or null if an error occurred
+ * Fetches an AI-generated summary using Google's Gemini API.
+ * Automatically falls back through multiple models if one hits quota limits.
  */
 export const fetchGeminiSummary = async (text: string, title?: string) => {
   if (!GEMINI_API_KEY) {
-    console.error("Gemini API key is not configured");
-    return null;
+    throw new Error("Gemini API key is not configured. Please add VITE_GEMINI_API_KEY to your .env file.");
   }
-  
-  try {
-    // Create a prompt with instructions for better summaries
-    const promptText = `
-      Please provide a concise summary of the following ${title ? `blog post titled "${title}"` : 'text'}.
-      Keep it under 150 words, highlighting the most important points.
-      Use a conversational tone that matches the original content.
-      
-      Here's the content to summarize:
-      ${text.substring(0, 15000)} // Limiting to prevent token overflow
-    `;
 
-    // Make the API request
-    const response = await axios.post(
-      `https://generativelanguage.googleapis.com/v1/models/gemini-2.0-flash:generateContent?key=${GEMINI_API_KEY}`,
-      {
-        contents: [{ parts: [{ text: promptText }] }],
-        generationConfig: {
-          temperature: 0.4,
-          maxOutputTokens: 250,
-        }
-      },
-      {
-        headers: {
-          "Content-Type": "application/json",
-        },
-        timeout: 15000, // 15 seconds timeout
+  const promptText = `Please provide a concise summary of the following ${title ? `blog post titled "${title}"` : "text"}. Keep it under 150 words, highlighting the most important points. Use a conversational tone.\n\nContent:\n${text.substring(0, 15000)}`;
+
+  let lastError = "";
+
+  for (const model of MODELS) {
+    try {
+      const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${GEMINI_API_KEY}`;
+
+      const response = await fetch(url, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          contents: [{ parts: [{ text: promptText }] }],
+          generationConfig: { temperature: 0.4, maxOutputTokens: 250 },
+        }),
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        return data;
       }
-    );
 
-    // Return the entire response data
-    return response.data;
-  } catch (error: any) {
-    // Log the error details
-    console.error("Error fetching summary:", 
-      error.response?.data || error.message || "Unknown error");
-    
-    // Return null to indicate an error occurred
-    return null;
+      const errorData = await response.json().catch(() => ({}));
+      const errorMsg = errorData?.error?.message || `HTTP ${response.status}`;
+      console.warn(`[Gemini] Model "${model}" failed: ${errorMsg}`);
+      lastError = errorMsg;
+
+      // If it's a quota error (429), try the next model
+      if (response.status === 429) continue;
+
+      // For other errors (401, 403, etc.), no point trying other models
+      throw new Error(errorMsg);
+    } catch (err: any) {
+      if (err.message === lastError) throw err; // already a formatted error
+      lastError = err.message || "Unknown error";
+      console.warn(`[Gemini] Model "${model}" threw: ${lastError}`);
+    }
   }
+
+  // All models exhausted
+  throw new Error(
+    `All Gemini models hit quota limits. Your free API usage has been exceeded. Please wait a minute and try again, or check your billing at https://ai.google.dev/gemini-api/docs/rate-limits`
+  );
 }; 

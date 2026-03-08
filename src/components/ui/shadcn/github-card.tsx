@@ -53,7 +53,7 @@ const GithubCard = React.forwardRef<HTMLDivElement, GithubCardProps>(
       const luminance = (0.299 * r + 0.587 * g + 0.114 * b) / 255;
       
       // Return black for bright colors, white for dark ones
-      return luminance > 0.5 ? "#000000" : "#ffffff";
+      return luminance > 0.5 ? "#0a0f1c" : "#ffffff";
     };
 
     const cardVariants = {

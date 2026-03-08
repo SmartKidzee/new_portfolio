@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Menu, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Logo } from '../Components/Logo/Logo';
 import './mobile-nav.css';
 import '../../styles/glassmorphism.css';
 
@@ -174,12 +173,13 @@ const ShadcnNavbar: React.FC<ShadcnNavbarProps> = ({
       className={`fixed top-0 left-0 right-0 z-[99999] shadcn-navbar glass-effect ${isScrolled ? 'shadow-md' : ''} ${isMobile ? 'mobile-view' : ''} ${isCardBuilderPage ? 'card-builder-page' : ''}`}
       data-component-id="ShadcnNavbar"
       style={{ 
-        willChange: 'transform',
-        transform: 'translateZ(0)',
-        backfaceVisibility: 'hidden',
         display: 'block',
         visibility: 'visible',
-        opacity: 1
+        opacity: 1,
+        backgroundColor: isScrolled ? 'rgba(5, 5, 5, 0.95)' : (isMobile ? 'rgba(5, 5, 5, 0.90)' : 'transparent'),
+        backdropFilter: isScrolled || isMobile ? 'blur(16px)' : 'none',
+        WebkitBackdropFilter: isScrolled || isMobile ? 'blur(16px)' : 'none',
+        borderBottom: isScrolled ? '1px solid rgba(255, 255, 255, 0.05)' : 'none'
       }}
     >
       <div className="shadcn-navbar-container">
@@ -193,7 +193,7 @@ const ShadcnNavbar: React.FC<ShadcnNavbarProps> = ({
             }}
             suppressHydrationWarning
           >
-            <Logo />
+            <div className="font-['Anton'] tracking-widest text-[#fd2601] md:text-white text-2xl drop-shadow-md">✱ SHREYAS</div>
           </a>
         </div>
         
